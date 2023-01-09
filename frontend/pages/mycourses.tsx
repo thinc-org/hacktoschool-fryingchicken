@@ -1,9 +1,23 @@
-import type { NextPage } from 'next'
-import Head from 'next/head'
-import Image from 'next/image'
-import SingleCourses from '../component/singleCourses'
+import Head from "next/head";
+import SingleCourses from "../component/SingleCourses";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const MyCourses: NextPage = () => {
+interface CourseProp {
+  courseName: string;
+}
+const MyCourses = () => {
+  const [data, setData] = useState<CourseProp[]>([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const res = await axios.get("http://localhost:3001/course");
+      const prop = await res.data;
+      setData(prop);
+    };
+    getData();
+  }, []);
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -12,19 +26,16 @@ const MyCourses: NextPage = () => {
       </Head>
 
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          My Courses
-        </h1>
+        <h1 className="text-6xl font-bold">My Courses</h1>
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <SingleCourses />
-          <SingleCourses />
-          <SingleCourses />
-          <SingleCourses />
+          {data.map((prop: CourseProp) => (
+            <SingleCourses docsName={prop.courseName} />
+          ))}
         </div>
       </main>
     </div>
-  )
-}
+  );
+};
 
-export default MyCourses
+export default MyCourses;
