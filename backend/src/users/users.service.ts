@@ -7,15 +7,16 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
   create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+    // return this.prisma.users.create(createUserDto);
+    return '';
   }
 
   findAll() {
-    return this.prisma.users.findMany({ where: { active: true } });
+    return this.prisma.users.findMany();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.prisma.users.findUnique({ where: { id } });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
