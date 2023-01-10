@@ -1,6 +1,6 @@
 import MobileNavbar from './MobileNavbar';
-// import useWindowDimensions from '../hooks/useWindowDimensions';
-// import DesktopNavbar from './DesktopNavbar';
+import useWindowDimensions from '../hooks/useWindowDimensions';
+import DesktopNavbar from './DesktopNavbar';
 
 const Navbar = () => {
   // const { height, width } = useWindowDimensions();
@@ -11,9 +11,10 @@ const Navbar = () => {
   ];
   return (
     <>
-      <MobileNavbar links={links} />
+      <DesktopNavbar links={links} />
       {/* {width < 768 ? (
-      ) : (
+				<MobileNavbar links={links} />
+				) : (
         <DesktopNavbar links={links} />
       )} */}
     </>
