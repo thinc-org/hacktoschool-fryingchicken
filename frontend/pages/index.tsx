@@ -1,86 +1,62 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
+import lyingBoy from '../public/lyingBoy.png';
+import bgTree from '../public/BgTree.png';
+import frontTree from '../public/frontTree.png';
+import LandingData from '../components/landingData';
 
 const Home: NextPage = () => {
   return (
-    // <></>
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
+    <>
+      <main className="px-[8%] py-[3%] flex justify-between overflow-x-hidden">
+        <div className="">
+          <h2 className="text-cyan-dark font-bold font-montserrat text-lg uppercase tracking-[0.15rem]">
+            E-COURSE PLATFORM
+          </h2>
+          <h1 className="py-[3%] font-montserrat text-[4rem] tracking-[-0.05rem] leading-[4rem] font-extrabold">
+            Learning and
+            <br />
+            teaching online,
+            <br />
+            made easy.
+            <br />
+          </h1>
+          <h2 className="text-grey-dark text-lg font-semibold pt-2">
+            Practice your English and learn new things
+            <br />
+            with the platform.
+          </h2>
           <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
+            className="my-8 py-3 inline-block bg-cyan-light rounded-full px-5 font-bold text-cyan-dark hover:bg-cyan-dark hover:text-white transition-all duration-300"
+            href="#"
           >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
+            About Platform
           </a>
-
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <div className="flex content-center justify-between w-[80%] items-center">
+            <LandingData num={600} title={'Popular words'} />
+            <div className="h-[70px] ver-line"></div>
+            <LandingData num={700} title={'Hours of content'} />
+          </div>
+        </div>
+        <div className="relative right-[-4rem]">
+          <Image
+            className="md:absolute md:z-[-1] md:max-w-[12rem] md:left-[-700px] md:top-[125px]"
+            src={bgTree}
+            alt="background tree"
+          />
+          <Image
+            className="md:absolute md:z-[1] md:right-[-150px] md:top-0 md:max-w-lg"
+            src={frontTree}
+            alt="front tree"
+          />
+          <Image
+            className="md:absolute md:right-[100px] md:pt-4 md:max-w-[34rem]"
+            src={lyingBoy}
+            alt="lying boy"
+          />
         </div>
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+    </>
   );
 };
 
