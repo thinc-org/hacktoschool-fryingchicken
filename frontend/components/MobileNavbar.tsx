@@ -12,8 +12,8 @@ interface props {
 const MobileNavbar = ({ links }: props) => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 w-screen">
-      <div className="bg-white w-screen nav-container px-[5%] pt-[2%] flex justify-between justify-items-center items-center h-[50px]">
+    <header className="md:hidden sticky top-0 w-screen bg-white pt-[2%] mb-[2%]">
+      <div className="w-screen nav-container px-[5%] flex justify-between justify-items-center items-center h-[50px]">
         {!open ? (
           <BiMenuAltLeft
             onClick={() => setOpen(!open)}
@@ -25,15 +25,15 @@ const MobileNavbar = ({ links }: props) => {
             className="hover:cursor-pointer text-3xl font-extralight"
           />
         )}
-        <h1 className="font-bold tracking-[-0.05rem] text-xl text-center">
+        <h1 className="font-bold tracking-[-0.05rem] text-2xl text-center">
           Global Talk
         </h1>
-        <h2 className="text-[#757575]">Sign In</h2>
+        <h2 className="text-[#757575] text-xl">Sign In</h2>
       </div>
       <nav>
         {
           <ul
-            className={`flex flex-col overflow-x-hidden justify-center items-center h-[95vh] z-10 bg-white fixed duration-500 transition-all ${
+            className={`flex flex-col overflow-x-hidden justify-center items-center h-screen z-10 bg-white fixed duration-500 transition-all ${
               !open ? 'w-0' : 'w-screen'
             }`}
           >

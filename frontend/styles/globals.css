@@ -24,3 +24,9 @@ h6 {
 .ver-line {
   border-left: 2.5px solid #e0e0e0;
 }
+
+@media (max-width: 768px) {
+  .hide-md {
+    display: none;
+  }
+}

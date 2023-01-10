@@ -7,7 +7,7 @@ interface props {
 
 const DesktopNavbar = ({ links }: props) => {
   return (
-    <header className="nav-container flex justify-between py-[2%] px-[4%] content-center">
+    <header className="hide-md bg-white nav-container flex justify-between py-[2%] px-[4%] content-center sticky top-0">
       <div className="flex content-center">
         <h1 className="font-bold tracking-[-0.05rem] text-2xl text-center">
           Global Talk
