@@ -6,7 +6,12 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'dela-Gothic-One': ['Dela Gothic One', 'cursive'],
+        'montserrat': ['Montserrat', 'sans-serif']
+      }
+    },
   },
   plugins: [],
 }
