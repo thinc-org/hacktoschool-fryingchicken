@@ -16,3 +16,7 @@ h5,
 h6 {
   font-family: 'Montserrat', sans-serif;
 }
+
+.nav-container {
+  box-shadow: inset 0px -1px 0px #e0e0e0;
+}
