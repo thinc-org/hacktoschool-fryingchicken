@@ -7,8 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UsersService {
   constructor(private prisma: PrismaService) {}
   create(createUserDto: CreateUserDto) {
-    // return this.prisma.users.create(createUserDto);
-    return '';
+    return this.prisma.users.create({ data: createUserDto });
   }
 
   findAll() {
@@ -20,10 +19,13 @@ export class UsersService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    return this.prisma.users.update({
+      where: { id },
+      data: updateUserDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`;
+    return this.prisma.users.delete({ where: { id } });
   }
 }

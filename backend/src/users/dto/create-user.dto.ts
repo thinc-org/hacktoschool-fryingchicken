@@ -7,9 +7,12 @@ export class CreateUserDto {
   @ApiProperty()
   password: string;
 
-  @ApiProperty({ required: false })
-  description: string;
+  @ApiProperty({ required: false, nullable: true })
+  description: string | null;
 
-  @ApiProperty()
+  @ApiProperty({ default: 'student' })
   role: string;
+
+  @ApiProperty({ default: false })
+  active: boolean;
 }

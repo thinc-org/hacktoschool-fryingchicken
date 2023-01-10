@@ -17,7 +17,7 @@ model Users {
   description String?
   role        String    @default("student")
   enrolls     Enrolls[]
-  active      Boolean   @default(false)
+  active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 }
@@ -38,6 +38,7 @@ model Courses {
   instructorId Int
   description  String
   enrolls      Enrolls[]
+  active       Boolean   @default(true)
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 }
