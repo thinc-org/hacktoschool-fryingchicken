@@ -3,7 +3,7 @@ import Image from 'next/image';
 import lyingBoy from '../public/lyingBoy.png';
 import bgTree from '../public/BgTree.png';
 import frontTree from '../public/frontTree.png';
-import LandingData from '../components/landingData';
+import LandingData from '../components/LandingData';
 
 const Home: NextPage = () => {
   return (
