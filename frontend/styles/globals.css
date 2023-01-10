@@ -14,15 +14,6 @@
   box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  /* font-family: 'Dela Gothic One', cursive; */
-}
-
 .nav-container {
   box-shadow: inset 0px -1px 0px #e0e0e0;
 }
