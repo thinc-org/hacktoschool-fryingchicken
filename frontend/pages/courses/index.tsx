@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import SingleCourses from '../components/SingleCourses';
-import { api } from '../utils/axios';
+import SingleCourses from '../../components/SingleCourses';
+import { api } from '../../utils/axios';
 import { useEffect, useState } from 'react';
-import { CourseDetailDto } from '../models/Dto';
+import { CourseDetailDto } from '../../models/Dto';
 
 const MyCourses = () => {
   const [data, setData] = useState<CourseDetailDto[]>([]);

@@ -5,6 +5,7 @@ import { useAuth } from '../providers/AuthProvider';
 import { ErrorDto } from '../types/dto';
 import { api } from '../utils/axios';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 const Register: React.FC = () => {
   const router = useRouter();
@@ -125,9 +126,9 @@ const Register: React.FC = () => {
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <a href="login" className="text-dark underline-offset-1">
+            <Link href="login" className="text-dark underline-offset-1">
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>
