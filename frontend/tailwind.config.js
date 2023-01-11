@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'dela-Gothic-One': ['Dela Gothic One', 'cursive'],
-        'montserrat': ['Montserrat', 'sans-serif']
+        'dela-gothic-one': ['var(--font-dela-gothic-one)'],
+        'montserrat': ['var(--font-montserrat)']
       },
       colors: {
         'cyan-dark': '#2B788B',

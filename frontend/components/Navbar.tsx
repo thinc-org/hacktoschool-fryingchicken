@@ -1,11 +1,14 @@
 import MobileNavbar from './MobileNavbar';
 import DesktopNavbar from './DesktopNavbar';
 
-const Navbar = () => {
-  const links = [
-    { name: 'Main', link: '#' },
-    { name: 'Courses', link: '#' },
-  ];
+interface props {
+  links: {
+    name: string;
+    link: string;
+  }[];
+}
+
+const Navbar = ({ links }: props) => {
   return (
     <>
       <DesktopNavbar links={links} />

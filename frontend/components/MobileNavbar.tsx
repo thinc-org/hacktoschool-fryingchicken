@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import { RiCloseFill } from 'react-icons/ri';
+import Link from 'next/link';
 
 interface props {
   links: {
@@ -12,8 +13,8 @@ interface props {
 const MobileNavbar = ({ links }: props) => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="md:hidden sticky top-0 w-screen bg-white pt-[2%] mb-[2%] z-10">
-      <div className="w-screen nav-container px-[5%] flex justify-between justify-items-center items-center h-[50px]">
+    <header className="lg:hidden sticky top-0 w-screen bg-grey-light z-10">
+      <div className="w-screen nav-container px-[5%] flex justify-between justify-items-center items-center h-[7vh]">
         {!open ? (
           <BiMenuAltLeft
             onClick={() => setOpen(!open)}
@@ -25,10 +26,13 @@ const MobileNavbar = ({ links }: props) => {
             className="hover:cursor-pointer text-3xl font-extralight"
           />
         )}
-        <h1 className="tracking-[-0.05rem] text-2xl text-center font-black">
+        <Link
+          href="/"
+          className="tracking-[-0.05rem] text-2xl text-center font-black"
+        >
           Global Talk
-        </h1>
-        <h2 className="text-[#757575] text-xl">Sign In</h2>
+        </Link>
+        <h2 className="text-[#757575] text-lg">Sign In</h2>
       </div>
       <nav>
         {
@@ -39,13 +43,13 @@ const MobileNavbar = ({ links }: props) => {
           >
             {links.map((link, index) => {
               return (
-                <a
+                <Link
                   key={index}
                   href={link.link}
                   className="text-grey-dark hover:text-cyan-dark text-xl my-[2.5%]"
                 >
                   {link.name}
-                </a>
+                </Link>
               );
             })}
           </ul>

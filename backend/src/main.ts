@@ -1,9 +1,14 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'log', 'debug', 'verbose'],
+    cors: true,
+  });
+  // app.useGlobalGuards(new JwtAuthGuard());
 
   const config = new DocumentBuilder()
     .setTitle('Hack to School')
