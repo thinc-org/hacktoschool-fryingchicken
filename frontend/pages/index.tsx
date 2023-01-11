@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             alt="front tree"
           />
           <Image
-            className="max-w-[80%] top-[5%] left-[-5%] sm:top-[30%] absolute sm:max-w-[90%] lg:top-[10%]"
+            className="max-w-[80%] top-[5%] mx-auto sm:top-[30%] absolute sm:max-w-[90%] lg:top-[10%]"
             src={lyingBoy}
             alt="lying boy"
           />
