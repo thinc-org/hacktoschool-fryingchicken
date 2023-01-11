@@ -6,7 +6,7 @@ import boyWithTree from '../public/boyWithTree.png';
 const Home: NextPage = () => {
   return (
     <>
-      <main className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center">
+      <main className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center overflow-x-hidden">
         <section className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
           <h3 className="text-cyan-dark font-bold text-base tracking-wider sm:text-[130%] ">
             E-COURSE PLATFORM
@@ -32,7 +32,7 @@ const Home: NextPage = () => {
         </section>
 
         <Image
-          className="max-w-[80%] mx-auto h-auto sm:mt-[10%] sm:max-w-[60%] lg:max-w-[100%]"
+          className="translate-x-[20%] max-w-[80%] mx-auto h-auto mt-[10%] sm:max-w-[80%] lg:translate-x-[0] lg:max-w-[140%]"
           src={boyWithTree}
           alt="Lying boy with tree as background"
         />
