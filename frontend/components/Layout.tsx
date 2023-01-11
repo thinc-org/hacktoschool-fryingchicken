@@ -3,11 +3,15 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const links = [
+    { name: 'Courses', link: '#' },
+    { name: 'My Courses', link: '#' },
+  ];
   return (
     <>
-      <Navbar />
+      <Navbar links={links} />
       {children}
-      <Footer />
+      <Footer links={links} />
     </>
   );
 };

@@ -1,8 +1,11 @@
-const Footer = () => {
-  const links = [
-    { name: 'Main', link: '#' },
-    { name: 'Courses', link: '#' },
-  ];
+interface props {
+  links: {
+    name: string;
+    link: string;
+  }[];
+}
+
+const Footer = ({ links }: props) => {
   return (
     <footer className="bg-grey-light flex flex-col items-center font-semibold text-grey-dark py-[5%] text-[0.8rem] sm:text-base text-center lg:py-[2%]">
       <section className="flex items-center flex-col flex-wrap lg:flex-nowrap lg:flex-row lg:justify-center lg:w-[100vw]">
