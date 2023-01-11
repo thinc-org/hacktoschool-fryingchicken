@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import SingleCourses from '../components/SingleCourses';
-import axios from 'axios';
+import { api } from '../utils/axios';
 import { useEffect, useState } from 'react';
 
 interface CourseProp {
@@ -11,7 +11,7 @@ const MyCourses = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res = await axios.get('http://localhost:3001/course');
+      const res = await api.get('courses');
       const prop = await res.data;
       setData(prop);
     };

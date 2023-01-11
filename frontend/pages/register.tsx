@@ -1,16 +1,18 @@
 import { FormEvent, useRef, useState } from 'react';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 import { useAuth } from '../providers/AuthProvider';
 import { ErrorDto } from '../types/dto';
 import { api } from '../utils/axios';
-import { NextResponse } from 'next/server';
+import { useRouter } from 'next/router';
 
 const Register: React.FC = () => {
+  const router = useRouter();
   const { isLoggedIn } = useAuth();
-  const emailRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmRef = useRef<HTMLInputElement>(null);
+  const roleRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -18,11 +20,12 @@ const Register: React.FC = () => {
     if (isSubmitting) return;
     setSubmitting(true);
 
-    const email = emailRef.current?.value;
+    const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
     const passwordConfirm = passwordConfirmRef.current?.value;
+    const role = roleRef.current?.value;
 
-    if (!email || !password || !passwordConfirm) {
+    if (!username || !password || !passwordConfirm) {
       toast.error('Please complete the form');
       setSubmitting(false);
       return;
@@ -35,12 +38,15 @@ const Register: React.FC = () => {
     }
 
     try {
-      await api.post(`/myinfo`, {
-        email,
+      // console.log(username, password);
+      await api.post(`/users`, {
+        username,
         password,
+        role,
       });
+      console.log('Done!!');
       toast.success('Account created!');
-      NextResponse.redirect('login');
+      router.push('login');
     } catch (err) {
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
@@ -64,14 +70,14 @@ const Register: React.FC = () => {
           </h1>
           <div className="form-floating my-3 form-group">
             <input
-              type="email"
+              type="username"
               className="form-control"
-              id="email"
+              id="username"
               placeholder="name@example.com"
-              ref={emailRef}
+              ref={usernameRef}
             />
             {/* Label must be below Field and Error Message */}
-            <label htmlFor="email">Email </label>
+            <label htmlFor="username">username </label>
           </div>
 
           {/* Password Form */}
@@ -96,6 +102,18 @@ const Register: React.FC = () => {
               ref={passwordConfirmRef}
             />
             <label htmlFor="conPassword">Confirm Password</label>
+          </div>
+
+          {/* Role Form */}
+          <div className="form-floating my-3 form-group">
+            <input
+              type="role"
+              className="form-control"
+              id="role"
+              placeholder="role"
+              ref={roleRef}
+            />
+            <label htmlFor="role">Role</label>
           </div>
           <button
             className="text-xl content-center"

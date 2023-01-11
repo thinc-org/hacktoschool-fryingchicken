@@ -1,4 +1,11 @@
-import { createContext, ReactNode, useContext, useRef, useState } from 'react';
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { AxiosError } from 'axios';
 import { api } from '../utils/axios';
 import toast from 'react-hot-toast';
@@ -6,7 +13,7 @@ import { ErrorDto } from '../types/dto';
 
 interface IAuthContext {
   isLoggedIn: boolean;
-  email: string | null;
+  username: string | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -28,27 +35,34 @@ export const useAuth = () => {
 const AuthProvider = (props: AuthProviderProps) => {
   const { children } = props;
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
-  const [email, setEmail] = useState<string | null>('jomlovejen7956@gmail.com');
-  // if (typeof window !== 'undefined') {
-  //   const token = localStorage.getItem('token');
-  //   const localEmail = localStorage.getItem('email');
+  const [username, setUsername] = useState<string | null>(null);
 
-  //   setLoggedIn(!!token);
-  //   setEmail(localEmail);
-  // }
+  if (typeof window !== 'undefined') {
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      const localusername = localStorage.getItem('username');
+      setLoggedIn(!!token);
+      setUsername(localusername);
+    }, []);
+  }
 
-  const login = async (email: string, password: string) => {
-    email = email.trim();
+  const login = async (username: string, password: string) => {
+    username = username.trim();
 
     try {
-      const res = await api.post('/auth/login', {
-        email,
-        password,
-      });
+      const res1 = await api.get(`/users/${username}`);
+      const role = res1.data.role;
 
-      localStorage.setItem('token', res.data.Authorization);
-      localStorage.setItem('email', email);
-      setEmail(email);
+      // const res = await api.post('/auth/login', {
+      //   username,
+      //   password,
+      //   role,
+      // });
+
+      // localStorage.setItem('token', res.data.Authorization);
+      localStorage.setItem('username', username);
+      localStorage.setItem('role', role);
+      setUsername(username);
       setLoggedIn(true);
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -63,8 +77,8 @@ const AuthProvider = (props: AuthProviderProps) => {
   const logout = () => {
     toast.success('Log out successfully');
     localStorage.removeItem('token');
-    localStorage.removeItem('email');
-    setEmail(null);
+    localStorage.removeItem('username');
+    setUsername(null);
     setLoggedIn(false);
   };
 
@@ -72,7 +86,7 @@ const AuthProvider = (props: AuthProviderProps) => {
     <AuthContext.Provider
       value={{
         isLoggedIn,
-        email,
+        username,
         login,
         logout,
       }}

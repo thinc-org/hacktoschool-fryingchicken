@@ -21,6 +21,7 @@ export class UsersController {
   @Post()
   @ApiCreatedResponse({ type: UsersEntity })
   create(@Body() createUserDto: CreateUserDto) {
+    console.log('Wow, JomnoiZ is here!!!', createUserDto);
     return this.usersService.create(createUserDto);
   }
 
@@ -30,10 +31,10 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
+  @Get(':username')
   @ApiOkResponse({ type: UsersEntity })
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  findOne(@Param('username') username: string) {
+    return this.usersService.findOne(username);
   }
 
   @Patch(':id')

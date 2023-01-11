@@ -2,8 +2,17 @@ import type { NextPage } from 'next';
 import Image from 'next/image';
 import LandingData from '../components/LandingData';
 import boyWithTree from '../public/boyWithTree.png';
+import { useEffect, useState } from 'react';
 
 const Home: NextPage = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, []);
+
   return (
     <>
       <main className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center">

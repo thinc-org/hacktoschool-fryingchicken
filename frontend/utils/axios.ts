@@ -1,8 +1,8 @@
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 // const API_URL = process.env.API_URL;
 // const API_URL = "https://cugetrekt-backend-lgnud3ncza-as.a.run.app"
-const API_URL = "http://localhost:3001";
+const API_URL = 'http://localhost:5679';
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -11,7 +11,7 @@ export const api = axios.create({
 
 api.interceptors.request.use(
   async (config: any) => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
     if (!token) return config;
     return {
       ...config,
@@ -26,8 +26,8 @@ api.interceptors.response.use(
   (err: AxiosError) => {
     const status = err.response?.status;
     if (status === 401) {
-      localStorage.removeItem("token");
-      window.location.href = "/login";
+      localStorage.removeItem('token');
+      window.location.href = '/login';
     }
     return Promise.reject(err);
   }

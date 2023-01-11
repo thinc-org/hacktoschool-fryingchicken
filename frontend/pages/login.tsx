@@ -1,14 +1,16 @@
 import { FormEvent, useRef, useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../providers/AuthProvider';
-import axios from 'axios';
+import { api } from '../utils/axios';
 import { NextResponse } from 'next/server';
+import { useRouter } from 'next/router';
 
 type Props = {};
 
 const Login: React.FC<Props> = () => {
+  const router = useRouter();
   const { isLoggedIn, login } = useAuth();
-  const emailRef = useRef<HTMLInputElement>(null);
+  const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
   const [role, setRole] = useState('');
@@ -18,28 +20,19 @@ const Login: React.FC<Props> = () => {
     if (isSubmitting) return;
     setSubmitting(true);
 
-    const email = emailRef.current?.value;
+    const username = usernameRef.current?.value;
     const password = passwordRef.current?.value;
 
-    useEffect(() => {
-      const getRole = async () => {
-        const res = await axios.get('http://localhost:3001/myinfo');
-        const prop = await res.data;
-        setRole(prop);
-      };
-      getRole();
-    }, []);
-
-    if (!email || !password) {
-      toast.error('Please enter email and password');
+    if (!username || !password) {
+      toast.error('Please enter username and password');
       setSubmitting(false);
       return;
     }
 
     try {
-      await login(email, password);
+      await login(username, password);
       toast.success('Log in successfully!');
-      NextResponse.redirect('mycourse');
+      router.push('/');
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message);
@@ -61,14 +54,14 @@ const Login: React.FC<Props> = () => {
           </h1>
           <div className="form-floating my-3">
             <input
-              type="email"
+              type="username"
               className="form-control"
               id="floatingInput"
-              name="email"
+              name="username"
               placeholder="name@example.com"
-              ref={emailRef}
+              ref={usernameRef}
             />
-            <label htmlFor="floatingInput">Email </label>
+            <label htmlFor="floatingInput">username </label>
           </div>
 
           <div className="form-floating my-3">
