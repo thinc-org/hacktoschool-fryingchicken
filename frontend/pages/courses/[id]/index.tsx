@@ -67,6 +67,7 @@ export default function courseDetail() {
                   );
                 }
               })}
+              Total : {users.length - 1} students
             </p>
           </>
         ) : (
