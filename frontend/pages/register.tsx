@@ -66,7 +66,7 @@ const Register: React.FC = () => {
       <div className="">
         <form onSubmit={handleSubmit}>
           <h1 className="text-cyan-dark font-bold text-center text-4xl">
-            สมัครใช้บริการ
+            Register
           </h1>
           <div className="form-floating my-3 form-group">
             <input
@@ -120,13 +120,13 @@ const Register: React.FC = () => {
             type="submit"
             disabled={isSubmitting}
           >
-            สมัครใช้บริการ
+            Sign Up
           </button>
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
             <a href="login" className="text-dark underline-offset-1">
-              เข้าสู่ระบบ
+              Login
             </a>
           </div>
         </div>
