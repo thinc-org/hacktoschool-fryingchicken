@@ -12,7 +12,7 @@ interface props {
 const MobileNavbar = ({ links }: props) => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="lg:hidden sticky top-0 w-screen bg-white z-10">
+    <header className="lg:hidden sticky top-0 w-screen bg-grey-light z-10">
       <div className="w-screen nav-container px-[5%] flex justify-between justify-items-center items-center h-[7vh]">
         {!open ? (
           <BiMenuAltLeft
@@ -25,9 +25,12 @@ const MobileNavbar = ({ links }: props) => {
             className="hover:cursor-pointer text-3xl font-extralight"
           />
         )}
-        <h1 className="tracking-[-0.05rem] text-2xl text-center font-black">
+        <a
+          href="/"
+          className="tracking-[-0.05rem] text-2xl text-center font-black"
+        >
           Global Talk
-        </h1>
+        </a>
         <h2 className="text-[#757575] text-lg">Sign In</h2>
       </div>
       <nav>
