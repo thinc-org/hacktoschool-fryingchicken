@@ -1,12 +1,16 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import { useAuth } from '../providers/AuthProvider';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  const links = [
-    { name: 'Courses', link: '/courses' },
-    { name: 'My Courses', link: '#' },
-  ];
+  const { isLoggedIn } = useAuth();
+  const links = [{ name: 'Courses', link: '/courses' }];
+
+  if (isLoggedIn) {
+    links.push({ name: 'My Courses', link: 'mycourse' });
+  }
+
   return (
     <>
       <Navbar links={links} />
