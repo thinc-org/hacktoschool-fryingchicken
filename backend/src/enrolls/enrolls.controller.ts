@@ -30,13 +30,13 @@ export class EnrollsController {
     return this.enrollsService.findAll();
   }
 
-  @Get(':courseId')
+  @Get('courseId/:courseId')
   @ApiOkResponse({ type: EnrollsEntity })
   findManyCourseId(@Param('courseId') courseId: string) {
     return this.enrollsService.findManyCourseId(+courseId);
   }
 
-  @Get(':username')
+  @Get('username/:username')
   @ApiOkResponse({ type: EnrollsEntity })
   findManyUsername(@Param('username') username: string) {
     return this.enrollsService.findManyUsername(username);
