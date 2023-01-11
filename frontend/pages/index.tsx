@@ -1,85 +1,43 @@
 import type { NextPage } from 'next';
-import Head from 'next/head';
 import Image from 'next/image';
+import LandingData from '../components/LandingData';
+import boyWithTree from '../public/boyWithTree.png';
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            Next.js!
-          </a>
-        </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
-        </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
+    <>
+      <main className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center">
+        <section className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
+          <h3 className="text-cyan-dark font-bold text-base tracking-wider sm:text-[130%] ">
+            E-COURSE PLATFORM
+          </h3>
+          <h1 className="font-dela-gothic-one text-4xl tracking-[-0.1rem] my-[4%] sm:text-[300%] sm:leading-normal lg:text-5xl lg:translate-x-[-0.2rem] lg:leading-tight">
+            Learning and <br /> teaching online, <br />
+            made easy.
+          </h1>
+          <h3 className="font-semibold text-grey-dark text-sm sm:text-[120%] md:my-[3%]">
+            Practice and learn new things with the platform.
+          </h3>
           <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
+            href="#"
           >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and its API.
-            </p>
+            About Platform
           </a>
+          <div className="flex items-center justify-between w-[70%] md:mt-[3%] md:w-[50%] lg:w-[100%] xl:w-[90%]">
+            <LandingData num={600} title={'Popular words'} />
+            <div className="ver-line h-[50px]"></div>
+            <LandingData num={700} title={'Hours of content'} />
+          </div>
+        </section>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <Image
+          className="max-w-[80%] mx-auto h-auto sm:mt-[10%] sm:max-w-[60%] lg:max-w-[100%]"
+          src={boyWithTree}
+          alt="Lying boy with tree as background"
+        />
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+    </>
   );
 };
 
