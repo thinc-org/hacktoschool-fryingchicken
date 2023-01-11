@@ -26,6 +26,6 @@ export class CoursesService {
   }
 
   remove(id: number) {
-    return this.prisma.users.delete({ where: { id } });
+    return this.prisma.courses.delete({ where: { id } });
   }
 }
