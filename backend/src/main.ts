@@ -8,7 +8,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
     cors: true,
   });
-  app.useGlobalGuards(new JwtAuthGuard());
+  // app.useGlobalGuards(new JwtAuthGuard());
 
   const config = new DocumentBuilder()
     .setTitle('Hack to School')

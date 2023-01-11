@@ -17,6 +17,9 @@ export class AuthService {
       const { password, ...result } = user;
       return result;
     }
+    if (user.password !== password) {
+      return 'wrong password';
+    }
     return null;
   }
 
