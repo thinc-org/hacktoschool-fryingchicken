@@ -13,6 +13,7 @@ import { ErrorDto } from '../types/dto';
 interface IAuthContext {
   isLoggedIn: boolean;
   username: string | null;
+  role: string | null;
   login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
@@ -35,13 +36,16 @@ const AuthProvider = (props: AuthProviderProps) => {
   const { children } = props;
   const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
   const [username, setUsername] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
 
   if (typeof window !== 'undefined') {
     useEffect(() => {
       const token = localStorage.getItem('token');
-      const localusername = localStorage.getItem('username');
+      const localUsername = localStorage.getItem('username');
+      const localRole = localStorage.getItem('role');
       setLoggedIn(!!token);
-      setUsername(localusername);
+      setUsername(localUsername);
+      setRole(localRole);
     }, []);
   }
 
@@ -52,17 +56,22 @@ const AuthProvider = (props: AuthProviderProps) => {
       const res1 = await api.get(`/users/${username}`);
       const role = res1.data.role;
 
-      // const res = await api.post('/auth/login', {
-      //   username,
-      //   password,
-      //   role,
-      // });
+      if (res1.data.password !== password) {
+        throw new Error("Password doesn't match");
+      }
 
-      // localStorage.setItem('token', res.data.Authorization);
+      const res = await api.post('/auth/login', {
+        username,
+        password,
+        role,
+      });
+
+      localStorage.setItem('token', res.data.Authorization);
       localStorage.setItem('username', username);
       localStorage.setItem('role', role);
       setUsername(username);
       setLoggedIn(true);
+      setRole(role);
     } catch (err) {
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
@@ -77,8 +86,10 @@ const AuthProvider = (props: AuthProviderProps) => {
     toast.success('Log out successfully');
     localStorage.removeItem('token');
     localStorage.removeItem('username');
+    localStorage.removeItem('role');
     setUsername(null);
     setLoggedIn(false);
+    setRole(null);
   };
 
   return (
@@ -86,6 +97,7 @@ const AuthProvider = (props: AuthProviderProps) => {
       value={{
         isLoggedIn,
         username,
+        role,
         login,
         logout,
       }}

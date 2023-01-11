@@ -45,7 +45,6 @@ const Register: React.FC = () => {
         password,
         role,
       });
-      console.log('Done!!');
       toast.success('Account created!');
       router.push('login');
     } catch (err) {
