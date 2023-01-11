@@ -50,7 +50,7 @@ const Login: React.FC<Props> = () => {
       <div className="">
         <form onSubmit={handleSubmit}>
           <h1 className="text-cyan-dark font-bold text-center text-4xl">
-            เข้าสู่ระบบ
+            Login
           </h1>
           <div className="form-floating my-3">
             <input
@@ -80,13 +80,13 @@ const Login: React.FC<Props> = () => {
             type="submit"
             disabled={isSubmitting}
           >
-            เข้าสู่ระบบ
+            Sign In
           </button>
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
             <a href="register" className="text-dark underline-offset-1">
-              สมัครใช้บริการ
+              Register
             </a>
           </div>
         </div>
