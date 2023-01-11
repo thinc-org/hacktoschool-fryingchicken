@@ -7,7 +7,7 @@ interface props {
 
 const Footer = ({ links }: props) => {
   return (
-    <footer className="bg-grey-light flex flex-col items-center font-semibold text-grey-dark py-[5%] text-[0.8rem] sm:text-base text-center lg:py-[2%]">
+    <footer className="bg-grey-light flex flex-col items-center font-semibold text-grey-dark py-[5%] text-[0.8rem] sm:text-base text-center lg:py-[2%] relative bottom-0">
       <section className="flex items-center flex-col flex-wrap lg:flex-nowrap lg:flex-row lg:justify-center lg:w-[100vw]">
         {links.map((link, index) => {
           return (

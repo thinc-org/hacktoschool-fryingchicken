@@ -8,10 +8,9 @@ const prisma = new PrismaClient();
 async function main() {
   // create two dummy articles
   const post1 = await prisma.users.update({
-    where: { username: 'user1' },
+    where: { username: 'user2' },
     data: { role: 'instructor' },
   });
-
   // const post2 = await prisma.users.upsert({
   //   where: { username: 'user2' },
   //   update: {},
@@ -21,7 +20,6 @@ async function main() {
   //     active: true,
   //   },
   // });
-
   console.log({ post1 });
 }
 

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import { RiCloseFill } from 'react-icons/ri';
+import Link from 'next/link';
 
 interface props {
   links: {
@@ -25,12 +26,12 @@ const MobileNavbar = ({ links }: props) => {
             className="hover:cursor-pointer text-3xl font-extralight"
           />
         )}
-        <a
+        <Link
           href="/"
           className="tracking-[-0.05rem] text-2xl text-center font-black"
         >
           Global Talk
-        </a>
+        </Link>
         <h2 className="text-[#757575] text-lg">Sign In</h2>
       </div>
       <nav>
@@ -42,13 +43,13 @@ const MobileNavbar = ({ links }: props) => {
           >
             {links.map((link, index) => {
               return (
-                <a
+                <Link
                   key={index}
                   href={link.link}
                   className="text-grey-dark hover:text-cyan-dark text-xl my-[2.5%]"
                 >
                   {link.name}
-                </a>
+                </Link>
               );
             })}
           </ul>
