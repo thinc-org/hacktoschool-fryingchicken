@@ -6,7 +6,7 @@ import { CourseDetailDto } from '../../../models/Dto';
 export default function courseDetail() {
   const router = useRouter();
   const [data, setData] = useState<CourseDetailDto | null>(null);
-  const id = router.query.id as string;
+  const id = parseInt(router.query.id as string);
 
   useEffect(() => {
     const getData = async () => {
@@ -19,7 +19,7 @@ export default function courseDetail() {
         // Todo: Add error handlers
         // Todo: Remove below lines
         setData({
-          id: 1,
+          id: id,
           name: 'General Philosophy',
           instructorId: 313,
           instructorName: 'Nac Nacho',
