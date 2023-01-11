@@ -4,6 +4,7 @@ import { useAuth } from '../providers/AuthProvider';
 import { api } from '../utils/axios';
 import { NextResponse } from 'next/server';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 type Props = {};
 
@@ -85,9 +86,9 @@ const Login: React.FC<Props> = () => {
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <a href="register" className="text-dark underline-offset-1">
+            <Link href="register" className="text-dark underline-offset-1">
               Register
-            </a>
+            </Link>
           </div>
         </div>
       </div>
