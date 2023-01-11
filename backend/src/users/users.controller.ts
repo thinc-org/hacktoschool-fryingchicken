@@ -37,15 +37,18 @@ export class UsersController {
     return this.usersService.findOne(username);
   }
 
-  @Patch(':id')
+  @Patch(':username')
   @ApiOkResponse({ type: UsersEntity })
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  update(
+    @Param('username') username: string,
+    @Body() updateUserDto: UpdateUserDto
+  ) {
+    return this.usersService.update(username, updateUserDto);
   }
 
-  @Delete(':id')
+  @Delete(':username')
   @ApiOkResponse({ type: UsersEntity })
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param('username') username: string) {
+    return this.usersService.remove(username);
   }
 }
