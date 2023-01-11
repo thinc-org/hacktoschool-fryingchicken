@@ -15,7 +15,7 @@ export class CoursesService {
   }
 
   findOne(id: number) {
-    return this.prisma.users.findUnique({ where: { id } });
+    return this.prisma.courses.findUnique({ where: { id } });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {

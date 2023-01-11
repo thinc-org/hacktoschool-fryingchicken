@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { CourseDetailDto } from '../models/Dto';
+import { api } from '../utils/axios';
 
 export default function mycourse_instructor() {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourse] = useState<CourseDetailDto[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+
   // const courses = [
   //   {
   //     id: '1',
@@ -27,13 +29,13 @@ export default function mycourse_instructor() {
   //     description: 'fdjoidjsfdjj;bfdnjfs',
   //   },
   // ];
-  const fetchCourse = async () => {
-    const response = await fetch('/tempAPIroute');
-    const data = await response.json();
+  const getCourse = async () => {
+    const res = await api('/tempAPIroute');
+    const data = await res.data();
     setCourse(data);
   };
   useEffect(() => {
-    fetchCourse();
+    getCourse();
   });
 
   const handleSubmit = async () => {
