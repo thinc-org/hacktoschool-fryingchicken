@@ -12,21 +12,27 @@ export default function mycourse_instructor() {
   // const courses = [
   //   {
   //     id: '1',
-  //     name: 'sdfghjk',
-  //     instructorname: 'asdfghjk',
-  //     description: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+  //     name: 'Machine learning specialization',
+  //     instructorName: 'Andrew Ng',
+  //     description:
+  //       'machine learning machine learning machine learning machine learning machine learning',
+  //     enrolledStudent: 69,
   //   },
   //   {
-  //     id: '1',
-  //     name: 'sdfghjk',
-  //     instructorname: 'asdfghjk',
-  //     description: 'fdjoidjsfdjj;bfdnjfs',
+  //     id: '2',
+  //     name: 'PHASATHAIPHUENTHAN',
+  //     instructorName: 'MAEMUENG',
+  //     description:
+  //       'THTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTH',
+  //     enrolledStudent: '420',
   //   },
   //   {
-  //     id: '1',
-  //     name: 'sdfghjk',
-  //     instructorname: 'asdfghjk',
-  //     description: 'fdjoidjsfdjj;bfdnjfs',
+  //     id: '3',
+  //     name: 'Quantum Physics For Baby',
+  //     instructorName: 'Jo Mama',
+  //     description:
+  //       ' bljkdfngpbjnspjgnbs;kglk;bbf ;bs;lknr;nrgnr;jnsg;jbnsgfbnrthnbsglkn;slkntkmbndign;nkentk',
+  //     enrolledStudent: '78910',
   //   },
   // ];
   const getCourse = async () => {
@@ -53,7 +59,7 @@ export default function mycourse_instructor() {
     }
     //should add error handle
   };
-  let role = 'instructor';
+  let role = 'student';
   return (
     <div className="container mx-auto">
       {courses.map((course) => {
@@ -67,18 +73,21 @@ export default function mycourse_instructor() {
             </Link>
             {role == 'student' ? (
               <p>
-                {course.instructorName}
+                by {course.instructorName}
                 <br />
                 {course.description}
               </p>
             ) : (
               <p>{course.description}</p>
             )}
+            <p className="flex justify-end">
+              {course.enrolledStudent} enrolled
+            </p>
           </div>
         );
       })}
       {role == 'instructor' ? (
-        <div className="flex justify-end w-auto mx-auto py-3">
+        <div className="flex justify-end w-3/4 mx-auto">
           <button
             className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
             type="button"

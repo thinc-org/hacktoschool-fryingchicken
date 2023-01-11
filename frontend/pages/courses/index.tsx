@@ -9,7 +9,6 @@ const MyCourses = () => {
 
   useEffect(() => {
     const getData = async () => {
-      // Todo: remove comment
       const res = await api.get('/courses');
       const prop = await res.data;
       {
