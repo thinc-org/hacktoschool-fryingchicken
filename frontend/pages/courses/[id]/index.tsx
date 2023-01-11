@@ -6,30 +6,34 @@ import { CourseDetailDto } from '../../../models/Dto';
 export default function courseDetail() {
   const router = useRouter();
   const [data, setData] = useState<CourseDetailDto | null>(null);
-  const id = parseInt(router.query.id as string);
+  const { isReady } = router;
 
   useEffect(() => {
+    if (!isReady) return;
+
+    const id = parseInt(router.query.id as string);
+    console.log(id);
+
     const getData = async () => {
       try {
-        const res = await api.get(`/course/${id}`);
+        const res = await api.get(`/courses/${id}`);
         setData(res.data);
+        console.log(res.data.name, res.data.instructorName);
       } catch (err) {
         console.log(err);
 
         // Todo: Add error handlers
         // Todo: Remove below lines
-        setData({
-          id: id,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-          enrolledStudent: 10,
-        });
+        // setData({
+        //   id: id,
+        //   name: 'General Philosophy',
+        //   instructorName: 'Nac Nacho',
+        //   description: 'You will learn the meaning of life from this course',
+        // });
       }
     };
     getData();
-  }, []);
+  }, [isReady]);
 
   return (
     <>
