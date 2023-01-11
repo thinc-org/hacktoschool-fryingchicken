@@ -19,10 +19,10 @@
 }
 
 .ver-line {
-  border-left: 2.5px solid #e0e0e0;
+  border-left: 1.5px solid #e0e0e0;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hide-md {
     display: none;
   }
