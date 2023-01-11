@@ -1,11 +1,17 @@
 import React from 'react';
 import Navbar from './Navbar';
+import Footer from './Footer';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const links = [
+    { name: 'Courses', link: '#' },
+    { name: 'My Courses', link: '#' },
+  ];
   return (
     <>
-      <Navbar />
-      <main>{children}</main>
+      <Navbar links={links} />
+      {children}
+      <Footer links={links} />
     </>
   );
 };
