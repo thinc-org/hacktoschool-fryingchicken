@@ -20,16 +20,7 @@ export default function courseDetail() {
         setData(res.data);
         console.log(res.data.name, res.data.instructorName);
       } catch (err) {
-        console.log(err);
-
-        // Todo: Add error handlers
-        // Todo: Remove below lines
-        setData({
-          id: id,
-          name: 'General Philosophy',
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        });
+        console.log(err + ' -> something went wrong');
       }
     };
     getData();
