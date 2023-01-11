@@ -5,7 +5,7 @@ export class CreateCourseDto {
   name: string;
 
   @ApiProperty()
-  instructorId: number;
+  instructorName: string;
 
   @ApiProperty({ required: false, nullable: true })
   description: string | null;

@@ -9,7 +9,7 @@ export class CoursesEntity implements Courses {
   name: string;
 
   @ApiProperty()
-  instructorId: number;
+  instructorName: string;
 
   @ApiProperty({ required: false })
   description: string;
