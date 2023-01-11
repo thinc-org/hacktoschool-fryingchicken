@@ -8,15 +8,16 @@ const prisma = new PrismaClient();
 async function main() {
   // create two dummy articles
   const post1 = await prisma.users.update({
-    where: { username: 'user2' },
-    data: { role: 'instructor' },
+    where: { username: 'user1' },
+    data: { description: 'the best student' },
   });
   // const post2 = await prisma.users.upsert({
-  //   where: { username: 'user2' },
+  //   where: { username: 'user1' },
   //   update: {},
   //   create: {
-  //     username: 'user2',
-  //     password: 'password2',
+  //     username: 'user1',
+  //     password: 'password1',
+  //     role: 'instructor',
   //     active: true,
   //   },
   // });
