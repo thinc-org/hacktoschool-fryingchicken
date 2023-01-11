@@ -19,6 +19,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
         {
           id: 2,
@@ -26,6 +27,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
         {
           id: 3,
@@ -33,6 +35,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
         {
           id: 4,
@@ -40,6 +43,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
         {
           id: 5,
@@ -47,6 +51,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
         {
           id: 6,
@@ -54,6 +59,7 @@ const MyCourses = () => {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         },
       ];
       setData(prop);

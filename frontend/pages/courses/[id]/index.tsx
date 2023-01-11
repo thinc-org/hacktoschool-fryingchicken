@@ -24,6 +24,7 @@ export default function courseDetail() {
           instructorId: 313,
           instructorName: 'Nac Nacho',
           description: 'You will learn the meaning of life from this course',
+          enrolledStudent: 10,
         });
       }
     };
