@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { CourseDetailDto } from '../models/Dto';
 
 export default function mycourse_instructor() {
   const [showModal, setShowModal] = useState(false);
-  const [courses, setCourse] = useState([]);
+  const [courses, setCourse] = useState<CourseDetailDto[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   // const courses = [
@@ -49,7 +51,7 @@ export default function mycourse_instructor() {
     }
     //should add error handle
   };
-  let role = 'student';
+  let role = 'instructor';
   return (
     <div className="container mx-auto">
       {courses.map((course) => {
@@ -58,10 +60,12 @@ export default function mycourse_instructor() {
             className="border-2 w-3/4 mx-auto my-3 rounded p-3"
             key={course.id}
           >
-            <h1 className="text-2xl font-bold">{course.name}</h1>
+            <Link href={'/courses/' + course.id}>
+              <h1 className="text-2xl font-bold">{course.name}</h1>
+            </Link>
             {role == 'student' ? (
               <p>
-                {course.instructorname}
+                {course.instructorName}
                 <br />
                 {course.description}
               </p>
@@ -71,14 +75,16 @@ export default function mycourse_instructor() {
           </div>
         );
       })}
-      {role == 'instructure' ? (
-        <button
-          className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-          type="button"
-          onClick={() => setShowModal(true)}
-        >
-          Create a new course
-        </button>
+      {role == 'instructor' ? (
+        <div className="flex justify-end w-auto mx-auto py-3">
+          <button
+            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+            type="button"
+            onClick={() => setShowModal(true)}
+          >
+            Create a new course
+          </button>
+        </div>
       ) : null}
       {showModal ? (
         <>
