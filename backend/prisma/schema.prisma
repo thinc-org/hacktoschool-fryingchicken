@@ -17,6 +17,7 @@ model Users {
   description String?
   role        String    @default("student")
   enrolls     Enrolls[]
+  courses     Courses[]
   active      Boolean   @default(true)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
@@ -33,12 +34,13 @@ model Enrolls {
 }
 
 model Courses {
-  id           Int       @id @default(autoincrement())
-  name         String
-  instructorId Int
-  description  String
-  enrolls      Enrolls[]
-  active       Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  id             Int       @id @default(autoincrement())
+  name           String
+  description    String
+  enrolls        Enrolls[]
+  active         Boolean   @default(true)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  instructor     Users     @relation(fields: [instructorName], references: [username])
+  instructorName String
 }
