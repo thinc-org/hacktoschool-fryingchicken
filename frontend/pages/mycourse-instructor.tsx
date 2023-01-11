@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 export default function mycourse_instructor() {
   const [showModal, setShowModal] = useState(false);
   const [courses, setCourse] = useState([]);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const fetshCourse = async () => {
     const response = await fetch('/tempAPIroute');
     const data = await response.json();
@@ -14,7 +16,7 @@ export default function mycourse_instructor() {
   return (
     <div className="container mx-auto">
       {courses.map((course) => {
-        return <div key={course.id}>{/* SHOW COURSE */}</div>;
+        return <div>{/* SHOW COURSE */}</div>;
       })}
       <button
         className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
@@ -57,7 +59,7 @@ export default function mycourse_instructor() {
                         // name="about"
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="Course name"
-                        defaultValue={''}
+                        value={title}
                       />
                     </div>
                   </div>
@@ -75,7 +77,8 @@ export default function mycourse_instructor() {
                         rows={3}
                         className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                         placeholder="What is this course about?"
-                        defaultValue={''}
+                        // defaultValue={''}
+                        value={description}
                       />
                     </div>
                   </div>
