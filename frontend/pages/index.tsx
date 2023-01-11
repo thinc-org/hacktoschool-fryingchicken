@@ -1,58 +1,41 @@
 import type { NextPage } from 'next';
 import Image from 'next/image';
-import lyingBoy from '../public/lyingBoy.png';
-import bgTree from '../public/BgTree.png';
-import frontTree from '../public/frontTree.png';
 import LandingData from '../components/LandingData';
+import boyWithTree from '../public/boyWithTree.png';
 
 const Home: NextPage = () => {
   return (
     <>
-      <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
-        <div className="">
-          <h2 className="text-cyan-dark font-bold text-sm sm:text-lg uppercase tracking-[0.15rem]">
+      <main className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center">
+        <section className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
+          <h3 className="text-cyan-dark font-bold text-base tracking-wider sm:text-[130%] ">
             E-COURSE PLATFORM
-          </h2>
-          <h1 className="py-[3%] text-3xl sm:text-[4rem] tracking-[-0.05rem] sm:leading-[4rem] font-extrabold">
-            Learning and
-            <br />
-            teaching online,
-            <br />
+          </h3>
+          <h1 className="font-dela-gothic-one text-4xl tracking-[-0.1rem] my-[4%] sm:text-[300%] sm:leading-normal lg:text-5xl lg:translate-x-[-0.2rem] lg:leading-tight">
+            Learning and <br /> teaching online, <br />
             made easy.
-            <br />
           </h1>
-          <h2 className="text-grey-dark text-sm sm:text-lg font-semibold pt-2">
-            Practice your English and learn new things with the platform.
-          </h2>
+          <h3 className="font-semibold text-grey-dark text-sm sm:text-[120%] md:my-[3%]">
+            Practice and learn new things with the platform.
+          </h3>
           <a
-            className="my-8 py-3 inline-block bg-cyan-light rounded-full px-5 font-bold text-cyan-dark hover:bg-cyan-dark hover:text-white transition-all duration-300"
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
             href="#"
           >
             About Platform
           </a>
-          <div className="flex content-center justify-between w-[80%] items-center mx-auto">
+          <div className="flex items-center justify-between w-[70%] md:mt-[3%] md:w-[50%] lg:w-[100%] xl:w-[90%]">
             <LandingData num={600} title={'Popular words'} />
-            <div className="h-[70px] ver-line"></div>
+            <div className="ver-line h-[50px]"></div>
             <LandingData num={700} title={'Hours of content'} />
           </div>
-        </div>
-        <div className="relative right-[-4rem] w-[100%] md:w-[50%] lg:pt-[1%] h-[80vh]">
-          <Image
-            className="hidden lg:block lg:absolute lg:z-[-1] lg:max-w-[30%] lg:left-[-10%] lg:top-[25%]"
-            src={bgTree}
-            alt="background tree"
-          />
-          <Image
-            className="hidden lg:block lg:absolute lg:z-[1] lg:right-[-150px] lg:max-w-[70%] lg:bottom-[5%]"
-            src={frontTree}
-            alt="front tree"
-          />
-          <Image
-            className="max-w-[80%] top-[5%] left-[-5%] sm:top-[30%] absolute sm:max-w-[90%] lg:top-[10%]"
-            src={lyingBoy}
-            alt="lying boy"
-          />
-        </div>
+        </section>
+
+        <Image
+          className="max-w-[80%] mx-auto h-auto sm:mt-[10%] sm:max-w-[60%] lg:max-w-[100%]"
+          src={boyWithTree}
+          alt="Lying boy with tree as background"
+        />
       </main>
     </>
   );
