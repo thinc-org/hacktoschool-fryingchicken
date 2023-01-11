@@ -10,7 +10,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <Navbar links={links} />
-      {children}
+      <div className="min-h-[93vh] lg:min-h-[90vh]">{children}</div>
       <Footer links={links} />
     </>
   );
