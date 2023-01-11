@@ -7,10 +7,10 @@ const prisma = new PrismaClient();
 
 async function main() {
   // create two dummy articles
-  const post1 = await prisma.users.update({
-    where: { username: 'user1' },
-    data: { description: 'the best student' },
-  });
+  // const post1 = await prisma.users.update({
+  //   where: { username: 'user1' },
+  //   data: { description: 'the best student' },
+  // });
   // const post2 = await prisma.users.upsert({
   //   where: { username: 'user1' },
   //   update: {},
@@ -21,7 +21,33 @@ async function main() {
   //     active: true,
   //   },
   // });
-  console.log({ post1 });
+  const post3 = await prisma.courses.create({
+    data: {
+      name: 'Course 2',
+      description: 'Desc...',
+      instructor: {
+        connect: {
+          username: 'user1',
+        },
+      },
+      active: true,
+    },
+  });
+  const post4 = await prisma.enrolls.create({
+    data: {
+      course: {
+        connect: {
+          id: 2,
+        },
+      },
+      user: {
+        connect: {
+          username: 'jomnoiz',
+        },
+      },
+    },
+  });
+  console.log({ post3, post4 });
 }
 
 // execute the main function
