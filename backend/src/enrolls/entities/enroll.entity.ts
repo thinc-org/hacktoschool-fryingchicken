@@ -1,7 +1,19 @@
-export class Enroll {
+import { Enrolls } from '@prisma/client';
+import { ApiProperty } from '@nestjs/swagger';
+
+export class EnrollsEntity implements Enrolls {
+  @ApiProperty()
   id: number;
+
+  @ApiProperty()
   courseId: number;
-  userId: number;
-  updatedDate: Date;
-  createdDate: Date;
+
+  @ApiProperty()
+  username: string;
+
+  @ApiProperty()
+  updatedAt: Date;
+
+  @ApiProperty()
+  createdAt: Date;
 }

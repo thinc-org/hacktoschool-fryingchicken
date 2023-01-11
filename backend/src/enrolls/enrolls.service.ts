@@ -14,8 +14,12 @@ export class EnrollsService {
     return this.prisma.enrolls.findMany();
   }
 
-  findOne(id: number) {
-    return this.prisma.enrolls.findUnique({ where: { id } });
+  findManyCourseId(courseId: number) {
+    return this.prisma.enrolls.findMany({ where: { courseId } });
+  }
+
+  findManyUsername(username: string) {
+    return this.prisma.enrolls.findMany({ where: { username } });
   }
 
   update(id: number, updateEnrollDto: UpdateEnrollDto) {
