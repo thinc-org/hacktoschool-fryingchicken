@@ -7,7 +7,7 @@ interface props {
 
 const DesktopNavbar = ({ links }: props) => {
   return (
-    <header className="hide-md bg-white z-10 nav-container flex justify-between h-[10vh] px-[8%] items-center sticky top-0">
+    <header className="hide-md bg-grey-light z-10 nav-container flex justify-between h-[10vh] px-[8%] items-center sticky top-0">
       <div className="flex items-center">
         <a
           href="/"

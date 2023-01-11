@@ -12,7 +12,7 @@ interface props {
 const MobileNavbar = ({ links }: props) => {
   const [open, setOpen] = useState(false);
   return (
-    <header className="lg:hidden sticky top-0 w-screen bg-white z-10">
+    <header className="lg:hidden sticky top-0 w-screen bg-grey-light z-10">
       <div className="w-screen nav-container px-[5%] flex justify-between justify-items-center items-center h-[7vh]">
         {!open ? (
           <BiMenuAltLeft

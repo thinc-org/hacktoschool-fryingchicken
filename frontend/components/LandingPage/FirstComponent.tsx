@@ -4,7 +4,7 @@ import boyWithTree from '../../public/boyWithTree.png';
 
 const FirstComponent = () => {
   return (
-    <section className="grid grid-cols-1 justify-center min-h-[93vh] lg:mb-[5vh] lg:grid-cols-2 lg:min-h-[90vh] lg:px-[8%] lg:items-center overflow-x-hidden">
+    <section className="bg-grey-light grid grid-cols-1 justify-center min-h-[93vh] lg:mb-[5vh] lg:grid-cols-2 lg:min-h-[90vh] lg:px-[8%] lg:items-center overflow-x-hidden">
       <div className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
         <h3 className="text-cyan-dark font-bold text-base tracking-wider sm:text-[130%] ">
           E-COURSE PLATFORM
@@ -23,7 +23,7 @@ const FirstComponent = () => {
           About Platform
         </a>
         <div className="flex items-center justify-between w-[70%] md:mt-[3%] md:w-[50%] lg:w-[100%] xl:w-[90%]">
-          <LandingData num={600} title={'Popular words'} />
+          <LandingData num={600} title={'Students'} />
           <div className="ver-line h-[50px]"></div>
           <LandingData num={700} title={'Hours of content'} />
         </div>
