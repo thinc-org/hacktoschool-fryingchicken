@@ -5,7 +5,7 @@ import Footer from './Footer';
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const links = [
     { name: 'Courses', link: '/courses' },
-    { name: 'My Courses', link: '#' },
+    { name: 'My Courses', link: 'mycourses' },
   ];
   return (
     <>
