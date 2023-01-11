@@ -7,4 +7,5 @@ export interface CourseDetailDto {
   description: string;
   updatedDate?: Date;
   createdDate?: Date;
+  enrolledStudent: number;
 }
