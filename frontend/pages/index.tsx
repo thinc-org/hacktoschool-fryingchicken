@@ -1,56 +1,60 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+import type { NextPage } from 'next';
+import Image from 'next/image';
+import lyingBoy from '../public/lyingBoy.png';
+import bgTree from '../public/BgTree.png';
+import frontTree from '../public/frontTree.png';
+import LandingData from '../components/LandingData';
 
 const Home: NextPage = () => {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{" "}
-          <a className="text-blue-600" href="https://github.com/JomnoiZ">
-            JomnoiZ's Website
-          </a>
-        </h1>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
+    <>
+      <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
+        <div className="">
+          <h2 className="text-cyan-dark font-bold text-sm sm:text-lg uppercase tracking-[0.15rem]">
+            E-COURSE PLATFORM
+          </h2>
+          <h1 className="py-[3%] text-3xl sm:text-[4rem] tracking-[-0.05rem] sm:leading-[4rem] font-extrabold">
+            Learning and
+            <br />
+            teaching online,
+            <br />
+            made easy.
+            <br />
+          </h1>
+          <h2 className="text-grey-dark text-sm sm:text-lg font-semibold pt-2">
+            Practice your English and learn new things with the platform.
+          </h2>
           <a
-            href="allcourses"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
+            className="my-8 py-3 inline-block bg-cyan-light rounded-full px-5 font-bold text-cyan-dark hover:bg-cyan-dark hover:text-white transition-all duration-300"
+            href="#"
           >
-            <h3 className="text-2xl font-bold">All Courses &rarr;</h3>
-            <p className="mt-4 text-xl">
-              You can find your dream courses here!
-            </p>
+            About Platform
           </a>
-
-          <a
-            href="mycourses"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">My Courses &rarr;</h3>
-            <p className="mt-4 text-xl">Manage your own courses!</p>
-          </a>
+          <div className="flex content-center justify-between w-[80%] items-center mx-auto">
+            <LandingData num={600} title={'Popular words'} />
+            <div className="h-[70px] ver-line"></div>
+            <LandingData num={700} title={'Hours of content'} />
+          </div>
+        </div>
+        <div className="relative right-[-4rem] w-[100%] md:w-[50%] lg:pt-[1%] h-[80vh]">
+          <Image
+            className="hidden lg:block lg:absolute lg:z-[-1] lg:max-w-[30%] lg:left-[-10%] lg:top-[25%]"
+            src={bgTree}
+            alt="background tree"
+          />
+          <Image
+            className="hidden lg:block lg:absolute lg:z-[1] lg:right-[-150px] lg:max-w-[70%] lg:bottom-[5%]"
+            src={frontTree}
+            alt="front tree"
+          />
+          <Image
+            className="max-w-[80%] top-[5%] left-[-5%] sm:top-[30%] absolute sm:max-w-[90%] lg:top-[10%]"
+            src={lyingBoy}
+            alt="lying boy"
+          />
         </div>
       </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center gap-2"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-        </a>
-      </footer>
-    </div>
+    </>
   );
 };
 

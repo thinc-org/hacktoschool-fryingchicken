@@ -1,8 +1,8 @@
-import { FormEvent, useRef, useState, useEffect } from "react";
-import toast from "react-hot-toast";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import { useAuth } from "../providers/AuthProvider";
-import axios from "axios";
+import { FormEvent, useRef, useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { useAuth } from '../providers/AuthProvider';
+import axios from 'axios';
 
 type Props = {};
 
@@ -12,7 +12,7 @@ const Login: React.FC<Props> = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
-  const [role, setRole] = useState("");
+  const [role, setRole] = useState('');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -24,7 +24,7 @@ const Login: React.FC<Props> = () => {
 
     useEffect(() => {
       const getRole = async () => {
-        const res = await axios.get("http://localhost:3001/myinfo");
+        const res = await axios.get('http://localhost:3001/myinfo');
         const prop = await res.data;
         setRole(prop);
       };
@@ -32,21 +32,21 @@ const Login: React.FC<Props> = () => {
     }, []);
 
     if (!email || !password) {
-      toast.error("Please enter email and password");
+      toast.error('Please enter email and password');
       setSubmitting(false);
       return;
     }
 
     try {
-      await login(email, password, role);
-      toast.success("Log in successfully!");
-      navigate("/MyDocuments");
+      await login(email, password);
+      toast.success('Log in successfully!');
+      navigate('/MyDocuments');
     } catch (err) {
       if (err instanceof Error) {
         toast.error(err.message);
         return;
       }
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     } finally {
       setSubmitting(false);
     }
@@ -54,7 +54,7 @@ const Login: React.FC<Props> = () => {
 
   if (isLoggedIn) return <Navigate to="/MyDocuments" />;
   return (
-    <main style={{ marginTop: "5em" }}>
+    <main style={{ marginTop: '5em' }}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-3">

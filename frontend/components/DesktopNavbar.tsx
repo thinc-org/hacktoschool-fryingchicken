@@ -1,3 +1,5 @@
+import { useAuth } from '../providers/AuthProvider';
+
 interface props {
   links: {
     name: string;
@@ -6,6 +8,8 @@ interface props {
 }
 
 const DesktopNavbar = ({ links }: props) => {
+  const { isLoggedIn, logout } = useAuth();
+
   return (
     <header className="hide-md bg-white nav-container flex justify-between py-[2%] px-[8%] content-center sticky top-0">
       <div className="flex content-center">
@@ -31,7 +35,19 @@ const DesktopNavbar = ({ links }: props) => {
           }
         </nav>
       </div>
-      <h2 className="text-[#757575] text-xl font-montserrat">Sign In</h2>
+      {!isLoggedIn ? (
+        <a href="register" className="text-[#757575] text-xl font-montserrat">
+          Sign In
+        </a>
+      ) : (
+        <a
+          href="/"
+          onClick={logout}
+          className="text-[#757575] text-xl font-montserrat"
+        >
+          Log Out
+        </a>
+      )}
     </header>
   );
 };

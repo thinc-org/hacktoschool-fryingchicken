@@ -3,8 +3,8 @@ import DesktopNavbar from './DesktopNavbar';
 
 const Navbar = () => {
   const links = [
-    { name: 'Main', link: '#' },
-    { name: 'Courses', link: '#' },
+    { name: 'Main', link: 'http://localhost:5678' },
+    { name: 'Courses', link: 'allcourses' },
   ];
   return (
     <>

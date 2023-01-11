@@ -1,13 +1,12 @@
-import { FormEvent, useRef, useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
-import axios, { AxiosError } from "axios";
-import toast from "react-hot-toast";
-import { useAuth } from "../providers/AuthProvider";
-import { ErrorDto } from "../types/dto";
-import { api } from "../utils/axios";
+import { FormEvent, useRef, useState } from 'react';
+import axios, { AxiosError } from 'axios';
+import toast from 'react-hot-toast';
+import { useAuth } from '../providers/AuthProvider';
+import { ErrorDto } from '../types/dto';
+import { api } from '../utils/axios';
+import { NextResponse } from 'next/server';
 
 const Register: React.FC = () => {
-  const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -24,13 +23,13 @@ const Register: React.FC = () => {
     const passwordConfirm = passwordConfirmRef.current?.value;
 
     if (!email || !password || !passwordConfirm) {
-      toast.error("Please complete the form");
+      toast.error('Please complete the form');
       setSubmitting(false);
       return;
     }
 
     if (password !== passwordConfirm) {
-      toast.error("Passwords do not match");
+      toast.error('Passwords do not match');
       setSubmitting(false);
       return;
     }
@@ -40,24 +39,24 @@ const Register: React.FC = () => {
         email,
         password,
       });
-      toast.success("Account created!");
-      navigate("/login");
+      toast.success('Account created!');
+      NextResponse.redirect('login');
     } catch (err) {
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
         const message = response?.data.message;
-        toast.error(message || "Something went wrong");
+        toast.error(message || 'Something went wrong');
         return;
       }
-      toast.error("Something went wrong");
+      toast.error('Something went wrong');
     } finally {
       setSubmitting(false);
     }
   };
 
-  if (isLoggedIn) return <Navigate to="/" />;
+  if (isLoggedIn) return <div></div>;
   return (
-    <main style={{ marginTop: "5em" }}>
+    <main style={{ marginTop: '5em' }}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-3">
@@ -110,9 +109,9 @@ const Register: React.FC = () => {
         </div>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <Link className="text-dark" to="/Login">
+            <a href="login" className="text-dark">
               เข้าสู่ระบบ
-            </Link>
+            </a>
             <h5 className="mt-5">" ปุ่มถอนอยู่ใกล้เพียงแค่เอื้อมมือ "</h5>
           </div>
         </div>

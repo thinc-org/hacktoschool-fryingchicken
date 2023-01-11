@@ -1,13 +1,13 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
-import { AxiosError } from "axios";
-import { api } from "../utils/axios";
-import toast from "react-hot-toast";
-import { ErrorDto } from "../types/dto";
+import { createContext, ReactNode, useContext, useRef, useState } from 'react';
+import { AxiosError } from 'axios';
+import { api } from '../utils/axios';
+import toast from 'react-hot-toast';
+import { ErrorDto } from '../types/dto';
 
 interface IAuthContext {
   isLoggedIn: boolean;
   email: string | null;
-  login: (username: string, password: string, role: string) => Promise<void>;
+  login: (username: string, password: string) => Promise<void>;
   logout: () => void;
 }
 
@@ -20,31 +20,34 @@ const AuthContext = createContext<IAuthContext | null>(null);
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
 };
 
-const token = localStorage.getItem("token");
-const localEmail = localStorage.getItem("email");
-
 const AuthProvider = (props: AuthProviderProps) => {
   const { children } = props;
-  const [isLoggedIn, setLoggedIn] = useState(!!token);
-  const [email, setEmail] = useState(localEmail);
+  const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
+  const [email, setEmail] = useState<string | null>('jomlovejen7956@gmail.com');
+  // if (typeof window !== 'undefined') {
+  //   const token = localStorage.getItem('token');
+  //   const localEmail = localStorage.getItem('email');
 
-  const login = async (email: string, password: string, role: string) => {
+  //   setLoggedIn(!!token);
+  //   setEmail(localEmail);
+  // }
+
+  const login = async (email: string, password: string) => {
     email = email.trim();
 
     try {
-      const res = await api.post("/auth/login", {
+      const res = await api.post('/auth/login', {
         email,
         password,
       });
 
-      localStorage.setItem("token", res.data.Authorization);
-      localStorage.setItem("email", email);
-      localStorage.setItem("role", role);
+      localStorage.setItem('token', res.data.Authorization);
+      localStorage.setItem('email', email);
       setEmail(email);
       setLoggedIn(true);
     } catch (err) {
@@ -53,15 +56,14 @@ const AuthProvider = (props: AuthProviderProps) => {
         const message = response?.data.message;
         if (message) throw new Error(message);
       }
-      throw new Error("Unknown error");
+      throw new Error('Unknown error');
     }
   };
 
   const logout = () => {
-    toast.success("Log out successfully");
-    localStorage.removeItem("token");
-    localStorage.removeItem("email");
-    localStorage.removeItem("role");
+    toast.success('Log out successfully');
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
     setEmail(null);
     setLoggedIn(false);
   };
