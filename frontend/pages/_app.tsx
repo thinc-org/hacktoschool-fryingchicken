@@ -2,6 +2,7 @@ import '../styles/globals.css';
 import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import { Dela_Gothic_One, Montserrat } from '@next/font/google';
+import AuthProvider from '../providers/AuthProvider';
 
 const delaGothicOne = Dela_Gothic_One({
   weight: ['400'],
@@ -22,9 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           --font-montserrat: ${montserrat.style.fontFamily};
         }
       `}</style>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </AuthProvider>
     </>
   );
 }
