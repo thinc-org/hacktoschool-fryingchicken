@@ -2,10 +2,13 @@ import { useRouter } from 'next/router';
 import { api } from '../../../utils/axios';
 import { useEffect, useState } from 'react';
 import { CourseDetailDto } from '../../../models/Dto';
+import { useAuth } from '../../../providers/AuthProvider';
 
 export default function courseDetail() {
+  const { isLoggedIn, username, role } = useAuth();
   const router = useRouter();
-  const [data, setData] = useState<CourseDetailDto | null>(null);
+  const [course, setCourse] = useState<CourseDetailDto | null>(null);
+  const [users, setUsers] = useState<any[]>([]);
   const { isReady } = router;
 
   useEffect(() => {
@@ -17,8 +20,10 @@ export default function courseDetail() {
     const getData = async () => {
       try {
         const res = await api.get(`/courses/${id}`);
-        setData(res.data);
-        console.log(res.data.name, res.data.instructorName);
+        setCourse(res.data);
+        const res1 = await api.get(`/enrolls/courseId/${id}`);
+        setUsers(res1.data);
+        // console.log(res.data.name, res.data.instructorName);
       } catch (err) {
         console.log(err);
 
@@ -35,16 +40,38 @@ export default function courseDetail() {
     getData();
   }, [isReady]);
 
+  console.log(isLoggedIn, role, users);
+
   return (
     <>
       <section className="px-[8%] py-[5%]">
-        <h1 className="text-3xl font-extrabold">{data?.name}</h1>
+        <h1 className="text-3xl font-extrabold">{course?.name}</h1>
         <span className="text-xl text-grey-dark block mt-[5%]">Instructor</span>
-        <h3 className="text-2xl text-bold">{data?.instructorName}</h3>
+        <h3 className="text-2xl text-bold">{course?.instructorName}</h3>
         <span className="text-xl text-grey-dark mt-[5%] block">
           Description
         </span>
-        <p className="text-lg">{data?.description}</p>
+        <p className="text-lg">{course?.description}</p>
+        {isLoggedIn && role === 'instructor' ? (
+          <>
+            <span className="text-xl text-grey-dark mt-[5%] block">
+              Lists of Enrolled Students
+            </span>
+            <p className="text-lg">
+              {users.map((user, index) => {
+                if (user.username !== username) {
+                  return (
+                    <>
+                      {index} : {user.username} <br />
+                    </>
+                  );
+                }
+              })}
+            </p>
+          </>
+        ) : (
+          <></>
+        )}
       </section>
     </>
   );
