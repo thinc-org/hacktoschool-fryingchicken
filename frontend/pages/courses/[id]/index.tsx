@@ -24,12 +24,12 @@ export default function courseDetail() {
 
         // Todo: Add error handlers
         // Todo: Remove below lines
-        setData({
-          id: id,
-          name: 'General Philosophy',
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        });
+        // setData({
+        //   id: id,
+        //   name: 'General Philosophy',
+        //   instructorName: 'Nac Nacho',
+        //   description: 'You will learn the meaning of life from this course',
+        // });
       }
     };
     getData();
