@@ -4,7 +4,7 @@ import boyWithTree from '../../public/boyWithTree.png';
 
 const FirstComponent = () => {
   return (
-    <section className="grid grid-cols-1 justify-center h-[93vh] lg:grid-cols-2 lg:h-[90vh] lg:px-[8%] lg:items-center overflow-hidden">
+    <section className="grid grid-cols-1 justify-center min-h-[93vh] lg:mb-[5vh] lg:grid-cols-2 lg:min-h-[90vh] lg:px-[8%] lg:items-center overflow-x-hidden">
       <div className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
         <h3 className="text-cyan-dark font-bold text-base tracking-wider sm:text-[130%] ">
           E-COURSE PLATFORM
