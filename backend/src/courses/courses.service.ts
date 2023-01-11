@@ -15,7 +15,7 @@ export class CoursesService {
   }
 
   findOne(id: number) {
-    return this.prisma.users.findUnique({ where: { id } });
+    return this.prisma.courses.findUnique({ where: { id } });
   }
 
   update(id: number, updateCourseDto: UpdateCourseDto) {
@@ -26,6 +26,6 @@ export class CoursesService {
   }
 
   remove(id: number) {
-    return this.prisma.users.delete({ where: { id } });
+    return this.prisma.courses.delete({ where: { id } });
   }
 }

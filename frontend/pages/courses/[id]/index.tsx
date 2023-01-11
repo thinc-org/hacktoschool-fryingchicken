@@ -11,7 +11,7 @@ export default function courseDetail() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const res = await api.get(`/course/${id}`);
+        const res = await api.get(`/courses/${id}`);
         setData(res.data);
       } catch (err) {
         console.log(err);
@@ -29,7 +29,7 @@ export default function courseDetail() {
       }
     };
     getData();
-  }, []);
+  }, [id]);
 
   return (
     <>
