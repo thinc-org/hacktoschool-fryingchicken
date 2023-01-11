@@ -56,63 +56,60 @@ const Register: React.FC = () => {
 
   if (isLoggedIn) return <div></div>;
   return (
-    <main style={{ marginTop: '5em' }}>
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-3">
-            <form onSubmit={handleSubmit}>
-              <h1 className="h3 mb-3 fw-normal text-center">สมัครใช้บริการ</h1>
-              <div className="form-floating my-3 form-group">
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  placeholder="name@example.com"
-                  ref={emailRef}
-                />
-                {/* Label must be below Field and Error Message */}
-                <label htmlFor="email">Email </label>
-              </div>
-
-              {/* Password Form */}
-              <div className="form-floating my-3 form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  placeholder="password"
-                  id="password"
-                  ref={passwordRef}
-                />
-                <label htmlFor="password">Password</label>
-              </div>
-
-              {/* Confirmation Password Form */}
-              <div className="form-floating my-3 form-group">
-                <input
-                  type="password"
-                  className="form-control"
-                  id="conPassword"
-                  placeholder="password"
-                  ref={passwordConfirmRef}
-                />
-                <label htmlFor="conPassword">Confirm Password</label>
-              </div>
-              <button
-                className="w-100 btn btn-lg btn-danger"
-                type="submit"
-                disabled={isSubmitting}
-              >
-                สมัครใช้บริการ
-              </button>
-            </form>
+    <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
+      <div className="">
+        <form onSubmit={handleSubmit}>
+          <h1 className="text-cyan-dark font-bold text-center text-4xl">
+            สมัครใช้บริการ
+          </h1>
+          <div className="form-floating my-3 form-group">
+            <input
+              type="email"
+              className="form-control"
+              id="email"
+              placeholder="name@example.com"
+              ref={emailRef}
+            />
+            {/* Label must be below Field and Error Message */}
+            <label htmlFor="email">Email </label>
           </div>
-        </div>
+
+          {/* Password Form */}
+          <div className="form-floating my-3 form-group">
+            <input
+              type="password"
+              className="form-control"
+              placeholder="password"
+              id="password"
+              ref={passwordRef}
+            />
+            <label htmlFor="password">Password</label>
+          </div>
+
+          {/* Confirmation Password Form */}
+          <div className="form-floating my-3 form-group">
+            <input
+              type="password"
+              className="form-control"
+              id="conPassword"
+              placeholder="password"
+              ref={passwordConfirmRef}
+            />
+            <label htmlFor="conPassword">Confirm Password</label>
+          </div>
+          <button
+            className="text-xl content-center"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            สมัครใช้บริการ
+          </button>
+        </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <a href="login" className="text-dark">
+            <a href="login" className="text-dark underline-offset-1">
               เข้าสู่ระบบ
             </a>
-            <h5 className="mt-5">" ปุ่มถอนอยู่ใกล้เพียงแค่เอื้อมมือ "</h5>
           </div>
         </div>
       </div>
