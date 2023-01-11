@@ -44,6 +44,7 @@ const Login: React.FC<Props> = () => {
     }
   };
 
+  // Todo: Create navigation if user logged in
   if (isLoggedIn) return <div></div>;
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
@@ -54,6 +55,7 @@ const Login: React.FC<Props> = () => {
           </h1>
           <div className="form-floating my-3">
             <input
+              required
               type="username"
               className="form-control"
               id="floatingInput"
@@ -66,6 +68,7 @@ const Login: React.FC<Props> = () => {
 
           <div className="form-floating my-3">
             <input
+              required
               name="password"
               type="password"
               className="form-control"
