@@ -10,52 +10,52 @@ const MyCourses = () => {
   useEffect(() => {
     const getData = async () => {
       // Todo: remove comment
-      // const res = await api.get('courses');
-      // const prop = await res.data;
-      const prop = [
-        {
-          id: 1,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 2,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 3,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 4,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 5,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 6,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-      ];
+      const res = await api.get('courses');
+      const prop = await res.data;
+      // const prop = [
+      //   {
+      //     id: 1,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      //   {
+      //     id: 2,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      //   {
+      //     id: 3,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      //   {
+      //     id: 4,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      //   {
+      //     id: 5,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      //   {
+      //     id: 6,
+      //     name: 'General Philosophy',
+      //     instructorId: 313,
+      //     instructorName: 'Nac Nacho',
+      //     description: 'You will learn the meaning of life from this course',
+      //   },
+      // ];
       setData(prop);
     };
     getData();
