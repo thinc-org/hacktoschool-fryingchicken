@@ -14,7 +14,6 @@ const Login: React.FC<Props> = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
-  const [role, setRole] = useState('');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
