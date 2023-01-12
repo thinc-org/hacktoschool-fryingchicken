@@ -1,14 +1,11 @@
-import { FormEvent, useRef, useState, useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useAuth } from '../providers/AuthProvider';
-import { api } from '../utils/axios';
-import { NextResponse } from 'next/server';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
-type Props = {};
+import { useAuth } from '../providers/AuthProvider';
 
-const Login: React.FC<Props> = () => {
+export default function Login() {
   const router = useRouter();
   const { isLoggedIn, login } = useAuth();
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -45,7 +42,7 @@ const Login: React.FC<Props> = () => {
   };
 
   // Todo: Create navigation if user logged in
-  if (isLoggedIn) return <div></div>;
+  if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
       <div className="">
@@ -96,6 +93,4 @@ const Login: React.FC<Props> = () => {
       </div>
     </main>
   );
-};
-
-export default Login;
+}

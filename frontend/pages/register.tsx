@@ -60,7 +60,7 @@ const Register: React.FC = () => {
     }
   };
 
-  if (isLoggedIn) return <div></div>;
+  if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
       <div className="">
