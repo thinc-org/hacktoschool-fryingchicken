@@ -29,7 +29,10 @@ export class EnrollsService {
   }
 
   findManyUsername(username: string) {
-    return this.prisma.enrolls.findMany({ where: { username } });
+    return this.prisma.enrolls.findMany({
+      where: { username },
+      include: { course: true },
+    });
   }
 
   update(id: number, updateEnrollDto: UpdateEnrollDto) {
