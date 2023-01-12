@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { CourseDetailDto, EnrollDetailDto } from '../models/Dto';
+import {
+  AnnouncementDetailDto,
+  CourseDetailDto,
+  EnrollDetailDto,
+} from '../models/Dto';
 import { useAuth } from '../providers/AuthProvider';
 import { api } from '../utils/axios';
 import Link from 'next/link';
@@ -16,6 +20,7 @@ export default function mycourse_instructor() {
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
 
   // const courses = [
   //   {
@@ -43,6 +48,33 @@ export default function mycourse_instructor() {
   //     enrolledStudent: '78910',
   //   },
   // ];
+  const announcement = [
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: '2012-01-12',
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: '2012-01-13',
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: '2012-03-12',
+    },
+  ];
+
   const getEnrolls = async () => {
     const res = await api(`/enrolls/username/${username}`);
     const data = await res.data;
@@ -74,6 +106,8 @@ export default function mycourse_instructor() {
       username,
     });
     await getEnrolls();
+    setTitle('');
+    setDescription('');
   };
 
   if (index < enrolls.length) {
@@ -83,39 +117,41 @@ export default function mycourse_instructor() {
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>My Courses</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <div className="flex min-h-screen flex-row py-2">
+        <Head>
+          <title>My Courses</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">My Courses</h1>
+        <main className="flex flex-col px-20  basis-2/3">
+          <h1 className="text-6xl font-bold">My Courses</h1>
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {courses.map((course: CourseDetailDto, index) => {
-            return (
-              <div
-                className="border-2 w-3/4 mx-auto my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
-                key={index}
-              >
-                <Link href={'/courses/' + course.id}>
-                  <h1 className="text-2xl font-bold">{course.name}</h1>
-                  {role === 'student' || role === 'admin' ? (
-                    <p>
-                      by {course.instructorName}
-                      <br />
-                      {course.description}
-                    </p>
-                  ) : (
-                    <p>{course.description}</p>
-                  )}
-                </Link>
-              </div>
-              // <SingleCourses data={course} key={course.id} />
-            );
-          })}
-
+          <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
+            {courses.map((course: CourseDetailDto, index) => {
+              return (
+                <div
+                  className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
+                  key={index}
+                >
+                  <Link href={'/courses/' + course.id}>
+                    <h1 className="text-2xl font-bold">{course.name}</h1>
+                    {role === 'student' || role === 'admin' ? (
+                      <p>
+                        by {course.instructorName}
+                        <br />
+                        {course.description}
+                      </p>
+                    ) : (
+                      <p>{course.description}</p>
+                    )}
+                  </Link>
+                </div>
+                // <SingleCourses data={course} key={course.id} />
+              );
+            })}
+          </div>
+          <div className="flex flex-col px-20 overflow-auto basis-1/3"></div>
           {(role === 'instructor' || role === 'admin') && (
             <div className="flex justify-end w-3/4 mx-auto">
               <button
@@ -138,8 +174,8 @@ export default function mycourse_instructor() {
               handleSubmit={handleSubmit}
             />
           )}
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
