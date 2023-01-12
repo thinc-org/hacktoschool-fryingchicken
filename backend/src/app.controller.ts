@@ -10,6 +10,7 @@ import { AppService } from './app.service';
 import { LocalAuthGuard } from './auth/local/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
+import { JwtPayload } from './auth/auth.dto';
 
 @Controller()
 export class AppController {
@@ -31,7 +32,7 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req): JwtPayload {
     return req.user;
   }
 
