@@ -18,6 +18,14 @@ export class CoursesService {
     return this.prisma.courses.findUnique({ where: { id } });
   }
 
+  findManyCourseName(name: string) {
+    return this.prisma.courses.findMany({ where: { name: name } });
+  }
+
+  findManyInstructorName(name: string) {
+    return this.prisma.courses.findMany({ where: { instructorName: name } });
+  }
+
   update(id: number, updateCourseDto: UpdateCourseDto) {
     return this.prisma.courses.update({
       where: { id },
