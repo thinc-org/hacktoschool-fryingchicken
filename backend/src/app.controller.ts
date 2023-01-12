@@ -10,6 +10,9 @@ import { AppService } from './app.service';
 import { LocalAuthGuard } from './auth/local/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
+import { JwtPayload } from './auth/auth.dto';
+import { Roles } from './auth/roles/roles.decorator';
+import { Role } from './auth/roles/role.enum';
 
 @Controller()
 export class AppController {
@@ -31,7 +34,7 @@ export class AppController {
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  getProfile(@Request() req): JwtPayload {
     return req.user;
   }
 
@@ -39,5 +42,11 @@ export class AppController {
   @Redirect('/api')
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  @Get('test')
+  @Roles(Role.Student)
+  testRole(): string {
+    return 'Hello';
   }
 }

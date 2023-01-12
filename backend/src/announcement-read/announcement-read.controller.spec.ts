@@ -11,7 +11,9 @@ describe('AnnouncementReadController', () => {
       providers: [AnnouncementReadService],
     }).compile();
 
-    controller = module.get<AnnouncementReadController>(AnnouncementReadController);
+    controller = module.get<AnnouncementReadController>(
+      AnnouncementReadController
+    );
   });
 
   it('should be defined', () => {
