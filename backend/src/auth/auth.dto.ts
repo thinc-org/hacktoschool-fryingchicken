@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Role } from './roles/role.enum';
 
 export class AccessTokenPayload {
   @ApiProperty()
@@ -10,5 +11,5 @@ export class JwtPayload {
   username: string;
 
   @ApiProperty()
-  role: string;
+  role: Role;
 }

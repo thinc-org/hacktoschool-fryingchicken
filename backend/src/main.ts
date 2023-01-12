@@ -7,7 +7,7 @@ async function bootstrap() {
     logger: ['error', 'warn', 'log', 'debug', 'verbose'],
     cors: true,
   });
-  // Use Jwt for global services
+  // Use Jwt for every controller in the app
   // app.useGlobalGuards(new JwtAuthGuard());
 
   const config = new DocumentBuilder()

@@ -13,6 +13,7 @@ import { JwtAuthGuard } from './auth/jwt/jwt-auth.guard';
 import { JwtPayload } from './auth/auth.dto';
 import { Roles } from './auth/roles/roles.decorator';
 import { Role } from './auth/roles/role.enum';
+import { RolesGuard } from './auth/roles/roles.guard';
 
 @Controller()
 export class AppController {
@@ -45,7 +46,8 @@ export class AppController {
   }
 
   @Get('test')
-  @Roles(Role.Student)
+  @Roles([Role.Admin])
+  @UseGuards(RolesGuard)
   testRole(): string {
     return 'Hello';
   }

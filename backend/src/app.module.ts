@@ -22,6 +22,8 @@ import { APP_GUARD } from '@nestjs/core';
     AnnouncementReadModule,
   ],
   controllers: [AppController],
-  providers: [AppService, { provide: APP_GUARD, useClass: RolesGuard }],
+  // If you use role guard in every controllers in the App, you need to set @Roles to every one of them LOL
+  // providers: [AppService, { provide: APP_GUARD, useClass: RolesGuard }],
+  providers: [AppService],
 })
 export class AppModule {}
