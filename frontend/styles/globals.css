@@ -24,4 +24,11 @@ body {
   .hide-md {
     display: none;
   }
+
+  .mobile-carousel {
+    box-sizing: content-box;
+    display: flex;
+    flex: none;
+    scroll-snap-align: start;
+  }
 }

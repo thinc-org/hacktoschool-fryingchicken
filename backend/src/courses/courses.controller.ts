@@ -12,6 +12,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { CoursesEntity } from './entities/course.entity';
+import { EnrollsService } from 'src/enrolls/enrolls.service';
 
 @Controller('courses')
 @ApiTags('courses')
