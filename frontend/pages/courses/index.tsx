@@ -1,65 +1,36 @@
 import Head from 'next/head';
 import SingleCourses from '../../components/SingleCourses';
+import SearchBox from '../../components/SearchBox';
 import { api } from '../../utils/axios';
 import { useEffect, useState } from 'react';
 import { CourseDetailDto } from '../../models/Dto';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const MyCourses = () => {
   const [data, setData] = useState<CourseDetailDto[]>([]);
+  const [showData, setShowData] = useState<CourseDetailDto[]>([]);
+  const [name, setName] = useState('');
+  const [searchBy, setSearchBy] = useState(false);
+  const router = useRouter();
+  const { isReady } = router;
 
   useEffect(() => {
+    if (!isReady) return;
+
     const getData = async () => {
-      // Todo: remove comment
-      // const res = await api.get('courses');
-      // const prop = await res.data;
-      const prop = [
-        {
-          id: 1,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 2,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 3,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 4,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 5,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-        {
-          id: 6,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        },
-      ];
-      setData(prop);
+      try {
+        const res = await api.get('/courses');
+        const prop = await res.data;
+        setData(prop);
+        setShowData(prop);
+      } catch (err) {
+        console.log(err);
+        toast.error('Unknown Error');
+      }
     };
     getData();
-  }, []);
+  }, [isReady]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
@@ -71,8 +42,18 @@ const MyCourses = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1 className="text-6xl font-bold">All Courses</h1>
 
+        <SearchBox
+          name={name}
+          setName={setName}
+          showData={showData}
+          setShowData={setShowData}
+          searchBy={searchBy}
+          setSearchBy={setSearchBy}
+          data={data}
+        />
+
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {data.map((prop: CourseDetailDto) => (
+          {showData.map((prop: CourseDetailDto) => (
             <SingleCourses data={prop} key={prop.id} />
           ))}
         </div>

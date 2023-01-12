@@ -1,45 +1,128 @@
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { api } from '../../../utils/axios';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+
 import { CourseDetailDto } from '../../../models/Dto';
+import { useAuth } from '../../../providers/AuthProvider';
+import { ErrorDto } from '../../../types/dto';
+import { api } from '../../../utils/axios';
 
 export default function courseDetail() {
+  const { isLoggedIn, username, role } = useAuth();
   const router = useRouter();
-  const [data, setData] = useState<CourseDetailDto | null>(null);
-  const id = parseInt(router.query.id as string);
+  const [course, setCourse] = useState<CourseDetailDto | null>(null);
+  const [users, setUsers] = useState<any[]>([]);
+  const [isEnrolling, setIsEnrolling] = useState<boolean>(false);
+  const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
+  const { isReady } = router;
+
+  const disableBtn =
+    role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
 
   useEffect(() => {
+    if (!isReady) return;
+
+    const id = parseInt(router.query.id as string);
+
     const getData = async () => {
       try {
-        const res = await api.get(`/course/${id}`);
-        setData(res.data);
-      } catch (err) {
-        console.log(err);
+        const res = await api.get(`/courses/${id}`);
+        setCourse(res.data);
 
+        // Check if user is already enrolled
+        const isEnrolled = await api.get(
+          `/enrolls/isEnrolled/${id}?username=${username}`
+        );
+        setIsEnrolled(isEnrolled.data);
+
+        // Get students list for instructor
+        if (role === 'instructor' || role === 'admin') {
+          const res1 = await api.get(`/enrolls/courseId/${id}`);
+          setUsers(res1.data);
+        }
+        // console.log(res.data.name, res.data.instructorName);
+      } catch (err) {
         // Todo: Add error handlers
+        toast.error('Unknown Error');
         // Todo: Remove below lines
-        setData({
-          id: id,
-          name: 'General Philosophy',
-          instructorId: 313,
-          instructorName: 'Nac Nacho',
-          description: 'You will learn the meaning of life from this course',
-        });
       }
     };
     getData();
-  }, []);
+  }, [isReady]);
+
+  // console.log(isLoggedIn, role, users);
+
+  const handleEnroll = async () => {
+    // Todo: create api for enrolling course
+    if (!isLoggedIn) return router.push('/login');
+    try {
+      setIsEnrolling(true);
+      const id = parseInt(router.query.id as string);
+      const res = await api.post('/enrolls', {
+        username: username,
+        courseId: id,
+      });
+      console.log(res);
+    } catch (err) {
+      let message = 'Unknown Error';
+      if (err instanceof AxiosError) {
+        const { response } = err as AxiosError<ErrorDto>;
+        const errorMsg = response?.data.message;
+        if (errorMsg) message = errorMsg;
+      }
+      toast.error(message);
+    }
+    setIsEnrolling(false);
+  };
 
   return (
     <>
       <section className="px-[8%] py-[5%]">
-        <h1 className="text-3xl font-extrabold">{data?.name}</h1>
+        <h1 className="text-3xl font-extrabold">{course?.name}</h1>
         <span className="text-xl text-grey-dark block mt-[5%]">Instructor</span>
-        <h3 className="text-2xl text-bold">{data?.instructorName}</h3>
+        <h3 className="text-2xl text-bold">{course?.instructorName}</h3>
         <span className="text-xl text-grey-dark mt-[5%] block">
           Description
         </span>
-        <p className="text-lg">{data?.description}</p>
+        <p className="text-lg">{course?.description}</p>
+
+        <div className=" my-[4%]">
+          {/* Todo: grey out this button if user already enrolled */}
+          {isEnrolled && (
+            <label className="block">You already enrolled this course.</label>
+          )}
+          <button
+            onClick={handleEnroll}
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none disabled:text-white"
+            disabled={disableBtn}
+          >
+            Enroll Course
+          </button>
+        </div>
+
+        {/* Todo: Only course'instructor can view its enrolled students ? */}
+        {isLoggedIn &&
+          ((role === 'instructor' && course?.instructorName === username) ||
+            role === 'admin') && (
+            <>
+              <span className="text-xl text-grey-dark mt-[5%] block">
+                Lists of Enrolled Students
+              </span>
+              <p className="text-lg">
+                {users.map((user, index) => {
+                  if (user.username !== username) {
+                    return (
+                      <>
+                        {index} : {user.username} <br />
+                      </>
+                    );
+                  }
+                })}
+                Total : {users.length - 1} students
+              </p>
+            </>
+          )}
       </section>
     </>
   );

@@ -11,8 +11,12 @@ const SingleCourses = ({ data }: props) => {
       target="_blank"
       className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
     >
-      <h3 className="text-2xl font-bold">{data.name}&rarr;</h3>
-      <h3 className="text-2xl font-bold">{data.instructorName}&rarr;</h3>
+      <h3 className="text-2xl">
+        <b>Title</b> : {data.name}
+      </h3>
+      <h3 className="text-2xl">
+        <b>By</b> : {data.instructorName}
+      </h3>
       <p className="mt-4 text-xl">{data.description}</p>
     </Link>
   );

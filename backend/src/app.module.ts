@@ -6,6 +6,10 @@ import { UsersModule } from './users/users.module';
 import { EnrollsModule } from './enrolls/enrolls.module';
 import { CoursesModule } from './courses/courses.module';
 import { AuthModule } from './auth/auth.module';
+import { AnnouncementModule } from './announcement/announcement.module';
+import { AnnouncementReadModule } from './announcement-read/announcement-read.module';
+import { RolesGuard } from './auth/roles/roles.guard';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -14,8 +18,10 @@ import { AuthModule } from './auth/auth.module';
     EnrollsModule,
     CoursesModule,
     AuthModule,
+    AnnouncementModule,
+    AnnouncementReadModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: RolesGuard }],
 })
 export class AppModule {}

@@ -1,3 +1,7 @@
+import Image from 'next/image';
+import Cleverse from '../public/Cleverse.jpg';
+import Thinc from '../public/Thinc.jpg';
+
 interface props {
   links: {
     name: string;
@@ -20,8 +24,26 @@ const Footer = ({ links }: props) => {
       <hr className="w-[90%] h-[0.5px] mx-auto my-4 bg-grey-dark border-0 rounded"></hr>
       <div className="flex flex-col items-center">
         <section className="pb-[3%] lg:pb-[1%] flex justify-center w-[100vw]">
-          <span className="mx-[2%]">Cleverse</span>
-          <span className="mx-[2%]">Thinc</span>
+          <span className="mx-[2%]">
+            <Image
+              className="mx-auto"
+              src={Cleverse}
+              alt="Cleverse Logo"
+              width="40"
+              height="40"
+            />
+            Cleverse
+          </span>
+          <span className="mx-[2%]">
+            <Image
+              className="mx-auto"
+              src={Thinc}
+              alt="Thinc Logo"
+              width="40"
+              height="40"
+            />
+            Thinc.
+          </span>
         </section>
         <span className="text-[0.6rem] sm:text-xs">
           ©2021 Thinc. x Cleverse. Project for <u>hack to school</u>

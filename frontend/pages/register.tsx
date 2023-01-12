@@ -13,7 +13,7 @@ const Register: React.FC = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmRef = useRef<HTMLInputElement>(null);
-  const roleRef = useRef<HTMLInputElement>(null);
+  const roleRef = useRef<HTMLSelectElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -45,7 +45,6 @@ const Register: React.FC = () => {
         password,
         role,
       });
-      console.log('Done!!');
       toast.success('Account created!');
       router.push('login');
     } catch (err) {
@@ -61,7 +60,7 @@ const Register: React.FC = () => {
     }
   };
 
-  if (isLoggedIn) return <div></div>;
+  if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
       <div className="">
@@ -71,6 +70,7 @@ const Register: React.FC = () => {
           </h1>
           <div className="form-floating my-3 form-group">
             <input
+              required
               type="username"
               className="form-control"
               id="username"
@@ -84,6 +84,7 @@ const Register: React.FC = () => {
           {/* Password Form */}
           <div className="form-floating my-3 form-group">
             <input
+              required
               type="password"
               className="form-control"
               placeholder="password"
@@ -96,6 +97,7 @@ const Register: React.FC = () => {
           {/* Confirmation Password Form */}
           <div className="form-floating my-3 form-group">
             <input
+              required
               type="password"
               className="form-control"
               id="conPassword"
@@ -107,14 +109,27 @@ const Register: React.FC = () => {
 
           {/* Role Form */}
           <div className="form-floating my-3 form-group">
-            <input
+            <label htmlFor="role">Role</label>
+            <select
+              required
+              className="form-control"
+              id="role"
+              placeholder="role"
+              ref={roleRef}
+              name="role"
+            >
+              <option value="">-</option>
+              <option value="student">student</option>
+              <option value="instructor">instructor</option>
+            </select>
+            {/* <input
+              required
               type="role"
               className="form-control"
               id="role"
               placeholder="role"
               ref={roleRef}
-            />
-            <label htmlFor="role">Role</label>
+            /> */}
           </div>
           <button
             className="text-xl content-center"

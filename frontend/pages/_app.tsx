@@ -3,6 +3,7 @@ import type { AppProps } from 'next/app';
 import Layout from '../components/Layout';
 import { Dela_Gothic_One, Montserrat } from '@next/font/google';
 import AuthProvider from '../providers/AuthProvider';
+import { Toaster } from 'react-hot-toast';
 
 const delaGothicOne = Dela_Gothic_One({
   weight: ['400'],
@@ -25,6 +26,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       `}</style>
       <AuthProvider>
         <Layout>
+          <Toaster position="top-center" />
           <Component {...pageProps} />
         </Layout>
       </AuthProvider>
