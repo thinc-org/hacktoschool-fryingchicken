@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Cleverse from '../public/Cleverse.jpg';
+import Thinc from '../public/Thinc.jpg';
 
 interface props {
   links: {
@@ -25,8 +27,8 @@ const Footer = ({ links }: props) => {
           <span className="mx-[2%]">
             <Image
               className="mx-auto"
-              src="/../public/Cleverse.jpg"
-              alt=""
+              src={Cleverse}
+              alt="Cleverse Logo"
               width="40"
               height="40"
             />
@@ -35,8 +37,8 @@ const Footer = ({ links }: props) => {
           <span className="mx-[2%]">
             <Image
               className="mx-auto"
-              src="/../public/Thinc.jpg"
-              alt=""
+              src={Thinc}
+              alt="Thinc Logo"
               width="40"
               height="40"
             />
