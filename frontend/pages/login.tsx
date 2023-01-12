@@ -57,7 +57,7 @@ export default function Login() {
               className="form-control"
               id="floatingInput"
               name="username"
-              placeholder="name@example.com"
+              placeholder="username"
               ref={usernameRef}
             />
             <label htmlFor="floatingInput">username </label>
@@ -70,7 +70,7 @@ export default function Login() {
               type="password"
               className="form-control"
               id="floatingPassword"
-              placeholder="Password"
+              placeholder="password"
               ref={passwordRef}
             />
             <label htmlFor="floatingPassword">Password</label>

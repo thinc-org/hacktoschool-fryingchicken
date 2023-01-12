@@ -74,7 +74,7 @@ const Register: React.FC = () => {
               type="username"
               className="form-control"
               id="username"
-              placeholder="name@example.com"
+              placeholder="username"
               ref={usernameRef}
             />
             {/* Label must be below Field and Error Message */}
