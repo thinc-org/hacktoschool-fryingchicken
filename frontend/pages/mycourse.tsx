@@ -11,49 +11,17 @@ export default function mycourse_instructor() {
   const { username, role } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [enrolls, setEnrolls] = useState<EnrollDetailDto[]>([]);
-  const [courses, setCourses] = useState<CourseDetailDto[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
-  // const courses = [
-  //   {
-  //     id: '1',
-  //     name: 'Machine learning specialization',
-  //     instructorName: 'Andrew Ng',
-  //     description:
-  //       'machine learning machine learning machine learning machine learning machine learning',
-  //     enrolledStudent: 69,
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'PHASATHAIPHUENTHAN',
-  //     instructorName: 'MAEMUENG',
-  //     description:
-  //       'THTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTH',
-  //     enrolledStudent: '420',
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'Quantum Physics For Baby',
-  //     instructorName: 'Jo Mama',
-  //     description:
-  //       ' bljkdfngpbjnspjgnbs;kglk;bbf ;bs;lknr;nrgnr;jnsg;jbnsgfbnrthnbsglkn;slkntkmbndign;nkentk',
-  //     enrolledStudent: '78910',
-  //   },
-  // ];
   const getEnrolls = async () => {
     const res = await api(`/enrolls/username/${username}`);
     const data = await res.data;
+    console.log(data);
     setEnrolls(data);
     setIsLoading(false);
-  };
-  const getCourse = async (enroll: EnrollDetailDto) => {
-    const res = await api.get(`/courses/${enroll.courseId}`);
-    const prop: CourseDetailDto = await res.data;
-    setCourses([...courses, prop]);
-    setIndex(index + 1);
   };
 
   // Render component when username is loaded
@@ -76,10 +44,6 @@ export default function mycourse_instructor() {
     await getEnrolls();
   };
 
-  if (index < enrolls.length) {
-    getCourse(enrolls[index]);
-  }
-
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
@@ -93,22 +57,22 @@ export default function mycourse_instructor() {
         <h1 className="text-6xl font-bold">My Courses</h1>
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {courses.map((course: CourseDetailDto, index) => {
+          {enrolls.map((course: EnrollDetailDto, index) => {
             return (
               <div
                 className="border-2 w-3/4 mx-auto my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
                 key={index}
               >
-                <Link href={'/courses/' + course.id}>
-                  <h1 className="text-2xl font-bold">{course.name}</h1>
-                  {role == 'student' ? (
+                <Link href={'/courses/' + course.course.id}>
+                  <h1 className="text-2xl font-bold">{course.course.name}</h1>
+                  {role === 'student' || role === 'admin' ? (
                     <p>
-                      by {course.instructorName}
+                      by {course.course.instructorName}
                       <br />
-                      {course.description}
+                      {course.course.description}
                     </p>
                   ) : (
-                    <p>{course.description}</p>
+                    <p>{course.course.description}</p>
                   )}
                 </Link>
               </div>
@@ -116,7 +80,7 @@ export default function mycourse_instructor() {
             );
           })}
 
-          {role == 'instructor' && (
+          {(role === 'instructor' || role === 'admin') && (
             <div className="flex justify-end w-3/4 mx-auto">
               <button
                 className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

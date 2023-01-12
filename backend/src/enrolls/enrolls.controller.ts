@@ -44,16 +44,19 @@ export class EnrollsController {
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: EnrollsEntity })
   update(@Param('id') id: string, @Body() updateEnrollDto: UpdateEnrollDto) {
     return this.enrollsService.update(+id, updateEnrollDto);
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: EnrollsEntity })
   remove(@Param('id') id: string) {
     return this.enrollsService.remove(+id);
   }
 
   @Get('isEnrolled/:id?')
+  @ApiOkResponse({ type: EnrollsEntity })
   checkIsEnrolled(
     @Param('id') id: string,
     @Query('username') username: string
