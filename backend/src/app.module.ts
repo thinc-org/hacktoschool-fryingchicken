@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { EnrollsModule } from './enrolls/enrolls.module';
 import { CoursesModule } from './courses/courses.module';
 import { AuthModule } from './auth/auth.module';
+import { AnnouncementModule } from './announcement/announcement.module';
+import { AnnouncementReadModule } from './announcement-read/announcement-read.module';
 
 @Module({
   imports: [
@@ -14,6 +16,8 @@ import { AuthModule } from './auth/auth.module';
     EnrollsModule,
     CoursesModule,
     AuthModule,
+    AnnouncementModule,
+    AnnouncementReadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

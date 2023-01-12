@@ -4,7 +4,14 @@ export interface CourseDetailDto {
   name: string;
   instructorName: string;
   description: string;
-  updatedDate?: Date;
-  createdDate?: Date;
-  enrolledStudent: number;
+  updatedAt?: Date;
+  createdAt?: Date;
+}
+
+export interface EnrollDetailDto {
+  id: number;
+  courseId: number;
+  username: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

@@ -1,20 +1,16 @@
-import { FormEvent, useRef, useState, useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useAuth } from '../providers/AuthProvider';
-import { api } from '../utils/axios';
-import { NextResponse } from 'next/server';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { FormEvent, useEffect, useRef, useState } from 'react';
+import toast from 'react-hot-toast';
 
-type Props = {};
+import { useAuth } from '../providers/AuthProvider';
 
-const Login: React.FC<Props> = () => {
+export default function Login() {
   const router = useRouter();
   const { isLoggedIn, login } = useAuth();
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setSubmitting] = useState(false);
-  const [role, setRole] = useState('');
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -45,7 +41,8 @@ const Login: React.FC<Props> = () => {
     }
   };
 
-  if (isLoggedIn) return <div></div>;
+  // Todo: Create navigation if user logged in
+  if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
       <div className="">
@@ -55,6 +52,7 @@ const Login: React.FC<Props> = () => {
           </h1>
           <div className="form-floating my-3">
             <input
+              required
               type="username"
               className="form-control"
               id="floatingInput"
@@ -67,6 +65,7 @@ const Login: React.FC<Props> = () => {
 
           <div className="form-floating my-3">
             <input
+              required
               name="password"
               type="password"
               className="form-control"
@@ -94,6 +93,4 @@ const Login: React.FC<Props> = () => {
       </div>
     </main>
   );
-};
-
-export default Login;
+}

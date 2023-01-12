@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { EnrollsService } from './enrolls.service';
 import { CreateEnrollDto } from './dto/create-enroll.dto';
@@ -43,12 +44,23 @@ export class EnrollsController {
   }
 
   @Patch(':id')
+  @ApiOkResponse({ type: EnrollsEntity })
   update(@Param('id') id: string, @Body() updateEnrollDto: UpdateEnrollDto) {
     return this.enrollsService.update(+id, updateEnrollDto);
   }
 
   @Delete(':id')
+  @ApiOkResponse({ type: EnrollsEntity })
   remove(@Param('id') id: string) {
     return this.enrollsService.remove(+id);
+  }
+
+  @Get('isEnrolled/:id?')
+  @ApiOkResponse({ type: EnrollsEntity })
+  checkIsEnrolled(
+    @Param('id') id: string,
+    @Query('username') username: string
+  ) {
+    return this.enrollsService.checkIsEnrolled(+id, username);
   }
 }
