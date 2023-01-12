@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { EnrollsService } from './enrolls.service';
 import { CreateEnrollDto } from './dto/create-enroll.dto';
@@ -50,5 +51,13 @@ export class EnrollsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.enrollsService.remove(+id);
+  }
+
+  @Get('isEnrolled/:id?')
+  checkIsEnrolled(
+    @Param('id') id: string,
+    @Query('username') username: string
+  ) {
+    return this.enrollsService.checkIsEnrolled(+id, username);
   }
 }

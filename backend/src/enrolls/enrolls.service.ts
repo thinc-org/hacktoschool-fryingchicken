@@ -42,4 +42,11 @@ export class EnrollsService {
   remove(id: number) {
     return this.prisma.users.delete({ where: { id } });
   }
+
+  async checkIsEnrolled(id: number, username: string) {
+    const res = await this.prisma.enrolls.findFirst({
+      where: { courseId: id, username: username },
+    });
+    return !!res;
+  }
 }
