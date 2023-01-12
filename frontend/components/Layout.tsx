@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const links = [{ name: 'Courses', link: '/courses' }];
 
   if (isLoggedIn) {
-    links.push({ name: 'My Courses', link: 'mycourse' });
+    links.push({ name: 'My Courses', link: '/mycourse' });
   }
 
   return (
