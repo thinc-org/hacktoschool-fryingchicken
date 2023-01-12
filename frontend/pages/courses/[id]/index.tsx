@@ -17,7 +17,8 @@ export default function courseDetail() {
   const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
 
-  const disableBtn = role === 'instructor' || isEnrolling || isEnrolled;
+  const disableBtn =
+    role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
 
   useEffect(() => {
     if (!isReady) return;
@@ -36,7 +37,7 @@ export default function courseDetail() {
         setIsEnrolled(isEnrolled.data);
 
         // Get students list for instructor
-        if (role === 'instructor') {
+        if (role === 'instructor' || role === 'admin') {
           const res1 = await api.get(`/enrolls/courseId/${id}`);
           setUsers(res1.data);
         }
@@ -50,7 +51,7 @@ export default function courseDetail() {
     getData();
   }, [isReady]);
 
-  console.log(isLoggedIn, role, users);
+  // console.log(isLoggedIn, role, users);
 
   const handleEnroll = async () => {
     // Todo: create api for enrolling course
@@ -101,25 +102,27 @@ export default function courseDetail() {
         </div>
 
         {/* Todo: Only course'instructor can view its enrolled students ? */}
-        {isLoggedIn && role === 'instructor' && (
-          <>
-            <span className="text-xl text-grey-dark mt-[5%] block">
-              Lists of Enrolled Students
-            </span>
-            <p className="text-lg">
-              {users.map((user, index) => {
-                if (user.username !== username) {
-                  return (
-                    <>
-                      {index} : {user.username} <br />
-                    </>
-                  );
-                }
-              })}
-              Total : {users.length - 1} students
-            </p>
-          </>
-        )}
+        {isLoggedIn &&
+          ((role === 'instructor' && course?.instructorName === username) ||
+            role === 'admin') && (
+            <>
+              <span className="text-xl text-grey-dark mt-[5%] block">
+                Lists of Enrolled Students
+              </span>
+              <p className="text-lg">
+                {users.map((user, index) => {
+                  if (user.username !== username) {
+                    return (
+                      <>
+                        {index} : {user.username} <br />
+                      </>
+                    );
+                  }
+                })}
+                Total : {users.length - 1} students
+              </p>
+            </>
+          )}
       </section>
     </>
   );

@@ -33,21 +33,29 @@ async function main() {
   //     active: true,
   //   },
   // });
-  const post4 = await prisma.enrolls.create({
+  // const post4 = await prisma.enrolls.create({
+  //   data: {
+  //     course: {
+  //       connect: {
+  //         id: 2,
+  //       },
+  //     },
+  //     user: {
+  //       connect: {
+  //         username: 'user1',
+  //       },
+  //     },
+  //   },
+  // });
+  const post5 = await prisma.users.create({
     data: {
-      course: {
-        connect: {
-          id: 2,
-        },
-      },
-      user: {
-        connect: {
-          username: 'user1',
-        },
-      },
+      username: 'admin101',
+      password: 'p@ssw0rd404',
+      role: 'admin',
+      active: true,
     },
   });
-  console.log({ post4 });
+  console.log({ post5 });
 }
 
 // execute the main function
