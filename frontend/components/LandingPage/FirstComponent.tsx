@@ -2,8 +2,25 @@ import Image from 'next/image';
 import LandingData from '../LandingData';
 import boyWithTree from '../../public/boyWithTree.png';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { api } from '../../utils/axios';
 
 const FirstComponent = () => {
+  const [userCount, setUserCount] = useState<number>(0);
+
+  useEffect(() => {
+    const getNum = async () => {
+      try {
+        const res = await api.get('/users');
+        console.log(res);
+        if (!!res.data) setUserCount(res.data.length);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getNum();
+  }, []);
+
   return (
     <section className="bg-grey-light grid grid-cols-1 justify-center min-h-[93vh] lg:mb-[5vh] lg:grid-cols-2 lg:min-h-[90vh] lg:px-[8%] lg:items-center overflow-x-hidden">
       <div className="flex flex-col text-center items-center mt-[8%] lg:text-left lg:items-start lg:w-[80%] ">
@@ -24,7 +41,7 @@ const FirstComponent = () => {
           About Platform
         </Link>
         <div className="flex items-center justify-between w-[70%] md:mt-[3%] md:w-[50%] lg:w-[100%] xl:w-[90%]">
-          <LandingData num={600} title={'Students'} />
+          <LandingData num={userCount} title={'Students'} />
           <div className="ver-line h-[50px]"></div>
           <LandingData num={700} title={'Hours of content'} />
         </div>
