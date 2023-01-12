@@ -36,6 +36,18 @@ export class CoursesController {
     return this.coursesService.findOne(+id);
   }
 
+  @Get('courseName/:name')
+  @ApiOkResponse({ type: CoursesEntity })
+  fineManyCourseName(@Param('name') name: string) {
+    return this.coursesService.findManyCourseName(name);
+  }
+
+  @Get('instructorName/:name')
+  @ApiOkResponse({ type: CoursesEntity })
+  fineManyInstructorName(@Param('name') name: string) {
+    return this.coursesService.findManyInstructorName(name);
+  }
+
   @Patch(':id')
   @ApiOkResponse({ type: CoursesEntity })
   update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
