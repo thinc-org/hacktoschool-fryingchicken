@@ -82,7 +82,7 @@ export default function courseDetail() {
         {/* Todo: grey out this button if user already enrolled */}
         <button
           onClick={handleEnroll}
-          className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none "
+          className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none disabled:text-white"
           disabled={disableBtn}
         >
           Enroll Course
