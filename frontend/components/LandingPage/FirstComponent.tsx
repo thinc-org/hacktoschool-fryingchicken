@@ -7,13 +7,18 @@ import { api } from '../../utils/axios';
 
 const FirstComponent = () => {
   const [userCount, setUserCount] = useState<number>(0);
+  const [hoursOfContent, setHoursOfContent] = useState<number>(0);
 
+  // Retrieve user counts to increasing number animation
   useEffect(() => {
     const getNum = async () => {
       try {
         const res = await api.get('/users');
         console.log(res);
-        if (!!res.data) setUserCount(res.data.length);
+        if (!!res.data) {
+          setUserCount(res.data.length);
+          setHoursOfContent(700);
+        }
       } catch (err) {
         console.log(err);
       }
@@ -43,7 +48,7 @@ const FirstComponent = () => {
         <div className="flex items-center justify-between w-[70%] md:mt-[3%] md:w-[50%] lg:w-[100%] xl:w-[90%]">
           <LandingData num={userCount} title={'Students'} />
           <div className="ver-line h-[50px]"></div>
-          <LandingData num={700} title={'Hours of content'} />
+          <LandingData num={hoursOfContent} title={'Hours of content'} />
         </div>
       </div>
 
