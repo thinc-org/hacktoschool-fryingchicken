@@ -90,7 +90,9 @@ export default function courseDetail() {
         <div className=" my-[4%]">
           {/* Todo: grey out this button if user already enrolled */}
           {isEnrolled && (
-            <label className="block">You already enrolled this course.</label>
+            <label className="block">
+              You have already enrolled this course.
+            </label>
           )}
           <button
             onClick={handleEnroll}
