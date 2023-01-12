@@ -1,21 +1,24 @@
+import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
-import { api } from '../../../utils/axios';
 import { useEffect, useState } from 'react';
+
 import { CourseDetailDto } from '../../../models/Dto';
 import { useAuth } from '../../../providers/AuthProvider';
+import { ErrorDto } from '../../../types/dto';
+import { api } from '../../../utils/axios';
 
 export default function courseDetail() {
   const { isLoggedIn, username, role } = useAuth();
   const router = useRouter();
   const [course, setCourse] = useState<CourseDetailDto | null>(null);
   const [users, setUsers] = useState<any[]>([]);
+  const [isEnrolling, setIsEnrolling] = useState<boolean>(false);
   const { isReady } = router;
 
   useEffect(() => {
     if (!isReady) return;
 
     const id = parseInt(router.query.id as string);
-    console.log(id);
 
     const getData = async () => {
       try {
@@ -42,6 +45,29 @@ export default function courseDetail() {
 
   console.log(isLoggedIn, role, users);
 
+  const handleEnroll = async () => {
+    // Todo: create api for enrolling course
+    try {
+      setIsEnrolling(true);
+      const id = parseInt(router.query.id as string);
+      const res = await api.post('/enrolls', {
+        username: username,
+        courseId: id,
+      });
+      console.log(res);
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        const { response } = err as AxiosError<ErrorDto>;
+        const message = response?.data.message;
+        if (message) throw new Error(message);
+      }
+      throw new Error('Unknown error');
+    }
+    setIsEnrolling(false);
+  };
+
+  const disableBtn = role === 'instructor' || isEnrolling;
+
   return (
     <>
       <section className="px-[8%] py-[5%]">
@@ -52,7 +78,18 @@ export default function courseDetail() {
           Description
         </span>
         <p className="text-lg">{course?.description}</p>
-        {isLoggedIn && role === 'instructor' ? (
+
+        {/* Todo: grey out this button if user already enrolled */}
+        <button
+          onClick={handleEnroll}
+          className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
+          disabled={disableBtn}
+        >
+          Enroll Course
+        </button>
+
+        {/* Todo: Only course'instructor can view its enrolled students ? */}
+        {isLoggedIn && role === 'instructor' && (
           <>
             <span className="text-xl text-grey-dark mt-[5%] block">
               Lists of Enrolled Students
@@ -70,8 +107,6 @@ export default function courseDetail() {
               Total : {users.length - 1} students
             </p>
           </>
-        ) : (
-          <></>
         )}
       </section>
     </>
