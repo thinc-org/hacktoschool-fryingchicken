@@ -24,7 +24,7 @@ export class AppController {
 
   //  FOR TEST
   // curl -X POST http://localhost:5679/auth/login -d '{"username": "user1", "password": "password1"}' -H "Content-Type: application/json"
-  // curl http://localhost:5679/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwicm9sZSI6Imluc3RydWN0b3IiLCJpYXQiOjE2NzM0NDc2NzAsImV4cCI6MTY3MzQ1MTI3MH0.WXE6BS0oEzYJ5jvcNdEoIMns4WcZyLPIMA6vcimuL-E"
+  // curl http://localhost:5679/profile -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im5hY25hbm8iLCJyb2xlIjoic3R1ZGVudCIsImlhdCI6MTY3MzU0ODgzMCwiZXhwIjoxNjczNTUyNDMwfQ.ENb_vI-gswxtv1N7kw0QSfGTuTYdjw_AcOan061y_wA"
 
   @UseGuards(LocalAuthGuard)
   // @UseGuards(JwtAuthGuard)
@@ -46,8 +46,8 @@ export class AppController {
   }
 
   @Get('test')
-  @Roles([Role.Admin])
-  @UseGuards(RolesGuard)
+  @Roles([Role.Student])
+  @UseGuards(JwtAuthGuard, RolesGuard)
   testRole(): string {
     return 'Hello';
   }

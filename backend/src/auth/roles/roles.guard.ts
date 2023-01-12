@@ -15,10 +15,10 @@ export class RolesGuard implements CanActivate {
     ]);
     if (!requiredRoles) return true;
     const { user } = context.switchToHttp().getRequest();
+    return requiredRoles.some((role) => user.role?.includes(role));
 
     // Test payload
-    const payload: JwtPayload = { username: 'nac', role: Role.Student };
-
+    const payload: JwtPayload = { username: 'nacnano', role: Role.Student };
     return requiredRoles.some((role) => payload.role?.includes(role));
   }
 }
