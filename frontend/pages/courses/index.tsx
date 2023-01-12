@@ -3,64 +3,29 @@ import SingleCourses from '../../components/SingleCourses';
 import { api } from '../../utils/axios';
 import { useEffect, useState } from 'react';
 import { CourseDetailDto } from '../../models/Dto';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const MyCourses = () => {
   const [data, setData] = useState<CourseDetailDto[]>([]);
+  const router = useRouter();
+  const { isReady } = router;
 
   useEffect(() => {
+    if (!isReady) return;
+
     const getData = async () => {
-      const res = await api.get('/courses');
-      const prop = await res.data;
-      {
-        // const prop = [
-        //   {
-        //     id: 1,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        //   {
-        //     id: 2,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        //   {
-        //     id: 3,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        //   {
-        //     id: 4,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        //   {
-        //     id: 5,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        //   {
-        //     id: 6,
-        //     name: 'General Philosophy',
-        //     instructorId: 313,
-        //     instructorName: 'Nac Nacho',
-        //     description: 'You will learn the meaning of life from this course',
-        //   },
-        // ];
+      try {
+        const res = await api.get('/courses');
+        const prop = await res.data;
+        setData(prop);
+      } catch (err) {
+        console.log(err);
+        toast.error('Unknown Error');
       }
-      setData(prop);
     };
     getData();
-  }, []);
+  }, [isReady]);
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
