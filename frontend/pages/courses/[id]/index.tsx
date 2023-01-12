@@ -14,7 +14,10 @@ export default function courseDetail() {
   const [course, setCourse] = useState<CourseDetailDto | null>(null);
   const [users, setUsers] = useState<any[]>([]);
   const [isEnrolling, setIsEnrolling] = useState<boolean>(false);
+  const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
+
+  const disableBtn = role === 'instructor' || isEnrolling || isEnrolled;
 
   useEffect(() => {
     if (!isReady) return;
@@ -25,8 +28,18 @@ export default function courseDetail() {
       try {
         const res = await api.get(`/courses/${id}`);
         setCourse(res.data);
-        const res1 = await api.get(`/enrolls/courseId/${id}`);
-        setUsers(res1.data);
+
+        // Check if user is already enrolled
+        const isEnrolled = await api.get(
+          `/enrolls/isEnrolled/${id}?username=${username}`
+        );
+        setIsEnrolled(isEnrolled.data);
+
+        // Get students list for instructor
+        if (role === 'instructor') {
+          const res1 = await api.get(`/enrolls/courseId/${id}`);
+          setUsers(res1.data);
+        }
         // console.log(res.data.name, res.data.instructorName);
       } catch (err) {
         // Todo: Add error handlers
@@ -41,6 +54,7 @@ export default function courseDetail() {
 
   const handleEnroll = async () => {
     // Todo: create api for enrolling course
+    if (!isLoggedIn) return router.push('/login');
     try {
       setIsEnrolling(true);
       const id = parseInt(router.query.id as string);
@@ -61,8 +75,6 @@ export default function courseDetail() {
     setIsEnrolling(false);
   };
 
-  const disableBtn = role === 'instructor' || isEnrolling;
-
   return (
     <>
       <section className="px-[8%] py-[5%]">
@@ -74,14 +86,19 @@ export default function courseDetail() {
         </span>
         <p className="text-lg">{course?.description}</p>
 
-        {/* Todo: grey out this button if user already enrolled */}
-        <button
-          onClick={handleEnroll}
-          className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none disabled:text-white"
-          disabled={disableBtn}
-        >
-          Enroll Course
-        </button>
+        <div className=" my-[4%]">
+          {/* Todo: grey out this button if user already enrolled */}
+          {isEnrolled && (
+            <label className="block">You already enrolled this course.</label>
+          )}
+          <button
+            onClick={handleEnroll}
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[3%] py-[1%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none disabled:text-white"
+            disabled={disableBtn}
+          >
+            Enroll Course
+          </button>
+        </div>
 
         {/* Todo: Only course'instructor can view its enrolled students ? */}
         {isLoggedIn && role === 'instructor' && (
