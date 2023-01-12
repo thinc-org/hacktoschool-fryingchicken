@@ -1,0 +1,13 @@
+version: "3"
+services:
+  frontend:
+    build: ./frontend
+    container_name: hts-frontend
+    ports:
+      - 3000:3000
+
+  backend:
+    build: ./backend
+    container_name: hts-backend
+    ports:
+      - 5679:5679
