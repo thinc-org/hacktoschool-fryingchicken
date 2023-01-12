@@ -66,7 +66,7 @@ const AuthProvider = (props: AuthProviderProps) => {
         role,
       });
 
-      localStorage.setItem('token', res.data.Authorization);
+      localStorage.setItem('token', res.data.access_token);
       localStorage.setItem('username', username);
       localStorage.setItem('role', role);
       setUsername(username);
