@@ -10,12 +10,17 @@ import Link from 'next/link';
 import SingleCourses from '../components/SingleCourses';
 import Head from 'next/head';
 import CreateCourseModal from '../components/CreateCourseModal';
+import SearchBox from '../components/SearchBox';
 
 export default function mycourse_instructor() {
   const { username, role } = useAuth();
   const [showModal, setShowModal] = useState(false);
   const [enrolls, setEnrolls] = useState<EnrollDetailDto[]>([]);
   const [courses, setCourses] = useState<CourseDetailDto[]>([]);
+  const [showData, setShowData] = useState<CourseDetailDto[]>([]);
+  const [name, setName] = useState('');
+  const [searchBy, setSearchBy] = useState(false);
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
@@ -78,14 +83,15 @@ export default function mycourse_instructor() {
   const getEnrolls = async () => {
     const res = await api(`/enrolls/username/${username}`);
     const data = await res.data;
+    // console.log(data);
+    const tmp: CourseDetailDto[] = [];
+    data.map((enroll: any) => {
+      tmp.push(enroll.course);
+    });
     setEnrolls(data);
     setIsLoading(false);
-  };
-  const getCourse = async (enroll: EnrollDetailDto) => {
-    const res = await api.get(`/courses/${enroll.courseId}`);
-    const prop: CourseDetailDto = await res.data;
-    setCourses([...courses, prop]);
-    setIndex(index + 1);
+    setCourses(tmp);
+    setShowData(tmp);
   };
 
   // Render component when username is loaded
@@ -93,6 +99,7 @@ export default function mycourse_instructor() {
     getEnrolls();
   }, [username]);
 
+  // handleSubmit is used for creating new course by instructor
   const handleSubmit = async () => {
     const res = await api.post('/courses', {
       name: title,
@@ -110,10 +117,6 @@ export default function mycourse_instructor() {
     setDescription('');
   };
 
-  if (index < enrolls.length) {
-    getCourse(enrolls[index]);
-  }
-
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
@@ -126,9 +129,21 @@ export default function mycourse_instructor() {
 
         <main className="flex flex-col px-20  basis-2/3">
           <h1 className="text-6xl font-bold">My Courses</h1>
+      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
+        <h1 className="text-6xl font-bold">My Courses</h1>
+
+        <SearchBox
+          name={name}
+          setName={setName}
+          showData={showData}
+          setShowData={setShowData}
+          searchBy={searchBy}
+          setSearchBy={setSearchBy}
+          data={courses}
+        />
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
-            {courses.map((course: CourseDetailDto, index) => {
+            {showData.map((course: CourseDetailDto, index) => {
               return (
                 <div
                   className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"

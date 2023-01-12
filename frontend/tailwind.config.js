@@ -5,11 +5,16 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
   ],
+  plugins: [require('daisyui')],
+  daisyui: {
+    prefix: 'daisy-',
+    darkTheme: 'light',
+  },
   theme: {
     extend: {
       fontFamily: {
         'dela-gothic-one': ['var(--font-dela-gothic-one)'],
-        'montserrat': ['var(--font-montserrat)']
+        montserrat: ['var(--font-montserrat)'],
       },
       colors: {
         'cyan-dark': '#2B788B',
@@ -24,9 +29,8 @@ module.exports = {
         'green-medium': '#639B6D',
         'pink-medium': '#A15993',
         'red-medium': '#A95151',
-        'yellow-medium': '#C4A24C'
-      }
+        'yellow-medium': '#C4A24C',
+      },
     },
   },
-  plugins: [],
-}
+};
