@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import SingleCourses from '../../components/SingleCourses';
+import SearchBox from '../../components/SearchBox';
 import { api } from '../../utils/axios';
 import { useEffect, useState } from 'react';
 import { CourseDetailDto } from '../../models/Dto';
@@ -8,6 +9,9 @@ import toast from 'react-hot-toast';
 
 const MyCourses = () => {
   const [data, setData] = useState<CourseDetailDto[]>([]);
+  const [showData, setShowData] = useState<CourseDetailDto[]>([]);
+  const [name, setName] = useState('');
+  const [searchBy, setSearchBy] = useState(false);
   const router = useRouter();
   const { isReady } = router;
 
@@ -19,6 +23,7 @@ const MyCourses = () => {
         const res = await api.get('/courses');
         const prop = await res.data;
         setData(prop);
+        setShowData(prop);
       } catch (err) {
         console.log(err);
         toast.error('Unknown Error');
@@ -37,8 +42,18 @@ const MyCourses = () => {
       <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
         <h1 className="text-6xl font-bold">All Courses</h1>
 
+        <SearchBox
+          name={name}
+          setName={setName}
+          showData={showData}
+          setShowData={setShowData}
+          searchBy={searchBy}
+          setSearchBy={setSearchBy}
+          data={data}
+        />
+
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {data.map((prop: CourseDetailDto) => (
+          {showData.map((prop: CourseDetailDto) => (
             <SingleCourses data={prop} key={prop.id} />
           ))}
         </div>

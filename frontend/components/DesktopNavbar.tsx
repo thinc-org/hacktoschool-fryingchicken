@@ -9,7 +9,7 @@ interface props {
 }
 
 const DesktopNavbar = ({ links }: props) => {
-  const { isLoggedIn, logout } = useAuth();
+  const { isLoggedIn, username, logout } = useAuth();
 
   return (
     <header className="hide-md bg-grey-light z-10 nav-container flex justify-between h-[10vh] px-[8%] items-center sticky top-0">
@@ -41,7 +41,7 @@ const DesktopNavbar = ({ links }: props) => {
       </div>
       {!isLoggedIn ? (
         <Link href="login" className="text-[#757575] text-xl font-montserrat">
-          Log In
+          Login
         </Link>
       ) : (
         <Link
@@ -49,7 +49,7 @@ const DesktopNavbar = ({ links }: props) => {
           onClick={logout}
           className="text-[#757575] text-xl font-montserrat"
         >
-          Log Out
+          Welcome {username} <b>Log Out</b>
         </Link>
       )}
     </header>
