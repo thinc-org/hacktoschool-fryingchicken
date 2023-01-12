@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
 import { CourseDetailDto } from '../../../models/Dto';
 import { useAuth } from '../../../providers/AuthProvider';
@@ -28,16 +29,9 @@ export default function courseDetail() {
         setUsers(res1.data);
         // console.log(res.data.name, res.data.instructorName);
       } catch (err) {
-        console.log(err);
-
         // Todo: Add error handlers
+        toast.error('Unknown Error');
         // Todo: Remove below lines
-        // setData({
-        //   id: id,
-        //   name: 'General Philosophy',
-        //   instructorName: 'Nac Nacho',
-        //   description: 'You will learn the meaning of life from this course',
-        // });
       }
     };
     getData();
@@ -56,12 +50,13 @@ export default function courseDetail() {
       });
       console.log(res);
     } catch (err) {
+      let message = 'Unknown Error';
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
-        const message = response?.data.message;
-        if (message) throw new Error(message);
+        const errorMsg = response?.data.message;
+        if (errorMsg) message = errorMsg;
       }
-      throw new Error('Unknown error');
+      toast.error(message);
     }
     setIsEnrolling(false);
   };
