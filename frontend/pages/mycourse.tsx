@@ -96,7 +96,7 @@ export default function mycourse_instructor() {
           {courses.map((course: CourseDetailDto, index) => {
             return (
               <div
-                className="border-2 w-3/4 mx-auto my-3 rounded p-3"
+                className="border-2 w-3/4 mx-auto my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
                 key={index}
               >
                 <Link href={'/courses/' + course.id}>
