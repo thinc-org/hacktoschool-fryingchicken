@@ -15,6 +15,7 @@ export default function mycourse_instructor() {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   // const courses = [
   //   {
@@ -46,6 +47,7 @@ export default function mycourse_instructor() {
     const res = await api(`/enrolls/username/${username}`);
     const data = await res.data;
     setEnrolls(data);
+    setIsLoading(false);
   };
   const getCourse = async (enroll: EnrollDetailDto) => {
     const res = await api.get(`/courses/${enroll.courseId}`);
@@ -54,9 +56,10 @@ export default function mycourse_instructor() {
     setIndex(index + 1);
   };
 
+  // Render component when username is loaded
   useEffect(() => {
     getEnrolls();
-  }, []);
+  }, [username]);
 
   const handleSubmit = async () => {
     const res = await api.post('/courses', {
@@ -77,6 +80,8 @@ export default function mycourse_instructor() {
     getCourse(enrolls[index]);
   }
 
+  if (isLoading) return <h1>Loading...</h1>;
+
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
@@ -88,11 +93,11 @@ export default function mycourse_instructor() {
         <h1 className="text-6xl font-bold">My Courses</h1>
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {courses.map((course: CourseDetailDto) => {
+          {courses.map((course: CourseDetailDto, index) => {
             return (
               <div
                 className="border-2 w-3/4 mx-auto my-3 rounded p-3"
-                key={course.id}
+                key={index}
               >
                 <Link href={'/courses/' + course.id}>
                   <h1 className="text-2xl font-bold">{course.name}</h1>
