@@ -6,6 +6,7 @@ export interface CourseDetailDto {
   description: string;
   updatedAt?: Date;
   createdAt?: Date;
+  studentCount: number;
 }
 
 export interface EnrollDetailDto {
