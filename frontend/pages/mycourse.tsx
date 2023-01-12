@@ -101,7 +101,7 @@ export default function mycourse_instructor() {
               >
                 <Link href={'/courses/' + course.id}>
                   <h1 className="text-2xl font-bold">{course.name}</h1>
-                  {role == 'student' ? (
+                  {role === 'student' || role === 'admin' ? (
                     <p>
                       by {course.instructorName}
                       <br />
@@ -116,7 +116,7 @@ export default function mycourse_instructor() {
             );
           })}
 
-          {role == 'instructor' && (
+          {(role === 'instructor' || role === 'admin') && (
             <div className="flex justify-end w-3/4 mx-auto">
               <button
                 className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
