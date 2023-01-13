@@ -3,7 +3,7 @@ FROM node:16-alpine AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.jsons package-lock.json* pnpm-lock.yaml* ./
+COPY package.json package-lock.json* pnpm-lock.yaml* ./
 RUN \
   if [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i --frozen-lockfile; \
   else echo "Lockfile not found." && exit 1; \
