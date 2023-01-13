@@ -56,25 +56,40 @@ export default function SearchBox({
         return false;
       });
     } else if (e.target.id === 'button3') {
-      newCourse = data.filter(
-        (prop) =>
-          prop.name === text3 ||
-          prop.instructorName === text3 ||
-          prop.description === text3
-      );
+      if (text3 === '') {
+        newCourse = data;
+      } else if (text3.split(' ').length > 1) {
+        newCourse = data.filter(
+          (prop) =>
+            prop.name.includes(text3) ||
+            prop.instructorName.includes(text3) ||
+            prop.description.includes(text3)
+        );
+      } else {
+        newCourse = data.filter(
+          (prop) =>
+            prop.name.split(' ').includes(text3) ||
+            prop.instructorName.split(' ').includes(text3) ||
+            prop.description.split(' ').includes(text3)
+        );
+      }
     } else if (e.target.id === 'button4') {
-      const texts = text4.split(' ');
-      newCourse = data.filter((prop) => {
-        for (const text of texts) {
-          if (
-            prop.name.includes(text) ||
-            prop.instructorName.includes(text) ||
-            prop.description.includes(text)
-          )
-            return false;
-        }
-        return true;
-      });
+      if (text4 === '') {
+        newCourse = data;
+      } else {
+        const texts = text4.split(' ');
+        newCourse = data.filter((prop) => {
+          for (const text of texts) {
+            if (
+              prop.name.includes(text) ||
+              prop.instructorName.includes(text) ||
+              prop.description.includes(text)
+            )
+              return false;
+          }
+          return true;
+        });
+      }
     }
     setShowData(newCourse);
   };
