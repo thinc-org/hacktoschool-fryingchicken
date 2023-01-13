@@ -47,12 +47,31 @@ async function main() {
   //     },
   //   },
   // });
-  const post5 = await prisma.users.create({
+  // const post5 = await prisma.users.create({
+  //   data: {
+  //     username: 'admin101',
+  //     password: 'p@ssw0rd404',
+  //     role: 'admin',
+  //     active: true,
+  //   },
+  // });
+  const post5 = await prisma.announcementRead.create({
     data: {
-      username: 'admin101',
-      password: 'p@ssw0rd404',
-      role: 'admin',
-      active: true,
+      user: {
+        connect: {
+          username: 'jomnoiz',
+        },
+      },
+      course: {
+        connect: {
+          id: 2,
+        },
+      },
+      announcement: {
+        connect: {
+          id: 1,
+        },
+      },
     },
   });
   console.log({ post5 });

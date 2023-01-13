@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateEnrollDto } from './dto/create-enroll.dto';
 import { UpdateEnrollDto } from './dto/update-enroll.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Role } from 'src/auth/roles/role.enum';
 
 @Injectable()
 export class EnrollsService {
@@ -28,11 +29,30 @@ export class EnrollsService {
     return this.prisma.enrolls.findMany({ where: { courseId } });
   }
 
-  findManyUsername(username: string) {
-    return this.prisma.enrolls.findMany({
-      where: { username },
-      include: { course: true },
+  async findManyUsername(username: string, role: Role) {
+    if (role === 'student') {
+      return this.prisma.enrolls.findMany({
+        where: { username: username },
+        include: { course: true },
+      });
+    }
+
+    // Get the number of
+    const studentCount = await this.prisma.enrolls.groupBy({
+      by: ['courseId'],
+      _count: {
+        username: true,
+      },
     });
+    let arr = [];
+    for (let d of studentCount) {
+      const course = await this.prisma.enrolls.findFirst({
+        where: { courseId: d.courseId, username: username },
+        include: { course: true },
+      });
+      if (!!course) arr.push({ ...course, studentCount: d['_count'].username });
+    }
+    return arr;
   }
 
   update(id: number, updateEnrollDto: UpdateEnrollDto) {

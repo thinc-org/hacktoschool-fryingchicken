@@ -7,7 +7,7 @@ interface props {
   handleSubmit: () => Promise<void>;
 }
 
-export default function CreateCourseModal({
+export default function CreateAnnouncementModal({
   setShowAnnouncementModal,
   setTitle,
   title,
@@ -23,7 +23,7 @@ export default function CreateCourseModal({
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             {/*header*/}{' '}
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-              <h3 className="text-3xl font-semibold">Course detail</h3>
+              <h3 className="text-3xl font-semibold">Announcement detail</h3>
               <button
                 className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                 onClick={() => setShowAnnouncementModal(false)}
@@ -48,7 +48,7 @@ export default function CreateCourseModal({
                     // name="about"
                     type="text"
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="Course name"
+                    placeholder="Announcement title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                   />
@@ -67,7 +67,7 @@ export default function CreateCourseModal({
                     // name="about"
                     rows={3}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                    placeholder="What is this course about?"
+                    placeholder="Detail of an announcement."
                     // defaultValue={''}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
