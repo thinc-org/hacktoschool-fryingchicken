@@ -16,16 +16,16 @@ const Footer = ({ links }: props) => {
       <section className="flex items-center flex-col flex-wrap lg:flex-nowrap lg:flex-row lg:justify-center lg:w-[100vw]">
         {links.map((link, index) => {
           return (
-            <a key={index} href={link.link} className="pt-1 lg:mx-[2%]">
+            <Link key={index} href={link.link} className="pt-1 lg:mx-[2%]">
               {link.name}
-            </a>
+            </Link>
           );
         })}
       </section>
       <hr className="w-[90%] h-[0.5px] mx-auto my-4 bg-grey-dark border-0 rounded"></hr>
       <div className="flex flex-col items-center">
         <section className="pb-[3%] lg:pb-[1%] flex justify-center w-[100vw]">
-          <span className="mx-[2%]">
+          <Link href="https://cleverse.com/" className="mx-[2%]">
             <Image
               className="mx-auto"
               src={Cleverse}
@@ -34,8 +34,8 @@ const Footer = ({ links }: props) => {
               height="40"
             />
             Cleverse
-          </span>
-          <span className="mx-[2%]">
+          </Link>
+          <Link href="https://thinc.in.th/" className="mx-[2%]">
             <Image
               className="mx-auto"
               src={Thinc}
@@ -44,7 +44,7 @@ const Footer = ({ links }: props) => {
               height="40"
             />
             Thinc.
-          </span>
+          </Link>
         </section>
         <span className="text-[0.6rem] sm:text-xs">
           ©2021 Thinc. x Cleverse. Project for <u>hack to school</u>
