@@ -133,7 +133,7 @@ export default function SearchBox({
     setShowData(newCourse);
   };
 
-  return isAdvanced ? (
+  return !isAdvanced ? (
     <>
       <div className="items-center relative p-6 flex flex-row gap-4">
         <label htmlFor="about" className="w-56 block font-medium text-gray-700">
@@ -193,7 +193,7 @@ export default function SearchBox({
           }
         >
           Use advance search
-        </h1>
+        </button>
       </div>
     </>
   ) : (

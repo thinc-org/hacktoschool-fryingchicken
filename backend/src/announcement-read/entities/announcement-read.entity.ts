@@ -15,6 +15,9 @@ export class AnnouncementReadEntity implements AnnouncementRead {
   announcementId: number;
 
   @ApiProperty()
+  isRead: boolean;
+
+  @ApiProperty()
   createdAt: Date;
 
   @ApiProperty()
