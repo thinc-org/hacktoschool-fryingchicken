@@ -40,17 +40,23 @@ const DesktopNavbar = ({ links }: props) => {
         </nav>
       </div>
       {!isLoggedIn ? (
-        <Link href="/login" className="text-[#757575] text-xl font-montserrat">
+        <Link
+          href="/login"
+          className="text-[#757575] text-xl font-montserrat hover:underline hover:text-black"
+        >
           Login
         </Link>
       ) : (
-        <Link
-          href="/"
-          onClick={logout}
-          className="text-[#757575] text-xl font-montserrat"
-        >
-          Welcome {username} <b>Log Out</b>
-        </Link>
+        <span className="text-[#757575] text-xl font-montserrat">
+          Welcome {username}
+          <Link
+            href="/"
+            onClick={logout}
+            className="ml-2 hover:underline hover:text-black"
+          >
+            <b>Log Out</b>
+          </Link>
+        </span>
       )}
     </header>
   );

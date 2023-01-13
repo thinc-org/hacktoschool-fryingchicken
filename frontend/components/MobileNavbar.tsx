@@ -37,7 +37,7 @@ const MobileNavbar = ({ links }: props) => {
         {!isLoggedIn ? (
           <Link
             href="/login"
-            className="text-[#757575] text-sm lg:text-xl font-montserrat"
+            className="text-[#757575] text-sm lg:text-xl font-montserrat hover:underline hover:text-black"
           >
             Login
           </Link>
@@ -45,7 +45,7 @@ const MobileNavbar = ({ links }: props) => {
           <Link
             href="/"
             onClick={logout}
-            className="text-[#757575] text-sm lg:text-xl font-montserrat"
+            className="text-[#757575] text-sm lg:text-xl font-montserrat hover:underline hover:text-black"
           >
             Logout
           </Link>
