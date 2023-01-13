@@ -1,4 +1,4 @@
-FROM node:18 AS builder
+FROM node:16-alpine AS builder
 
 WORKDIR /app
 
@@ -14,7 +14,7 @@ COPY . .
 
 RUN pnpm build
 
-FROM node:18
+FROM node:16-alpine
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package*.json ./
