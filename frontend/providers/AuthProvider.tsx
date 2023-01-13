@@ -55,9 +55,10 @@ const AuthProvider = (props: AuthProviderProps) => {
       const res1 = await api.get(`/users/${username}`);
       const role = res1.data.role;
 
-      if (res1.data.password !== password) {
-        throw new Error("Password doesn't match");
-      }
+      // Encrypt Soon
+      // if (res1.data.password !== password) {
+      //   throw new Error("Password doesn't match");
+      // }
 
       const res = await api.post('/auth/login', {
         username,
