@@ -1,0 +1,52 @@
+{
+  "name": "turbo-next-nest-rest-prisma",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build --continue",
+    "dev": "turbo run dev --parallel",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "build:client": "turbo run --filter=frontend build",
+    "start:client": "turbo run --filter=frontend start",
+    "build:server": "turbo run --filter=backend build",
+    "start:server": "turbo run --filter=backend start"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.8.1",
+    "@vue/compiler-sfc": "^3.2.45"
+  },
+  "devDependencies": {
+    "@leomotors/config": "^0.9.1",
+    "@nestjs/cli": "^9.1.8",
+    "@trivago/prettier-plugin-sort-imports": "^4.0.0",
+    "@types/eslint": "^8.4.10",
+    "@types/node": "^18.11.18",
+    "@types/prettier": "^2.7.2",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "crlf-phobia": "^1.0.1",
+    "eslint": "^8.31.0",
+    "eslint-config-next": "^13.1.1",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-sort-destructure-keys": "^1.4.0",
+    "prettier": "^2.8.2",
+    "prettier-plugin-tailwindcss": "^0.2.1",
+    "prisma": "^4.8.1",
+    "prisma-nestjs-graphql": "^17.1.0",
+    "turbo": "^1.6.3",
+    "typescript": "^4.9.4"
+  },
+  "engines": {
+    "node": "^16.16.0",
+    "pnpm": "^7.13.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "@babel/parser": "^7.20.0"
+    }
+  }
+}
