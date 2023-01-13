@@ -9,4 +9,7 @@ export class CreateAnnouncementReadDto {
 
   @ApiProperty()
   announcementId: number;
+
+  @ApiProperty()
+  isRead: boolean;
 }

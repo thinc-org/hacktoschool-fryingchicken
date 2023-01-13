@@ -109,7 +109,7 @@ export default function courseDetail() {
         <p className="text-lg">{course?.description}</p>
 
         <div className=" my-[4%]">
-          {role === 'student' && isEnrolled && (
+          {isEnrolled && (
             <label className="block">
               You have already enrolled this course.
             </label>
@@ -145,8 +145,9 @@ export default function courseDetail() {
             </>
           )}
       </section>
-      <section className="flex flex-col basis-1/2">
-        <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
+      <section className="max-h-full basis-1/2 pr-40 pl-5 py-[5%]">
+        <h1 className="text-3xl font-extrabold">Announcement</h1>
+        <div className=" basis-1/3 border-2 rounded card shadow-l overflow-auto mt-[5%]">
           <div className="card-body">
             {announcement.map((ann: AnnouncementDetailDto, index) => {
               return (

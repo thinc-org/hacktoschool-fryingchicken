@@ -21,15 +21,16 @@ export class AnnouncementReadService {
   }
 
   findManyByUser(username: string) {
-    return this.prisma.enrolls.findMany({
+    return this.prisma.announcementRead.findMany({
       where: { username: username },
-      include: { course: { select: { AnnouncementRead: true } } },
+      include: { course: { select: { name: true } } },
     });
   }
 
   findManyByCourse(id: number) {
     return this.prisma.announcementRead.findMany({
       where: { courseId: id },
+      include: { course: { select: { name: true } } },
     });
   }
 
