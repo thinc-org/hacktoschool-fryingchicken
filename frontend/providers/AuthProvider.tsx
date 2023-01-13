@@ -5,10 +5,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { AxiosError } from 'axios';
-import { api } from '../utils/axios';
 import toast from 'react-hot-toast';
-import { ErrorDto } from '../types/dto';
+
+import { api } from '../utils/axios';
 
 interface IAuthContext {
   isLoggedIn: boolean;
@@ -72,13 +71,10 @@ const AuthProvider = (props: AuthProviderProps) => {
       setUsername(username);
       setLoggedIn(true);
       setRole(role);
-    } catch (err) {
-      if (err instanceof AxiosError) {
-        const { response } = err as AxiosError<ErrorDto>;
-        const message = response?.data.message;
-        if (message) throw new Error(message);
-      }
-      throw new Error('Unknown error');
+    } catch (err: any) {
+      let message = 'Unknown Error';
+      if (!!err.message) message = err.message;
+      throw new Error(message);
     }
   };
 
