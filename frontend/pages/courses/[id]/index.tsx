@@ -26,9 +26,9 @@ export default function courseDetail() {
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [announcements, setAnnouncements] = useState<
-    AnnouncementReadDetailDto[]
-  >([]);
+  const [announcements, setAnnouncements] = useState<AnnouncementDetailDto[]>(
+    []
+  );
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   // const Tannouncement: AnnouncementDetailDto[] = [
   //   {
@@ -50,7 +50,7 @@ export default function courseDetail() {
   // ];
 
   const getAnnouncement = async () => {
-    const res = await api.get('/announcement-read/byUsername');
+    const res = await api.get(`announcement/byCourse/${course?.id}`);
     const data = await res.data;
 
     setAnnouncements(data);
@@ -60,8 +60,8 @@ export default function courseDetail() {
     const res = await api.post('/announcement', {
       title,
       content: description,
-      courseId: course,
-      courseName: course.name,
+      courseId: course?.id,
+      courseName: course?.name,
     });
     await getAnnouncement();
     setTitle('');
@@ -197,17 +197,17 @@ export default function courseDetail() {
         )}
         <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
           <div className="card-body">
-            {announcements.map((announcement: AnnouncementReadDetailDto) => {
+            {announcements.map((announcement: AnnouncementDetailDto) => {
               return (
                 <div
                   className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
                   // key={index}
                   onClick={() => {
-                    setAnDetail(announcement.announcement);
+                    setAnDetail(announcement);
                   }}
                 >
-                  <h3>{announcement.announcement.title}</h3>
-                  <p>{announcement.announcement.course.name}</p>
+                  <h3>{announcement.title}</h3>
+                  <p>{announcement.course.name}</p>
                 </div>
               );
             })}
