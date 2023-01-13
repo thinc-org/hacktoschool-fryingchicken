@@ -43,39 +43,38 @@ export default function Login() {
 
   if (isLoggedIn) router.push('/');
   return (
-    <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
-      <div className="">
-        <form onSubmit={handleSubmit}>
+    <main className="px-[8%] my-[3%] flex flex-col mx-auto justify-between overflow-x-hidden md:flex-row text-center md:text-left">
+      <div className="mx-auto">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center daisy-form-control"
+        >
           <h1 className="text-cyan-dark font-bold text-center text-4xl">
             Login
           </h1>
-          <div className="form-floating my-3">
+          <label className="daisy-input-group daisy-input self-start p-0 my-[5%]">
+            <span>username</span>
             <input
-              required
-              type="username"
-              className="form-control"
-              id="floatingInput"
-              name="username"
+              type="text"
               placeholder="username"
-              ref={usernameRef}
-            />
-            <label htmlFor="floatingInput">username </label>
-          </div>
-
-          <div className="form-floating my-3">
-            <input
               required
-              name="password"
-              type="password"
-              className="form-control"
-              id="floatingPassword"
-              placeholder="password"
-              ref={passwordRef}
+              ref={usernameRef}
+              className="daisy-input daisy-input-bordered"
             />
-            <label htmlFor="floatingPassword">Password</label>
-          </div>
+          </label>
+          <label className="daisy-input-group p-0">
+            <span>password</span>
+            <input
+              type="password"
+              placeholder="password"
+              required
+              ref={passwordRef}
+              className="daisy-input daisy-input-bordered"
+            />
+          </label>
+
           <button
-            className="text-xl content-center"
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
             type="submit"
             disabled={isSubmitting}
           >
@@ -84,7 +83,10 @@ export default function Login() {
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <Link href="register" className="text-dark underline-offset-1">
+            <Link
+              href="register"
+              className="text-dark underline-offset-1 hover:underline"
+            >
               Register
             </Link>
           </div>
