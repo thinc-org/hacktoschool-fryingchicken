@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import Cleverse from '../public/Cleverse.jpg';
 import Thinc from '../public/Thinc.jpg';
+import Link from 'next/link';
 
 interface props {
   links: {
