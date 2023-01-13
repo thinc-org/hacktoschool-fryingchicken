@@ -129,7 +129,7 @@ export default function courseDetail() {
         <p className="text-lg">{course?.description}</p>
 
         <div className=" my-[4%]">
-          {isEnrolled && (
+          {role === 'student' && isEnrolled && (
             <label className="block">
               You have already enrolled this course.
             </label>
