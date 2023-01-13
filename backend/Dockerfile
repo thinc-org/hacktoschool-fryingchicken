@@ -9,7 +9,6 @@ COPY package*.json ./
 COPY prisma ./prisma/
 
 RUN pnpm install
-RUN npx prisma generate
 
 COPY . .
 
