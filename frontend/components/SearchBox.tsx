@@ -184,7 +184,7 @@ export default function SearchBox({
           <option value="Description">Description</option>
         </select>
 
-        <h1
+        <button
           className="text-sm w-80 hover:scale-[1.05] hover:cursor-pointer"
           onClick={(e) =>
             setIsAdvanced((prev) => {
