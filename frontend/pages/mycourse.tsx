@@ -21,7 +21,7 @@ export default function mycourse_instructor() {
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
   const [searchBy, setSearchBy] = useState(false);
-  const [showAnnouncement, setShowAnnouncement] = useState(false);
+  const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
@@ -55,7 +55,7 @@ export default function mycourse_instructor() {
   //     enrolledStudent: '78910',
   //   },
   // ];
-  const announcement = [
+  const announcement: AnnouncementDetailDto[] = [
     {
       id: '1',
       title: 'Tomorrow, we will have a quiz.',
@@ -262,38 +262,32 @@ export default function mycourse_instructor() {
             />
           )}
         </main>
-        <main className="flex flex-col px-20  basis-1/3">
+        <div className="flex flex-col px-20  basis-1/3">
           <h1 className=" flex text-4xl font-bold pt-20 pb-10 justify-center">
             Announcement
           </h1>
           <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
             <div className="card-body">
-              {announcement.map((ann) => {
+              {announcement.map((ann: AnnouncementDetailDto, index) => {
                 return (
                   <div
-                    className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
+                    className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
                     // key={index}
-                    onClick={() => setShowAnnouncement(true)}
+                    onClick={() => {
+                      setAnDetail(ann);
+                    }}
                   >
                     <h3>{ann.title}</h3>
                     <p>{ann.courseName}</p>
-
-                    {showAnnouncement && (
-                      <AnnouncementModal
-                        setShowAnnouncement={setShowAnnouncement}
-                        courseName={ann.courseName}
-                        title={ann.title}
-                        description={ann.description}
-                        readList={ann.readList}
-                        createdDate={ann.createdAt}
-                      />
-                    )}
                   </div>
                 );
               })}
+              {!!anDetail && (
+                <AnnouncementModal data={anDetail} setAnDetail={setAnDetail} />
+              )}
             </div>
           </div>
-        </main>
+        </div>
       </div>
     </div>
   );

@@ -21,12 +21,12 @@ export interface EnrollDetailDto {
 }
 
 export interface AnnouncementDetailDto {
-  id: number;
+  id: number | string;
   //announcementId: number;
   title: string;
   description: string;
   courseName: string;
   readList: string[];
-  createdAt?: Date;
+  createdAt: Date;
   // updatedAt?: Date;
 }
