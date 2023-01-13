@@ -47,33 +47,35 @@ async function main() {
   //     },
   //   },
   // });
-  // const post5 = await prisma.users.create({
-  //   data: {
-  //     username: 'admin101',
-  //     password: 'p@ssw0rd404',
-  //     role: 'admin',
-  //     active: true,
-  //   },
-  // });
-  const post5 = await prisma.announcementRead.create({
+  const post5 = await prisma.users.create({
     data: {
-      user: {
-        connect: {
-          username: 'jomnoiz',
-        },
-      },
-      course: {
-        connect: {
-          id: 2,
-        },
-      },
-      announcement: {
-        connect: {
-          id: 1,
-        },
-      },
+      username: 'admin101',
+      password: 'p@ssw0rd404',
+      role: 'admin',
+      active: true,
     },
   });
+  // const post4 = await prisma.announcement.create({
+  //   data: {
+  //     title: 'bruh',
+  //     content: 'bruh bruh',
+  //     courseId: 2,
+  //   },
+  // });
+  // const post5 = await prisma.announcementRead.create({
+  //   data: {
+  //     user: {
+  //       connect: {
+  //         username: 'jomnoiz',
+  //       },
+  //     },
+  //     announcement: {
+  //       connect: {
+  //         id: 3,
+  //       },
+  //     },
+  //   },
+  // });
   console.log({ post5 });
 }
 

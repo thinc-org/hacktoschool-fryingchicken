@@ -9,9 +9,6 @@ export class AnnouncementReadEntity implements AnnouncementRead {
   username: string;
 
   @ApiProperty()
-  courseId: number;
-
-  @ApiProperty()
   announcementId: number;
 
   @ApiProperty()

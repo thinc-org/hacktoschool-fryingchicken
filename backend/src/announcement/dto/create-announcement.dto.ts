@@ -6,4 +6,10 @@ export class CreateAnnouncementDto {
 
   @ApiProperty()
   content: string;
+
+  @ApiProperty()
+  courseId: number;
+
+  @ApiProperty()
+  courseName: string;
 }

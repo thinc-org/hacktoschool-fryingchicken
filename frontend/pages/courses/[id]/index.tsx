@@ -3,7 +3,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { CourseDetailDto } from '../../../models/Dto';
+import {
+  CourseDetailDto,
+  AnnouncementReadDetailDto,
+} from '../../../models/Dto';
 import { useAuth } from '../../../providers/AuthProvider';
 import { ErrorDto } from '../../../types/dto';
 import { api } from '../../../utils/axios';
@@ -23,37 +26,42 @@ export default function courseDetail() {
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
+  const [announcements, setAnnouncements] = useState<
+    AnnouncementReadDetailDto[]
+  >([]);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
-  const Tannouncement: AnnouncementDetailDto[] = [
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-  ];
+  // const Tannouncement: AnnouncementDetailDto[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  // ];
 
   const getAnnouncement = async () => {
-    const res = await api.get('/announcement');
+    const res = await api.get('/announcement-read/byUsername');
     const data = await res.data;
-    setAnnouncement(data);
+
+    setAnnouncements(data);
   };
 
   const handleSubmitNewAnn = async () => {
     const res = await api.post('/announcement', {
       title,
       content: description,
+      courseId: course,
+      courseName: course.name,
     });
     await getAnnouncement();
     setTitle('');
@@ -189,17 +197,17 @@ export default function courseDetail() {
         )}
         <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
           <div className="card-body">
-            {announcement.map((ann: AnnouncementDetailDto, index) => {
+            {announcements.map((announcement: AnnouncementReadDetailDto) => {
               return (
                 <div
                   className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
                   // key={index}
                   onClick={() => {
-                    setAnDetail(ann);
+                    setAnDetail(announcement.announcement);
                   }}
                 >
-                  <h3>{ann.title}</h3>
-                  <p>{ann.courseName}</p>
+                  <h3>{announcement.announcement.title}</h3>
+                  <p>{announcement.announcement.course.name}</p>
                 </div>
               );
             })}

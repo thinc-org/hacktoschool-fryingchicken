@@ -18,6 +18,10 @@ export class AnnouncementService {
     return this.prisma.announcement.findUnique({ where: { id } });
   }
 
+  findManyByCourse(id: number) {
+    return this.prisma.announcement.findMany({ where: { courseId: id } });
+  }
+
   update(id: number, updateAnnouncementDto: UpdateAnnouncementDto) {
     return this.prisma.announcement.update({
       where: { id },
