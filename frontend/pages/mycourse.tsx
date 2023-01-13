@@ -10,6 +10,7 @@ import Link from 'next/link';
 import SingleCourses from '../components/SingleCourses';
 import Head from 'next/head';
 import CreateCourseModal from '../components/CreateCourseModal';
+import AnnouncementModal from '../components/AnnouncementModal';
 import SearchBox from '../components/SearchBox';
 
 export default function mycourse_instructor() {
@@ -20,11 +21,12 @@ export default function mycourse_instructor() {
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
   const [searchBy, setSearchBy] = useState(false);
-
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
   //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
 
   // const courses = [
@@ -60,7 +62,7 @@ export default function mycourse_instructor() {
       description: 'Chapter 1-2',
       courseName: 'Zhong gua language',
       readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: '2012-01-12',
+      createdAt: new Date(),
     },
     {
       id: '2',
@@ -68,7 +70,7 @@ export default function mycourse_instructor() {
       description: 'Chapter 6-9',
       courseName: 'Nihonjin language',
       readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: '2012-01-13',
+      createdAt: new Date(),
     },
     {
       id: '3',
@@ -76,7 +78,79 @@ export default function mycourse_instructor() {
       description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
       courseName: 'ilove C',
       readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: '2012-03-12',
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
     },
   ];
 
@@ -129,18 +203,16 @@ export default function mycourse_instructor() {
 
         <main className="flex flex-col px-20  basis-2/3">
           <h1 className="text-6xl font-bold">My Courses</h1>
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">My Courses</h1>
 
-        <SearchBox
-          name={name}
-          setName={setName}
-          showData={showData}
-          setShowData={setShowData}
-          searchBy={searchBy}
-          setSearchBy={setSearchBy}
-          data={courses}
-        />
+          <SearchBox
+            name={name}
+            setName={setName}
+            showData={showData}
+            setShowData={setShowData}
+            searchBy={searchBy}
+            setSearchBy={setSearchBy}
+            data={courses}
+          />
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
             {showData.map((course: CourseDetailDto, index) => {
@@ -189,6 +261,38 @@ export default function mycourse_instructor() {
               handleSubmit={handleSubmit}
             />
           )}
+        </main>
+        <main className="flex flex-col px-20  basis-1/3">
+          <h1 className=" flex text-4xl font-bold pt-20 pb-10 justify-center">
+            Announcement
+          </h1>
+          <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
+            <div className="card-body">
+              {announcement.map((ann) => {
+                return (
+                  <div
+                    className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
+                    // key={index}
+                    onClick={() => setShowAnnouncement(true)}
+                  >
+                    <h3>{ann.title}</h3>
+                    <p>{ann.courseName}</p>
+
+                    {showAnnouncement && (
+                      <AnnouncementModal
+                        setShowAnnouncement={setShowAnnouncement}
+                        courseName={ann.courseName}
+                        title={ann.title}
+                        description={ann.description}
+                        readList={ann.readList}
+                        createdDate={ann.createdAt}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </main>
       </div>
     </div>

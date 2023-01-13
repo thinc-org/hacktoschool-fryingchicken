@@ -28,5 +28,5 @@ export interface AnnouncementDetailDto {
   courseName: string;
   readList: string[];
   createdAt?: Date;
-  updatedAt?: Date;
+  // updatedAt?: Date;
 }
