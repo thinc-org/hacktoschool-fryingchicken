@@ -48,7 +48,8 @@ export default function courseDetail() {
   //   },
   // ];
 
-  const getAnnouncement = async (id: number) => {
+  const getAnnouncement = async () => {
+    const id = parseInt(router.query.id as string);
     const res = await api.get(`announcement/byCourse/${id}`);
     const data = await res.data;
 
@@ -64,12 +65,6 @@ export default function courseDetail() {
       courseId: course?.id,
       courseName: course?.name,
     });
-    await api.post('/announcement-read/', {
-      username,
-      announcementId: res.data.id,
-      isRead: false,
-    });
-    await getAnnouncement(course.id);
     setTitle('');
     setDescription('');
   };
@@ -104,7 +99,7 @@ export default function courseDetail() {
       }
     };
     getData();
-    getAnnouncement(id);
+    getAnnouncement();
   }, [isReady]);
 
   const handleEnroll = async () => {
