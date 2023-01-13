@@ -44,7 +44,10 @@ export class EnrollsController {
   @UseGuards(JwtAuthGuard)
   @ApiOkResponse({ type: EnrollsEntity })
   findManyUsername(@Request() req) {
-    return this.enrollsService.findManyUsername(req.user.username);
+    return this.enrollsService.findManyUsername(
+      req.user.username,
+      req.user.role
+    );
   }
 
   @Patch(':id')
