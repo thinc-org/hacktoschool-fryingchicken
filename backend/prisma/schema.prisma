@@ -11,25 +11,24 @@ datasource db {
 }
 
 model Users {
-  id               Int                @id @default(autoincrement())
-  username         String             @unique
-  password         String
-  description      String?
-  role             String             @default("student")
-  enrolls          Enrolls[]
-  courses          Courses[]
-  active           Boolean            @default(true)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
-  AnnouncementRead AnnouncementRead[]
+  id          Int       @id @default(autoincrement())
+  username    String    @unique
+  password    String
+  description String?
+  role        String    @default("student")
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  enrolls     Enrolls[]
+  Courses     Courses[]
 }
 
 model Enrolls {
   id        Int      @id @default(autoincrement())
-  course    Courses  @relation(fields: [courseId], references: [id])
   courseId  Int
-  user      Users    @relation(fields: [username], references: [username])
+  course    Courses  @relation(fields: [courseId], references: [id])
   username  String
+  user      Users    @relation(fields: [username], references: [username])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -38,12 +37,12 @@ model Courses {
   id               Int                @id @default(autoincrement())
   name             String
   description      String
-  enrolls          Enrolls[]
   active           Boolean            @default(true)
   createdAt        DateTime           @default(now())
   updatedAt        DateTime           @updatedAt
   instructor       Users              @relation(fields: [instructorName], references: [username])
   instructorName   String
+  enrolls          Enrolls[]
   AnnouncementRead AnnouncementRead[]
 }
 
@@ -58,10 +57,8 @@ model Announcement {
 
 model AnnouncementRead {
   id             Int          @id @default(autoincrement())
-  course         Courses      @relation(fields: [courseId], references: [id])
   courseId       Int
-  user           Users        @relation(fields: [username], references: [username])
-  username       String
+  course         Courses      @relation(fields: [courseId], references: [id])
   announcementId Int
   announcement   Announcement @relation(fields: [announcementId], references: [id])
   createdAt      DateTime     @default(now())
