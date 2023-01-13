@@ -48,9 +48,11 @@ export default function courseDetail() {
   //   },
   // ];
 
-  const getAnnouncement = async () => {
-    const res = await api.get(`announcement/byCourse/${course?.id}`);
+  const getAnnouncement = async (id: number) => {
+    const res = await api.get(`announcement/byCourse/${id}`);
     const data = await res.data;
+
+    console.log(data);
 
     setAnnouncements(data);
   };
@@ -67,7 +69,7 @@ export default function courseDetail() {
       announcementId: res.data.id,
       isRead: false,
     });
-    await getAnnouncement();
+    await getAnnouncement(course.id);
     setTitle('');
     setDescription('');
   };
@@ -102,6 +104,7 @@ export default function courseDetail() {
       }
     };
     getData();
+    getAnnouncement(id);
   }, [isReady]);
 
   const handleEnroll = async () => {
