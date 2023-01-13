@@ -3,7 +3,6 @@ interface props {
   setAnDetail: React.Dispatch<
     React.SetStateAction<AnnouncementDetailDto | undefined>
   >;
-
   data: AnnouncementDetailDto;
 }
 
@@ -19,8 +18,11 @@ export default function AnnouncementModal({ data, setAnDetail }: props) {
               <h3 className="text-3xl font-semibold">{data.title}</h3>
             </div>
             {/*body*/}
-            <div className="relative p-6 flex-auto">
+            <div className="relative p-6 flex flex-col">
               <h4>{data.description}</h4>
+              {(role === 'instructor' || role === 'admin') && (
+                <div className="flex  w-3/4 mx-auto">readList</div>
+              )}
             </div>
             {/*footer*/}
             <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">

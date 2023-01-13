@@ -10,6 +10,7 @@ import { api } from '../../../utils/axios';
 
 import AnnouncementModal from '../../../components/AnnouncementModal';
 import { AnnouncementDetailDto } from '../../../models/Dto';
+import CreateAnnouncementModal from '../../../components/CreateAnnouncementModal';
 
 export default function courseDetail() {
   const { isLoggedIn, username, role } = useAuth();
@@ -20,9 +21,11 @@ export default function courseDetail() {
   const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
-  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto>();
-
-  const announcement: AnnouncementDetailDto[] = [
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  const Tannouncement: AnnouncementDetailDto[] = [
     {
       id: '1',
       title: 'Tomorrow, we will have a quiz.',
@@ -41,10 +44,27 @@ export default function courseDetail() {
     },
   ];
 
+  const getAnnouncement = async () => {
+    const res = await api.get('/announcement');
+    const data = await res.data;
+    setAnnouncement(data);
+  };
+
+  const handleSubmitNewAnn = async () => {
+    const res = await api.post('/announcement', {
+      title,
+      content: description,
+    });
+    await getAnnouncement();
+    setTitle('');
+    setDescription('');
+  };
+
   const disableBtn =
     role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
 
   useEffect(() => {
+    getAnnouncement();
     if (!isReady) return;
 
     const id = parseInt(router.query.id as string);
@@ -146,6 +166,27 @@ export default function courseDetail() {
           )}
       </section>
       <section className="flex flex-col basis-1/2">
+        {(role === 'instructor' || role === 'admin') && (
+          <div className="flex justify-end w-3/4 mx-auto pb-10">
+            <button
+              className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+              type="button"
+              onClick={() => setShowAnnouncementModal(true)}
+            >
+              Create an announcement
+            </button>
+          </div>
+        )}
+        {showAnnouncementModal && (
+          <CreateAnnouncementModal
+            setShowAnnouncementModal={setShowAnnouncementModal}
+            setTitle={setTitle}
+            title={title}
+            setDescription={setDescription}
+            description={description}
+            handleSubmit={handleSubmitNewAnn}
+          />
+        )}
         <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
           <div className="card-body">
             {announcement.map((ann: AnnouncementDetailDto, index) => {
