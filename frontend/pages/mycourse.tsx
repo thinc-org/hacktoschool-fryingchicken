@@ -20,11 +20,12 @@ export default function mycourse_instructor() {
   const [courses, setCourses] = useState<CourseDetailDto[]>([]);
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
-  const [searchBy, setSearchBy] = useState(false);
+  const [searchBy, setSearchBy] = useState('');
+  const [isAdvanced, setIsAdvanced] = useState(false);
+
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
@@ -164,9 +165,10 @@ export default function mycourse_instructor() {
     const res = await api(`/enrolls/username`);
     const data = await res.data;
     // console.log(data);
+    console.log(data);
     const tmp: CourseDetailDto[] = [];
     data.map((enroll: any) => {
-      tmp.push(enroll.course);
+      tmp.push({ ...enroll.course, studentCount: enroll.studentCount });
     });
     setEnrolls(data);
     setIsLoading(false);
@@ -218,32 +220,15 @@ export default function mycourse_instructor() {
             setShowData={setShowData}
             searchBy={searchBy}
             setSearchBy={setSearchBy}
+            isAdvanced={isAdvanced}
+            setIsAdvanced={setIsAdvanced}
             data={courses}
           />
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
-            {showData.map((course: CourseDetailDto, index) => {
-              return (
-                <div
-                  className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
-                  key={index}
-                >
-                  <Link href={'/courses/' + course.id}>
-                    <h1 className="text-2xl font-bold">{course.name}</h1>
-                    {role === 'student' || role === 'admin' ? (
-                      <p>
-                        by {course.instructorName}
-                        <br />
-                        {course.description}
-                      </p>
-                    ) : (
-                      <p>{course.description}</p>
-                    )}
-                  </Link>
-                </div>
-                // <SingleCourses data={course} key={course.id} />
-              );
-            })}
+            {showData.map((course: CourseDetailDto, index) => (
+              <SingleCourses course={course} />
+            ))}
           </div>
           <div className="flex flex-col px-20 overflow-auto basis-1/3"></div>
           {(role === 'instructor' || role === 'admin') && (

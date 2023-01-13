@@ -1,24 +1,32 @@
 import Link from 'next/link';
 import { CourseDetailDto } from '../models/Dto';
+import { useAuth } from '../providers/AuthProvider';
 
 interface props {
-  data: CourseDetailDto;
+  course: CourseDetailDto;
 }
-const SingleCourses = ({ data }: props) => {
+const SingleCourses = ({ course }: props) => {
+  const { role } = useAuth();
+
   return (
-    <Link
-      href={`/courses/${data.id}`}
-      target="_blank"
-      className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-    >
-      <h3 className="text-2xl">
-        <b>Title</b> : {data.name}
-      </h3>
-      <h3 className="text-2xl">
-        <b>By</b> : {data.instructorName}
-      </h3>
-      <p className="mt-4 text-xl">{data.description}</p>
-    </Link>
+    <div className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600">
+      <Link href={'/courses/' + course.id}>
+        <h1 className="text-2xl font-bold">{course.name}</h1>
+        {role === 'student' || role === 'admin' ? (
+          <p>
+            by {course.instructorName}
+            <br />
+            {course.description}
+          </p>
+        ) : (
+          <p>{course.description}</p>
+        )}
+
+        {(role === 'instructor' || role === 'admin') && (
+          <p>{course.studentCount} students enrolled</p>
+        )}
+      </Link>
+    </div>
   );
 };
 

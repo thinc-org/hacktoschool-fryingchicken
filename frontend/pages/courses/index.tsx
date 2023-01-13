@@ -5,13 +5,17 @@ import { api } from '../../utils/axios';
 import { useEffect, useState } from 'react';
 import { CourseDetailDto } from '../../models/Dto';
 import { useRouter } from 'next/router';
+import { useAuth } from '../../providers/AuthProvider';
+import Link from 'next/link';
 import toast from 'react-hot-toast';
 
 const MyCourses = () => {
+  const { role } = useAuth();
   const [data, setData] = useState<CourseDetailDto[]>([]);
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
-  const [searchBy, setSearchBy] = useState(false);
+  const [searchBy, setSearchBy] = useState('');
+  const [isAdvanced, setIsAdvanced] = useState(false);
   const router = useRouter();
   const { isReady } = router;
 
@@ -49,12 +53,14 @@ const MyCourses = () => {
           setShowData={setShowData}
           searchBy={searchBy}
           setSearchBy={setSearchBy}
+          isAdvanced={isAdvanced}
+          setIsAdvanced={setIsAdvanced}
           data={data}
         />
 
         <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {showData.map((prop: CourseDetailDto) => (
-            <SingleCourses data={prop} key={prop.id} />
+          {showData.map((course: CourseDetailDto) => (
+            <SingleCourses course={course} />
           ))}
         </div>
       </main>
