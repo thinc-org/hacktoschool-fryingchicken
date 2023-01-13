@@ -161,6 +161,8 @@ export default function mycourse_instructor() {
     const res = await api.get('/announcement-read/byUsername');
     const data = await res.data;
 
+    console.log('ma mai ', data);
+
     setAnnouncements(data);
   };
 
@@ -168,7 +170,6 @@ export default function mycourse_instructor() {
     const res = await api(`/enrolls/username`);
     const data = await res.data;
     // console.log(data);
-    console.log(data);
     const tmp: CourseDetailDto[] = [];
     data.map((enroll: any) => {
       tmp.push({ ...enroll.course, studentCount: enroll.studentCount });
@@ -204,7 +205,7 @@ export default function mycourse_instructor() {
 
   if (isLoading) return <h1>Loading...</h1>;
 
-  console.log(announcements);
+  console.log('test ', announcements);
 
   return (
     <div>
@@ -273,7 +274,7 @@ export default function mycourse_instructor() {
                     }}
                   >
                     <h3>{announcement.announcement.title}</h3>
-                    {/* <h4>{announcement.announcement.course.name}</h4> */}
+                    <h4>{announcement.announcement.courseName}</h4>
                   </div>
                 );
               })}

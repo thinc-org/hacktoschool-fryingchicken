@@ -62,6 +62,11 @@ export default function courseDetail() {
       courseId: course?.id,
       courseName: course?.name,
     });
+    await api.post('/announcement-read/', {
+      username,
+      announcementId: res.data.id,
+      isRead: false,
+    });
     await getAnnouncement();
     setTitle('');
     setDescription('');
@@ -185,7 +190,7 @@ export default function courseDetail() {
                   }}
                 >
                   <h3>{announcement.title}</h3>
-                  <p>{announcement.course.name}</p>
+                  <p>{announcement.courseName}</p>
                 </div>
               );
             })}
