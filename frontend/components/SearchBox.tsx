@@ -29,65 +29,104 @@ export default function SearchBox({
   const [text3, setText3] = useState('');
   const [text4, setText4] = useState('');
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (buttonType: number) => {
     let newCourse: CourseDetailDto[] = [];
-    if (e.target.id === 'button1') {
+    if (buttonType === 1) {
       const texts = text1.split(' ');
       newCourse = data;
-      for (const text of texts) {
+      for (const text of texts)
         newCourse = newCourse.filter(
           (prop) =>
             prop.name.includes(text) ||
             prop.instructorName.includes(text) ||
             prop.description.includes(text)
         );
-      }
-    } else if (e.target.id === 'button2') {
-      const texts = text2.split(' ');
+    } else if (buttonType === 2) {
+      const texts = text2.split(' OR ');
       newCourse = data.filter((prop) => {
-        for (const text of texts) {
+        for (const text of texts)
           if (
             prop.name.includes(text) ||
             prop.instructorName.includes(text) ||
             prop.description.includes(text)
           )
             return true;
-        }
         return false;
       });
-    } else if (e.target.id === 'button3') {
-      if (text3 === '') {
-        newCourse = data;
-      } else if (text3.split(' ').length > 1) {
-        newCourse = data.filter(
-          (prop) =>
-            prop.name.includes(text3) ||
-            prop.instructorName.includes(text3) ||
-            prop.description.includes(text3)
-        );
-      } else {
-        newCourse = data.filter(
-          (prop) =>
-            prop.name.split(' ').includes(text3) ||
-            prop.instructorName.split(' ').includes(text3) ||
-            prop.description.split(' ').includes(text3)
-        );
-      }
-    } else if (e.target.id === 'button4') {
-      if (text4 === '') {
-        newCourse = data;
-      } else {
-        const texts = text4.split(' ');
+    } else if (buttonType === 3) {
+      if (text3 === '' || text3 === '""') newCourse = data;
+      else {
+        let text = text3;
+        text = text.slice(1, text.length - 1).trim();
         newCourse = data.filter((prop) => {
-          for (const text of texts) {
+          for (let i = text.length - 1; i < prop.name.length; i++) {
             if (
-              prop.name.includes(text) ||
-              prop.instructorName.includes(text) ||
-              prop.description.includes(text)
+              prop.name.slice(i - text.length + 1, i + 1) === text &&
+              (i === text.length - 1 || text[i - text.length] === ' ') &&
+              (i === prop.name.length - 1 || text[i + 1] === ' ')
             )
-              return false;
+              return true;
           }
-          return true;
+
+          for (let i = text.length - 1; i < prop.instructorName.length; i++) {
+            if (
+              prop.instructorName.slice(i - text.length + 1, i + 1) === text &&
+              (i === text.length - 1 || text[i - text.length] === ' ') &&
+              (i === prop.instructorName.length - 1 || text[i + 1] === ' ')
+            )
+              return true;
+          }
+
+          for (let i = text.length - 1; i < prop.description.length; i++) {
+            if (
+              prop.description.slice(i - text.length + 1, i + 1) === text &&
+              (i === text.length - 1 || text[i - text.length] === ' ') &&
+              (i === prop.description.length - 1 || text[i + 1] === ' ')
+            )
+              return true;
+          }
+          return false;
+        });
+      }
+    } else if (buttonType === 4) {
+      if (text4 === '') newCourse = data;
+      else {
+        const texts = text4.split(', ');
+        newCourse = data.filter((prop) => {
+          let ok: boolean = true;
+          for (let text of texts) {
+            text = text.slice(1, text.length);
+            if (text[0] === '"') text = text.slice(1, text.length - 1);
+
+            for (let i = text.length - 1; i < prop.name.length; i++) {
+              if (
+                prop.name.slice(i - text.length + 1, i + 1) === text &&
+                (i === text.length - 1 || text[i - text.length] === ' ') &&
+                (i === prop.name.length - 1 || text[i + 1] === ' ')
+              )
+                ok = false;
+            }
+
+            for (let i = text.length - 1; i < prop.instructorName.length; i++) {
+              if (
+                prop.instructorName.slice(i - text.length + 1, i + 1) ===
+                  text &&
+                (i === text.length - 1 || text[i - text.length] === ' ') &&
+                (i === prop.instructorName.length - 1 || text[i + 1] === ' ')
+              )
+                ok = false;
+            }
+
+            for (let i = text.length - 1; i < prop.description.length; i++) {
+              if (
+                prop.description.slice(i - text.length + 1, i + 1) === text &&
+                (i === text.length - 1 || text[i - text.length] === ' ') &&
+                (i === prop.description.length - 1 || text[i + 1] === ' ')
+              )
+                ok = false;
+            }
+          }
+          return ok;
         });
       }
     }
@@ -171,15 +210,12 @@ export default function SearchBox({
           <input
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-200"
+            placeholder="word1 word2 word3"
             onChange={(e) => setText1(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSubmit(1);
+            }}
           />
-          <button
-            className="text-sm hover:scale-[1.05]"
-            id="button1"
-            onClick={handleSubmit}
-          >
-            Go
-          </button>
         </div>
 
         <div className="items-center relative p-2 flex flex-row gap-4">
@@ -192,15 +228,12 @@ export default function SearchBox({
           <input
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-200"
+            placeholder="word1 OR word2 OR word3"
             onChange={(e) => setText2(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSubmit(2);
+            }}
           />
-          <button
-            className="text-sm hover:scale-[1.05]"
-            id="button2"
-            onClick={handleSubmit}
-          >
-            Go
-          </button>
         </div>
 
         <div className="items-center relative p-2 flex flex-row gap-4">
@@ -213,15 +246,12 @@ export default function SearchBox({
           <input
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-200"
+            placeholder='"word1 word2"'
             onChange={(e) => setText3(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSubmit(3);
+            }}
           />
-          <button
-            className="text-sm hover:scale-[1.05]"
-            id="button3"
-            onClick={handleSubmit}
-          >
-            Go
-          </button>
         </div>
 
         <div className="items-center relative p-2 flex flex-row gap-4">
@@ -234,15 +264,12 @@ export default function SearchBox({
           <input
             type="text"
             className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 bg-gray-200"
+            placeholder='-word1, -"word 2"'
             onChange={(e) => setText4(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSubmit(4);
+            }}
           />
-          <button
-            className="text-sm hover:scale-[1.05]"
-            id="button4"
-            onClick={handleSubmit}
-          >
-            Go
-          </button>
         </div>
 
         <div className="p-2">
