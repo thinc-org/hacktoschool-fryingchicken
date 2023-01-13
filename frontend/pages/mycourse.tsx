@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { CourseDetailDto, EnrollDetailDto } from '../models/Dto';
+import {
+  AnnouncementDetailDto,
+  CourseDetailDto,
+  EnrollDetailDto,
+} from '../models/Dto';
 import { useAuth } from '../providers/AuthProvider';
 import { api } from '../utils/axios';
 import Link from 'next/link';
 import SingleCourses from '../components/SingleCourses';
 import Head from 'next/head';
 import CreateCourseModal from '../components/CreateCourseModal';
+import AnnouncementModal from '../components/AnnouncementModal';
 import SearchBox from '../components/SearchBox';
 
 export default function mycourse_instructor() {
@@ -16,11 +21,138 @@ export default function mycourse_instructor() {
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
   const [searchBy, setSearchBy] = useState(false);
-
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+
+  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
+
+  // const courses = [
+  //   {
+  //     id: '1',
+  //     name: 'Machine learning specialization',
+  //     instructorName: 'Andrew Ng',
+  //     description:
+  //       'machine learning machine learning machine learning machine learning machine learning',
+  //     enrolledStudent: 69,
+  //   },
+  //   {
+  //     id: '2',
+  //     name: 'PHASATHAIPHUENTHAN',
+  //     instructorName: 'MAEMUENG',
+  //     description:
+  //       'THTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTH',
+  //     enrolledStudent: '420',
+  //   },
+  //   {
+  //     id: '3',
+  //     name: 'Quantum Physics For Baby',
+  //     instructorName: 'Jo Mama',
+  //     description:
+  //       ' bljkdfngpbjnspjgnbs;kglk;bbf ;bs;lknr;nrgnr;jnsg;jbnsgfbnrthnbsglkn;slkntkmbndign;nkentk',
+  //     enrolledStudent: '78910',
+  //   },
+  // ];
+  const announcement = [
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '3',
+      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+      courseName: 'ilove C',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+  ];
 
   const getEnrolls = async () => {
     const res = await api(`/enrolls/username/${username}`);
@@ -55,54 +187,58 @@ export default function mycourse_instructor() {
       username,
     });
     await getEnrolls();
+    setTitle('');
+    setDescription('');
   };
 
   if (isLoading) return <h1>Loading...</h1>;
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>My Courses</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <div>
+      <div className="flex min-h-screen flex-row py-2">
+        <Head>
+          <title>My Courses</title>
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
 
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">My Courses</h1>
+        <main className="flex flex-col px-20  basis-2/3">
+          <h1 className="text-6xl font-bold">My Courses</h1>
 
-        <SearchBox
-          name={name}
-          setName={setName}
-          showData={showData}
-          setShowData={setShowData}
-          searchBy={searchBy}
-          setSearchBy={setSearchBy}
-          data={courses}
-        />
+          <SearchBox
+            name={name}
+            setName={setName}
+            showData={showData}
+            setShowData={setShowData}
+            searchBy={searchBy}
+            setSearchBy={setSearchBy}
+            data={courses}
+          />
 
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          {showData.map((course: CourseDetailDto, index) => {
-            return (
-              <div
-                className="border-2 w-3/4 mx-auto my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
-                key={index}
-              >
-                <Link href={'/courses/' + course.id}>
-                  <h1 className="text-2xl font-bold">{course.name}</h1>
-                  {role === 'student' || role === 'admin' ? (
-                    <p>
-                      by {course.instructorName}
-                      <br />
-                      {course.description}
-                    </p>
-                  ) : (
-                    <p>{course.description}</p>
-                  )}
-                </Link>
-              </div>
-              // <SingleCourses data={course} key={course.id} />
-            );
-          })}
-
+          <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
+            {showData.map((course: CourseDetailDto, index) => {
+              return (
+                <div
+                  className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
+                  key={index}
+                >
+                  <Link href={'/courses/' + course.id}>
+                    <h1 className="text-2xl font-bold">{course.name}</h1>
+                    {role === 'student' || role === 'admin' ? (
+                      <p>
+                        by {course.instructorName}
+                        <br />
+                        {course.description}
+                      </p>
+                    ) : (
+                      <p>{course.description}</p>
+                    )}
+                  </Link>
+                </div>
+                // <SingleCourses data={course} key={course.id} />
+              );
+            })}
+          </div>
+          <div className="flex flex-col px-20 overflow-auto basis-1/3"></div>
           {(role === 'instructor' || role === 'admin') && (
             <div className="flex justify-end w-3/4 mx-auto">
               <button
@@ -125,8 +261,40 @@ export default function mycourse_instructor() {
               handleSubmit={handleSubmit}
             />
           )}
-        </div>
-      </main>
+        </main>
+        <main className="flex flex-col px-20  basis-1/3">
+          <h1 className=" flex text-4xl font-bold pt-20 pb-10 justify-center">
+            Announcement
+          </h1>
+          <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
+            <div className="card-body">
+              {announcement.map((ann) => {
+                return (
+                  <div
+                    className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
+                    // key={index}
+                    onClick={() => setShowAnnouncement(true)}
+                  >
+                    <h3>{ann.title}</h3>
+                    <p>{ann.courseName}</p>
+
+                    {showAnnouncement && (
+                      <AnnouncementModal
+                        setShowAnnouncement={setShowAnnouncement}
+                        courseName={ann.courseName}
+                        title={ann.title}
+                        description={ann.description}
+                        readList={ann.readList}
+                        createdDate={ann.createdAt}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </main>
+      </div>
     </div>
   );
 }
