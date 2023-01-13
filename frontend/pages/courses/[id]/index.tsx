@@ -110,6 +110,7 @@ export default function courseDetail() {
         username: username,
         courseId: id,
       });
+      setIsEnrolled(true);
     } catch (err) {
       let message = 'Unknown Error';
       console.log('Enroll Error');
