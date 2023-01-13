@@ -226,30 +226,9 @@ export default function mycourse_instructor() {
           />
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
-            {showData.map((course: CourseDetailDto, index) => {
-              console.log(showData);
-              return (
-                <div className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600">
-                  <Link href={'/courses/' + course.id}>
-                    <h1 className="text-2xl font-bold">{course.name}</h1>
-                    {role === 'student' || role === 'admin' ? (
-                      <p>
-                        by {course.instructorName}
-                        <br />
-                        {course.description}
-                      </p>
-                    ) : (
-                      <p>{course.description}</p>
-                    )}
-
-                    {(role === 'instructor' || role === 'admin') && (
-                      <p>{course.studentCount} students enrolled</p>
-                    )}
-                  </Link>
-                </div>
-                // <SingleCourses data={course} key={course.id} />
-              );
-            })}
+            {showData.map((course: CourseDetailDto, index) => (
+              <SingleCourses course={course} />
+            ))}
           </div>
           <div className="flex flex-col px-20 overflow-auto basis-1/3"></div>
           {(role === 'instructor' || role === 'admin') && (
