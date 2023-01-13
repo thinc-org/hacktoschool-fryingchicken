@@ -1,4 +1,5 @@
 import { AnnouncementDetailDto } from '../models/Dto';
+import { useAuth } from '../providers/AuthProvider';
 interface props {
   setAnDetail: React.Dispatch<
     React.SetStateAction<AnnouncementDetailDto | undefined>
@@ -7,6 +8,7 @@ interface props {
 }
 
 export default function AnnouncementModal({ data, setAnDetail }: props) {
+  const { username, role } = useAuth();
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">

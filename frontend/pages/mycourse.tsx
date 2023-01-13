@@ -213,17 +213,6 @@ export default function mycourse_instructor() {
 
         <main className="flex flex-col px-20 basis-2/3">
           <h1 className="text-6xl font-bold">My Courses</h1>
-          {(role === 'instructor' || role === 'admin') && (
-            <div className="flex justify-end w-3/4 mx-auto">
-              <button
-                className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => setShowModal(true)}
-              >
-                Create a new course
-              </button>
-            </div>
-          )}
           <SearchBox
             name={name}
             setName={setName}
@@ -235,6 +224,17 @@ export default function mycourse_instructor() {
             setIsAdvanced={setIsAdvanced}
             data={courses}
           />
+          {(role === 'instructor' || role === 'admin') && (
+            <div className="flex justify-end w-3/4 mx-auto">
+              <button
+                className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                type="button"
+                onClick={() => setShowModal(true)}
+              >
+                Create a new course
+              </button>
+            </div>
+          )}
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
             {showData.map((course: CourseDetailDto, index) => (

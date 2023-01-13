@@ -185,7 +185,7 @@ export default function SearchBox({
         </select>
 
         <h1
-          className="text-sm w-80 hover:scale-[1.05]"
+          className="text-sm w-80 hover:scale-[1.05] hover:cursor-pointer"
           onClick={(e) =>
             setIsAdvanced((prev) => {
               return !prev;
@@ -274,7 +274,7 @@ export default function SearchBox({
 
         <div className="p-2">
           <h1
-            className="text-sm w-50 hover:scale-[1.05]"
+            className="text-sm w-50 hover:scale-[1.05] hover:cursor-pointer"
             onClick={(e) =>
               setIsAdvanced((prev) => {
                 return !prev;
