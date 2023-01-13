@@ -1,6 +1,7 @@
 import { CourseDetailDto } from '../../models/Dto';
 import Image from 'next/image';
 import cleverseLogo from '../../public/cleverseLogo.png';
+import Link from 'next/link';
 
 interface props {
   data: CourseDetailDto;
@@ -8,7 +9,10 @@ interface props {
 
 export default function SinglePopularCourse({ data }: props) {
   return (
-    <div className="mobile-carousel w-[90%] text-white lg:hover:translate-y-[-5%] lg:transition-all lg:duration-300">
+    <Link
+      href={`/courses/${data.id}`}
+      className="mobile-carousel w-[90%] text-white lg:hover:translate-y-[-5%] lg:transition-all lg:duration-300"
+    >
       <div className=" grid grid-rows-[175px_minmax(200px,_1fr)_40px] grid-cols-1 w-[100%] mx-[5%] bg-grey-dark rounded-xl shadow-md">
         <div className="overflow-hidden w-[100%] h-[100%]">
           <Image
@@ -37,6 +41,6 @@ export default function SinglePopularCourse({ data }: props) {
           <div className="">{data.studentCount} students enrolled</div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
