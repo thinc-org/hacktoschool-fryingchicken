@@ -193,7 +193,7 @@ export default function SearchBox({
           }
         >
           Use advance search
-        </button>
+        </h1>
       </div>
     </>
   ) : (
