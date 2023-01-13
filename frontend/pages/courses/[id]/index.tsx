@@ -13,6 +13,7 @@ import { api } from '../../../utils/axios';
 
 import AnnouncementModal from '../../../components/AnnouncementModal';
 import { AnnouncementDetailDto } from '../../../models/Dto';
+import CreateAnnouncementModal from '../../../components/CreateAnnouncementModal';
 
 export default function courseDetail() {
   const { isLoggedIn, username, role } = useAuth();
@@ -48,7 +49,8 @@ export default function courseDetail() {
   //   },
   // ];
 
-  const getAnnouncement = async (id: number) => {
+  const getAnnouncement = async () => {
+    const id = parseInt(router.query.id as string);
     const res = await api.get(`announcement/byCourse/${id}`);
     const data = await res.data;
 
@@ -58,18 +60,17 @@ export default function courseDetail() {
   };
 
   const handleSubmitNewAnn = async () => {
-    const res = await api.post('/announcement', {
-      title,
-      content: description,
-      courseId: course?.id,
-      courseName: course?.name,
-    });
-    await api.post('/announcement-read/', {
-      username,
-      announcementId: res.data.id,
-      isRead: false,
-    });
-    await getAnnouncement(course!.id);
+    try {
+      const res = await api.post('/announcement', {
+        title,
+        content: description,
+        courseId: course?.id,
+        courseName: course?.name,
+      });
+      await getAnnouncement();
+    } catch (err) {
+      console.log(err);
+    }
     setTitle('');
     setDescription('');
   };
@@ -85,6 +86,7 @@ export default function courseDetail() {
     const getData = async () => {
       try {
         const res = await api.get(`/courses/${id}`);
+        console.log(res.data);
         setCourse(res.data);
 
         // Check if user is already enrolled
@@ -98,13 +100,13 @@ export default function courseDetail() {
           const res1 = await api.get(`/enrolls/courseId/${id}`);
           setUsers(res1.data);
         }
+        await getAnnouncement();
       } catch (err) {
         // Todo: Add error handlers
         toast.error('Unknown Error');
       }
     };
     getData();
-    getAnnouncement(id);
   }, [isReady]);
 
   const handleEnroll = async () => {
@@ -118,6 +120,7 @@ export default function courseDetail() {
         username: username,
         courseId: id,
       });
+      setIsEnrolled(true);
     } catch (err) {
       let message = 'Unknown Error';
       console.log('Enroll Error');
@@ -180,7 +183,22 @@ export default function courseDetail() {
           )}
       </section>
       <section className="max-h-full basis-1/2 pr-40 pl-5 py-[5%]">
-        <h1 className="text-3xl font-extrabold">Announcement</h1>
+        <div className="flex justify-between">
+          <h1 className="text-3xl font-extrabold">Announcement</h1>
+          {isLoggedIn &&
+            ((role === 'instructor' && username === course?.instructorName) ||
+              role === 'admin') && (
+              <div className="flex justify-end w-3/4 mx-auto">
+                <button
+                  className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  type="button"
+                  onClick={() => setShowAnnouncementModal(true)}
+                >
+                  Create a new announcement
+                </button>
+              </div>
+            )}
+        </div>
         <div className=" basis-1/3 border-2 rounded card shadow-l overflow-auto mt-[5%]">
           <div className="card-body">
             {announcements.map((announcement: AnnouncementDetailDto) => {
@@ -192,13 +210,23 @@ export default function courseDetail() {
                     setAnDetail(announcement);
                   }}
                 >
-                  <h3>{announcement.title}</h3>
-                  <p>{announcement.courseName}</p>
+                  <h3 className="font-bold text-xl">{announcement.title}</h3>
+                  <p>{announcement.content}</p>
                 </div>
               );
             })}
             {!!anDetail && (
               <AnnouncementModal data={anDetail} setAnDetail={setAnDetail} />
+            )}
+            {showAnnouncementModal && (
+              <CreateAnnouncementModal
+                description={description}
+                setDescription={setDescription}
+                handleSubmit={handleSubmitNewAnn}
+                title={title}
+                setTitle={setTitle}
+                setShowAnnouncementModal={setShowAnnouncementModal}
+              />
             )}
           </div>
         </div>

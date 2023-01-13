@@ -93,7 +93,7 @@ export default function CreateAnnouncementModal({
                   setShowAnnouncementModal(false);
                 }}
               >
-                Create course
+                Create new announcement
               </button>
             </div>
           </div>

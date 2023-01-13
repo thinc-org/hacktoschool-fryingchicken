@@ -6,8 +6,20 @@ import { PrismaService } from 'src/prisma/prisma.service';
 @Injectable()
 export class AnnouncementService {
   constructor(private prisma: PrismaService) {}
-  create(createAnnouncementDto: CreateAnnouncementDto) {
-    return this.prisma.announcement.create({ data: createAnnouncementDto });
+  async create(createAnnouncementDto: CreateAnnouncementDto) {
+    const res = await this.prisma.announcement.create({
+      data: createAnnouncementDto,
+    });
+    const users = await this.prisma.enrolls.findMany({
+      where: { courseId: createAnnouncementDto.courseId },
+    });
+
+    for (const user of users) {
+      await this.prisma.announcementRead.create({
+        data: { username: user.username, announcementId: res.id },
+      });
+    }
+    return res;
   }
 
   findAll() {
