@@ -26,7 +26,6 @@ export default function mycourse_instructor() {
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [index, setIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
   const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
@@ -230,10 +229,7 @@ export default function mycourse_instructor() {
             {showData.map((course: CourseDetailDto, index) => {
               console.log(showData);
               return (
-                <div
-                  className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
-                  key={index}
-                >
+                <div className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600">
                   <Link href={'/courses/' + course.id}>
                     <h1 className="text-2xl font-bold">{course.name}</h1>
                     {role === 'student' || role === 'admin' ? (
