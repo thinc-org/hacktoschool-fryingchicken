@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import {
   AnnouncementDetailDto,
+  AnnouncementReadDetailDto,
   CourseDetailDto,
-  EnrollDetailDto,
 } from '../models/Dto';
 import { useAuth } from '../providers/AuthProvider';
 import { api } from '../utils/axios';
-import Link from 'next/link';
 import SingleCourses from '../components/SingleCourses';
 import Head from 'next/head';
 import CreateCourseModal from '../components/CreateCourseModal';
-import CreateAnnouncementModal from '../components/CreateAnnouncementModal';
 import AnnouncementModal from '../components/AnnouncementModal';
 import SearchBox from '../components/SearchBox';
 
 export default function mycourse_instructor() {
   const { username, role } = useAuth();
   const [showModal, setShowModal] = useState(false);
-  const [enrolls, setEnrolls] = useState<EnrollDetailDto[]>([]);
   const [courses, setCourses] = useState<CourseDetailDto[]>([]);
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
   const [searchBy, setSearchBy] = useState('');
   const [isAdvanced, setIsAdvanced] = useState(false);
+  const [readUser, setReadUser] = useState<{ [key: number]: string[] }>({});
 
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
-  const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
+  const [announcements, setAnnouncements] = useState<
+    AnnouncementReadDetailDto[]
+  >([]);
   const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
   // const courses = [
   //   {
@@ -57,109 +57,111 @@ export default function mycourse_instructor() {
   //     enrolledStudent: '78910',
   //   },
   // ];
-  const Tannouncement: AnnouncementDetailDto[] = [
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-      courseName: 'ilove C',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-      courseName: 'ilove C',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-      courseName: 'ilove C',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-      description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-      courseName: 'ilove C',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-  ];
+
+  // const Tannouncement: AnnouncementDetailDto[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+  //     courseName: 'ilove C',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+  //     courseName: 'ilove C',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+  //     courseName: 'ilove C',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '3',
+  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
+  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
+  //     courseName: 'ilove C',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  // ];
 
   const getAnnouncement = async () => {
-    const res = await api.get('/announcement');
+    const res = await api.get('/announcement-read/byUsername');
     const data = await res.data;
-    setAnnouncement(data);
+
+    setAnnouncements(data);
   };
 
   const getEnrolls = async () => {
@@ -171,7 +173,6 @@ export default function mycourse_instructor() {
     data.map((enroll: any) => {
       tmp.push({ ...enroll.course, studentCount: enroll.studentCount });
     });
-    setEnrolls(data);
     setIsLoading(false);
     setCourses(tmp);
     setShowData(tmp);
@@ -202,6 +203,8 @@ export default function mycourse_instructor() {
   };
 
   if (isLoading) return <h1>Loading...</h1>;
+
+  console.log(announcements);
 
   return (
     <div>
@@ -261,17 +264,16 @@ export default function mycourse_instructor() {
 
           <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
             <div className="card-body">
-              {announcement.map((ann: AnnouncementDetailDto, index) => {
+              {announcements.map((announcement: AnnouncementReadDetailDto) => {
                 return (
                   <div
                     className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
-                    // key={index}
                     onClick={() => {
-                      setAnDetail(ann);
+                      setAnDetail(announcement.announcement);
                     }}
                   >
-                    <h3>{ann.title}</h3>
-                    <p>{ann.courseName}</p>
+                    <h3>{announcement.announcement.title}</h3>
+                    {/* <h4>{announcement.announcement.course.name}</h4> */}
                   </div>
                 );
               })}

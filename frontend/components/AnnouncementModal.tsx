@@ -9,6 +9,7 @@ interface props {
 
 export default function AnnouncementModal({ data, setAnDetail }: props) {
   const { username, role } = useAuth();
+
   return (
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -21,9 +22,12 @@ export default function AnnouncementModal({ data, setAnDetail }: props) {
             </div>
             {/*body*/}
             <div className="relative p-6 flex flex-col">
-              <h4>{data.description}</h4>
+              <h4>{data.content}</h4>
               {(role === 'instructor' || role === 'admin') && (
-                <div className="flex  w-3/4 mx-auto">readList</div>
+                <div className="flex  w-3/4 mx-auto">
+                  <h1>readList</h1>
+                  {}
+                </div>
               )}
             </div>
             {/*footer*/}

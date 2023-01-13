@@ -37,6 +37,12 @@ export class AnnouncementController {
     return this.announcementService.findAll();
   }
 
+  @Get('byCourse/:id')
+  @ApiOkResponse({ type: AnnouncementEntity, isArray: true })
+  findManyByCourse(@Param('id') id: string) {
+    return this.announcementService.findManyByCourse(+id);
+  }
+
   @Get(':id')
   @ApiOkResponse({ type: AnnouncementEntity })
   findOne(@Param('id') id: string) {

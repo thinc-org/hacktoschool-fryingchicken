@@ -42,10 +42,10 @@ export class AnnouncementReadController {
     return this.announcementReadService.findManyByUser(req.user.username);
   }
 
-  @Get('byCourse/:courseId')
+  @Get('byAnnouncement/:announcementId')
   @ApiOkResponse({ type: AnnouncementReadEntity, isArray: true })
-  findManyByCourse(@Param('courseId') id: string) {
-    return this.announcementReadService.findManyByCourse(+id);
+  findManyByCourse(@Param('announcementId') id: string) {
+    return this.announcementReadService.findManyByAnnouncement(+id);
   }
 
   @Patch(':id')
