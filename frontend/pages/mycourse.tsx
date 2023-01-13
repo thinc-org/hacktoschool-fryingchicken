@@ -11,6 +11,7 @@ import Head from 'next/head';
 import CreateCourseModal from '../components/CreateCourseModal';
 import AnnouncementModal from '../components/AnnouncementModal';
 import SearchBox from '../components/SearchBox';
+import toast from 'react-hot-toast';
 
 export default function mycourse_instructor() {
   const { username, role } = useAuth();
@@ -158,12 +159,24 @@ export default function mycourse_instructor() {
   // ];
 
   const getAnnouncement = async () => {
+    if (role !== 'student') return;
     const res = await api.get('/announcement-read/byUsername');
     const data = await res.data;
 
-    console.log('ma mai ', data);
+    // Todo: sort is read by
+    data.sort(function (a: any, b: any) {
+      if (!a.isRead && b.isRead) return true;
+      if (a.isRead && !b.isRead) return false;
+      return a.createdAt < b.createdAt;
+    });
+
+    let cnt = 0;
+    for (const d of data) {
+      cnt += +!d.isRead;
+    }
 
     setAnnouncements(data);
+    toast(`You have ${cnt} unread announcements`);
   };
 
   const getEnrolls = async () => {
@@ -201,6 +214,26 @@ export default function mycourse_instructor() {
     await getEnrolls();
     setTitle('');
     setDescription('');
+  };
+
+  const handleReadAnn = async (announcementId: number) => {
+    const ann = announcements.find((e) => e.announcementId === announcementId);
+    console.log(ann);
+    if (!ann) return;
+    if (ann.isRead) return;
+    console.log('unread');
+
+    try {
+      const res = await api.patch(`/announcement-read/${ann.id}`, {
+        username,
+        announcementId: ann.announcementId,
+        isRead: true,
+      });
+      console.log(res);
+      await getAnnouncement();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (isLoading) return <h1>Loading...</h1>;
@@ -258,32 +291,45 @@ export default function mycourse_instructor() {
             />
           )}
         </main>
-        <div className="flex flex-col px-20  basis-1/3">
-          <h1 className=" flex text-4xl font-bold pt-20 pb-10 justify-center">
-            Announcement
-          </h1>
+        {role === 'student' && (
+          <div className="flex flex-col px-20  basis-1/3">
+            <h1 className=" flex text-4xl font-bold pt-20 pb-10 justify-center">
+              Announcement
+            </h1>
 
-          <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
-            <div className="card-body">
-              {announcements.map((announcement: AnnouncementReadDetailDto) => {
-                return (
-                  <div
-                    className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
-                    onClick={() => {
-                      setAnDetail(announcement.announcement);
-                    }}
-                  >
-                    <h3>{announcement.announcement.title}</h3>
-                    <h4>{announcement.announcement.courseName}</h4>
-                  </div>
-                );
-              })}
-              {!!anDetail && (
-                <AnnouncementModal data={anDetail} setAnDetail={setAnDetail} />
-              )}
+            <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
+              <div className="card-body">
+                {announcements.map(
+                  (announcement: AnnouncementReadDetailDto) => {
+                    return (
+                      <div
+                        className={`border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer ${
+                          announcement.isRead ? 'text-black' : 'text-red-500'
+                        }`}
+                        onClick={() => {
+                          handleReadAnn(announcement.announcementId);
+                          setAnDetail(announcement.announcement);
+                        }}
+                      >
+                        <h1 className="font-bold text-xl">
+                          {announcement.announcement.courseName}
+                        </h1>
+                        <h3>{announcement.announcement.title}</h3>
+                        <h4>{announcement.announcement.courseName}</h4>
+                      </div>
+                    );
+                  }
+                )}
+                {!!anDetail && (
+                  <AnnouncementModal
+                    data={anDetail}
+                    setAnDetail={setAnDetail}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
