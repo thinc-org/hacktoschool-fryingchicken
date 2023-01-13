@@ -8,6 +8,9 @@ import { useAuth } from '../../../providers/AuthProvider';
 import { ErrorDto } from '../../../types/dto';
 import { api } from '../../../utils/axios';
 
+import AnnouncementModal from '../../../components/AnnouncementModal';
+import { AnnouncementDetailDto } from '../../../models/Dto';
+
 export default function courseDetail() {
   const { isLoggedIn, username, role } = useAuth();
   const router = useRouter();
@@ -16,6 +19,27 @@ export default function courseDetail() {
   const [isEnrolling, setIsEnrolling] = useState<boolean>(false);
   const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
+  const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
+  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto>();
+
+  const announcement: AnnouncementDetailDto[] = [
+    {
+      id: '1',
+      title: 'Tomorrow, we will have a quiz.',
+      description: 'Chapter 1-2',
+      courseName: 'Zhong gua language',
+      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+    {
+      id: '2',
+      title: 'Yesterday, we will have a quiz.',
+      description: 'Chapter 6-9',
+      courseName: 'Nihonjin language',
+      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+      createdAt: new Date(),
+    },
+  ];
 
   const disableBtn =
     role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
@@ -77,8 +101,8 @@ export default function courseDetail() {
   };
 
   return (
-    <>
-      <section className="px-[8%] py-[5%]">
+    <div className="flex flex-row">
+      <section className="px-[8%] py-[5%] basis-1/2">
         <h1 className="text-3xl font-extrabold">{course?.name}</h1>
         <span className="text-xl text-grey-dark block mt-[5%]">Instructor</span>
         <h3 className="text-2xl text-bold">{course?.instructorName}</h3>
@@ -124,6 +148,29 @@ export default function courseDetail() {
             </>
           )}
       </section>
-    </>
+      <section className="flex flex-col basis-1/2">
+        <div className=" flex flex-col basis-1/3 border-2 rounded card w-100 shadow-l h-2/4 overflow-auto">
+          <div className="card-body">
+            {announcement.map((ann: AnnouncementDetailDto, index) => {
+              return (
+                <div
+                  className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
+                  // key={index}
+                  onClick={() => {
+                    setAnDetail(ann);
+                  }}
+                >
+                  <h3>{ann.title}</h3>
+                  <p>{ann.courseName}</p>
+                </div>
+              );
+            })}
+            {!!anDetail && (
+              <AnnouncementModal data={anDetail} setAnDetail={setAnDetail} />
+            )}
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
