@@ -20,33 +20,41 @@ export default function courseDetail() {
   const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
-  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto>();
+  const [announcement, setAnnouncement] = useState<AnnouncementDetailDto[]>([]);
 
-  const announcement: AnnouncementDetailDto[] = [
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-  ];
+  // const announcement: AnnouncementDetailDto[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  // ];
 
   const disableBtn =
     role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
 
+  const getAnnouncement = async () => {
+    const id = parseInt(router.query.id as string);
+    const res = await api.get(`/announcement/byCourse/${id}`);
+    const data = await res.data;
+    setAnnouncement(data);
+  };
+
   useEffect(() => {
     if (!isReady) return;
 
+    getAnnouncement();
     const id = parseInt(router.query.id as string);
 
     const getData = async () => {
