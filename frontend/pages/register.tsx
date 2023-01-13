@@ -26,8 +26,6 @@ const Register: React.FC = () => {
     const passwordConfirm = passwordConfirmRef.current?.value;
     const role = roleRef.current?.value;
 
-    console.log(username, password, passwordConfirm, role);
-
     if (!username || !password || !passwordConfirm) {
       toast.error('Please complete the form');
       setSubmitting(false);
@@ -50,7 +48,6 @@ const Register: React.FC = () => {
       toast.success('Account created!');
       router.push('login');
     } catch (err) {
-      console.log(err);
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
         const message = response?.data.message;
@@ -117,7 +114,7 @@ const Register: React.FC = () => {
             <option value="instructor">instructor</option>
           </select>
           <button
-            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300 disabled:bg-grey-dark disabled:transition-none disabled:text-white"
             type="submit"
             disabled={isSubmitting}
           >
