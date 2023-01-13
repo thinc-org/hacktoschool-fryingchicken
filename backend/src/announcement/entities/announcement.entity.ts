@@ -12,6 +12,12 @@ export class AnnouncementEntity implements Announcement {
   content: string;
 
   @ApiProperty()
+  courseId: number;
+
+  @ApiProperty()
+  courseName: string;
+
+  @ApiProperty()
   updatedAt: Date;
 
   @ApiProperty()

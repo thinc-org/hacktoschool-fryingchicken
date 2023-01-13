@@ -1,6 +1,5 @@
-import { ListenOptions } from 'net';
-
 // Todo: Change these attribute to madatory
+
 export interface CourseDetailDto {
   id: number;
   name: string;
@@ -21,12 +20,21 @@ export interface EnrollDetailDto {
 }
 
 export interface AnnouncementDetailDto {
-  id: number | string;
-  //announcementId: number;
+  id: number;
   title: string;
-  description: string;
+  content: string;
+  courseId: number;
   courseName: string;
-  readList: string[];
-  createdAt: Date;
-  // updatedAt?: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
+  announcementRead: AnnouncementReadDetailDto[];
+}
+
+export interface AnnouncementReadDetailDto {
+  id: number;
+  announcementId: number;
+  announcement: AnnouncementDetailDto;
+  isRead: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

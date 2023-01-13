@@ -55,16 +55,18 @@ async function main() {
   //     active: true,
   //   },
   // });
+  // const post4 = await prisma.announcement.create({
+  //   data: {
+  //     title: 'bruh',
+  //     content: 'bruh bruh',
+  //     courseId: 2,
+  //   },
+  // });
   const post5 = await prisma.announcementRead.create({
     data: {
       user: {
         connect: {
-          username: 'jomnoiz',
-        },
-      },
-      course: {
-        connect: {
-          id: 2,
+          username: 'admin101',
         },
       },
       announcement: {

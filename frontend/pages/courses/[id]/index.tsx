@@ -3,7 +3,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { CourseDetailDto } from '../../../models/Dto';
+import {
+  CourseDetailDto,
+  AnnouncementReadDetailDto,
+} from '../../../models/Dto';
 import { useAuth } from '../../../providers/AuthProvider';
 import { ErrorDto } from '../../../types/dto';
 import { api } from '../../../utils/axios';
@@ -20,26 +23,56 @@ export default function courseDetail() {
   const [isEnrolled, setIsEnrolled] = useState<boolean>(false);
   const { isReady } = router;
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
-  //const [announcement, setAnnouncement] = useState<AnnouncementDetailDto>();
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [announcements, setAnnouncements] = useState<AnnouncementDetailDto[]>(
+    []
+  );
+  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
+  // const Tannouncement: AnnouncementDetailDto[] = [
+  //   {
+  //     id: '1',
+  //     title: 'Tomorrow, we will have a quiz.',
+  //     description: 'Chapter 1-2',
+  //     courseName: 'Zhong gua language',
+  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  //   {
+  //     id: '2',
+  //     title: 'Yesterday, we will have a quiz.',
+  //     description: 'Chapter 6-9',
+  //     courseName: 'Nihonjin language',
+  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
+  //     createdAt: new Date(),
+  //   },
+  // ];
 
-  const announcement: AnnouncementDetailDto[] = [
-    {
-      id: '1',
-      title: 'Tomorrow, we will have a quiz.',
-      description: 'Chapter 1-2',
-      courseName: 'Zhong gua language',
-      readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Yesterday, we will have a quiz.',
-      description: 'Chapter 6-9',
-      courseName: 'Nihonjin language',
-      readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-      createdAt: new Date(),
-    },
-  ];
+  const getAnnouncement = async (id: number) => {
+    const res = await api.get(`announcement/byCourse/${id}`);
+    const data = await res.data;
+
+    console.log(data);
+
+    setAnnouncements(data);
+  };
+
+  const handleSubmitNewAnn = async () => {
+    const res = await api.post('/announcement', {
+      title,
+      content: description,
+      courseId: course?.id,
+      courseName: course?.name,
+    });
+    await api.post('/announcement-read/', {
+      username,
+      announcementId: res.data.id,
+      isRead: false,
+    });
+    await getAnnouncement(course.id);
+    setTitle('');
+    setDescription('');
+  };
 
   const disableBtn =
     role === 'admin' || role === 'instructor' || isEnrolling || isEnrolled;
@@ -71,6 +104,7 @@ export default function courseDetail() {
       }
     };
     getData();
+    getAnnouncement(id);
   }, [isReady]);
 
   const handleEnroll = async () => {
@@ -149,17 +183,17 @@ export default function courseDetail() {
         <h1 className="text-3xl font-extrabold">Announcement</h1>
         <div className=" basis-1/3 border-2 rounded card shadow-l overflow-auto mt-[5%]">
           <div className="card-body">
-            {announcement.map((ann: AnnouncementDetailDto, index) => {
+            {announcements.map((announcement: AnnouncementDetailDto) => {
               return (
                 <div
                   className="border-2 my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600 hover:cursor-pointer"
                   // key={index}
                   onClick={() => {
-                    setAnDetail(ann);
+                    setAnDetail(announcement);
                   }}
                 >
-                  <h3>{ann.title}</h3>
-                  <p>{ann.courseName}</p>
+                  <h3>{announcement.title}</h3>
+                  <p>{announcement.courseName}</p>
                 </div>
               );
             })}

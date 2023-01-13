@@ -5,9 +5,6 @@ export class CreateAnnouncementReadDto {
   username: string;
 
   @ApiProperty()
-  courseId: number;
-
-  @ApiProperty()
   announcementId: number;
 
   @ApiProperty()
