@@ -18,7 +18,17 @@ export class EnrollsService {
       throw new BadRequestException('User already enrolled this course');
     }
 
-    return this.prisma.enrolls.create({ data: createEnrollDto });
+    const res2 = await this.prisma.enrolls.create({ data: createEnrollDto });
+    const announcements = await this.prisma.announcement.findMany({
+      where: { courseId: res2.courseId },
+    });
+
+    for (const ann of announcements) {
+      await this.prisma.announcementRead.create({
+        data: { username: res2.username, announcementId: ann.id },
+      });
+    }
+    return res2;
   }
 
   findAll() {
