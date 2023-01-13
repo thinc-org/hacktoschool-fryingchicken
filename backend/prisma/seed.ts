@@ -57,6 +57,11 @@ async function main() {
   // });
   const post5 = await prisma.announcementRead.create({
     data: {
+      user: {
+        connect: {
+          username: 'jomnoiz',
+        },
+      },
       course: {
         connect: {
           id: 2,
