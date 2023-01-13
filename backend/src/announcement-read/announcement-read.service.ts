@@ -20,6 +20,19 @@ export class AnnouncementReadService {
     return this.prisma.announcementRead.findUnique({ where: { id } });
   }
 
+  findManyByUser(username: string) {
+    return this.prisma.enrolls.findMany({
+      where: { username: username },
+      include: { course: { select: { AnnouncementRead: true } } },
+    });
+  }
+
+  findManyByCourse(id: number) {
+    return this.prisma.announcementRead.findMany({
+      where: { courseId: id },
+    });
+  }
+
   update(id: number, updateAnnouncementReadDto: UpdateAnnouncementReadDto) {
     return this.prisma.announcementRead.update({
       where: { id },
