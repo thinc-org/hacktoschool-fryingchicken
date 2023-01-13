@@ -155,7 +155,7 @@ export default function mycourse_instructor() {
   ];
 
   const getEnrolls = async () => {
-    const res = await api(`/enrolls/username/${username}`);
+    const res = await api(`/enrolls/username`);
     const data = await res.data;
     // console.log(data);
     const tmp: CourseDetailDto[] = [];
