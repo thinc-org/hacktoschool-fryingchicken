@@ -41,21 +41,18 @@ export default function courseDetail() {
           const res1 = await api.get(`/enrolls/courseId/${id}`);
           setUsers(res1.data);
         }
-        // console.log(res.data.name, res.data.instructorName);
       } catch (err) {
         // Todo: Add error handlers
         toast.error('Unknown Error');
-        // Todo: Remove below lines
       }
     };
     getData();
   }, [isReady]);
 
-  // console.log(isLoggedIn, role, users);
-
   const handleEnroll = async () => {
-    // Todo: create api for enrolling course
     if (!isLoggedIn) return router.push('/login');
+
+    // Enroll user to course
     try {
       setIsEnrolling(true);
       const id = parseInt(router.query.id as string);
@@ -63,9 +60,9 @@ export default function courseDetail() {
         username: username,
         courseId: id,
       });
-      console.log(res);
     } catch (err) {
       let message = 'Unknown Error';
+      console.log('Enroll Error');
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
         const errorMsg = response?.data.message;
@@ -88,7 +85,6 @@ export default function courseDetail() {
         <p className="text-lg">{course?.description}</p>
 
         <div className=" my-[4%]">
-          {/* Todo: grey out this button if user already enrolled */}
           {isEnrolled && (
             <label className="block">
               You have already enrolled this course.
@@ -103,7 +99,6 @@ export default function courseDetail() {
           </button>
         </div>
 
-        {/* Todo: Only course'instructor can view its enrolled students ? */}
         {isLoggedIn &&
           ((role === 'instructor' && course?.instructorName === username) ||
             role === 'admin') && (

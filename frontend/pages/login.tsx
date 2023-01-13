@@ -41,7 +41,6 @@ export default function Login() {
     }
   };
 
-  // Todo: Create navigation if user logged in
   if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">

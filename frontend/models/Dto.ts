@@ -1,4 +1,3 @@
-// Todo: Change these attribute to madatory
 export interface CourseDetailDto {
   id: number;
   name: string;
