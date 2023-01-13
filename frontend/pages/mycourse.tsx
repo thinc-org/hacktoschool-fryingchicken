@@ -164,9 +164,10 @@ export default function mycourse_instructor() {
     const res = await api(`/enrolls/username`);
     const data = await res.data;
     // console.log(data);
+    console.log(data);
     const tmp: CourseDetailDto[] = [];
     data.map((enroll: any) => {
-      tmp.push(enroll.course);
+      tmp.push({ ...enroll.course, studentCount: enroll.studentCount });
     });
     setEnrolls(data);
     setIsLoading(false);
@@ -223,6 +224,7 @@ export default function mycourse_instructor() {
 
           <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full ">
             {showData.map((course: CourseDetailDto, index) => {
+              console.log(showData);
               return (
                 <div
                   className="border-2 w-3/4  my-3 rounded p-3 hover:text-blue-600 focus:text-blue-600"
@@ -238,6 +240,10 @@ export default function mycourse_instructor() {
                       </p>
                     ) : (
                       <p>{course.description}</p>
+                    )}
+
+                    {(role === 'instructor' || role === 'admin') && (
+                      <p>{course.studentCount} students enrolled</p>
                     )}
                   </Link>
                 </div>
