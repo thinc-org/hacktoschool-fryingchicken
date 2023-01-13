@@ -24,7 +24,7 @@ export interface AnnouncementDetailDto {
   title: string;
   content: string;
   courseId: number;
-  course: CourseDetailDto;
+  courseName: string;
   createdAt?: Date;
   updatedAt?: Date;
   announcementRead: AnnouncementReadDetailDto[];

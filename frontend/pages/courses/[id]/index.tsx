@@ -54,6 +54,8 @@ export default function courseDetail() {
     const res = await api.get(`announcement/byCourse/${id}`);
     const data = await res.data;
 
+    console.log(data);
+
     setAnnouncements(data);
   };
 
@@ -65,7 +67,6 @@ export default function courseDetail() {
         courseId: course?.id,
         courseName: course?.name,
       });
-      console.log(res);
       await getAnnouncement();
     } catch (err) {
       console.log(err);
