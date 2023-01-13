@@ -20,7 +20,9 @@ export default function mycourse_instructor() {
   const [courses, setCourses] = useState<CourseDetailDto[]>([]);
   const [showData, setShowData] = useState<CourseDetailDto[]>([]);
   const [name, setName] = useState('');
-  const [searchBy, setSearchBy] = useState(false);
+  const [searchBy, setSearchBy] = useState('');
+  const [isAdvanced, setIsAdvanced] = useState(false);
+
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -218,6 +220,8 @@ export default function mycourse_instructor() {
             setShowData={setShowData}
             searchBy={searchBy}
             setSearchBy={setSearchBy}
+            isAdvanced={isAdvanced}
+            setIsAdvanced={setIsAdvanced}
             data={courses}
           />
 
