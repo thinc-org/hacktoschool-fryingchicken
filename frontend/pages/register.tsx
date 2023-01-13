@@ -26,6 +26,8 @@ const Register: React.FC = () => {
     const passwordConfirm = passwordConfirmRef.current?.value;
     const role = roleRef.current?.value;
 
+    console.log(username, password, passwordConfirm, role);
+
     if (!username || !password || !passwordConfirm) {
       toast.error('Please complete the form');
       setSubmitting(false);
@@ -48,6 +50,7 @@ const Register: React.FC = () => {
       toast.success('Account created!');
       router.push('login');
     } catch (err) {
+      console.log(err);
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
         const message = response?.data.message;
@@ -63,76 +66,58 @@ const Register: React.FC = () => {
   if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
-      <div className="">
-        <form onSubmit={handleSubmit}>
+      <div className="mx-auto w-[20vw]">
+        <form
+          onSubmit={handleSubmit}
+          className="items-center daisy-form-control"
+        >
           <h1 className="text-cyan-dark font-bold text-center text-4xl">
             Register
           </h1>
-          <div className="form-floating my-3 form-group">
+          <label className="daisy-input-group my-[7%] daisy-input-group-vertical">
+            <span>username</span>
             <input
-              required
-              type="username"
-              className="form-control"
-              id="username"
+              type="text"
               placeholder="username"
+              required
               ref={usernameRef}
+              className="daisy-input daisy-input-bordered"
             />
-            {/* Label must be below Field and Error Message */}
-            <label htmlFor="username">username </label>
-          </div>
-
-          {/* Password Form */}
-          <div className="form-floating my-3 form-group">
+          </label>
+          <label className="daisy-input-group my-[7%] daisy-input-group-vertical">
+            <span>password</span>
             <input
-              required
               type="password"
-              className="form-control"
               placeholder="password"
-              id="password"
+              required
               ref={passwordRef}
+              className="daisy-input daisy-input-bordered"
             />
-            <label htmlFor="password">Password</label>
-          </div>
-
-          {/* Confirmation Password Form */}
-          <div className="form-floating my-3 form-group">
+          </label>
+          <label className="daisy-input-group my-[7%] daisy-input-group-vertical">
+            <span>Confirm Password</span>
             <input
-              required
               type="password"
-              className="form-control"
-              id="conPassword"
               placeholder="password"
+              required
               ref={passwordConfirmRef}
+              className="daisy-input daisy-input-bordered"
             />
-            <label htmlFor="conPassword">Confirm Password</label>
-          </div>
+          </label>
 
           {/* Role Form */}
-          <div className="form-floating my-3 form-group">
-            <label htmlFor="role">Role</label>
-            <select
-              required
-              className="form-control"
-              id="role"
-              placeholder="role"
-              ref={roleRef}
-              name="role"
-            >
-              <option value="">-</option>
-              <option value="student">student</option>
-              <option value="instructor">instructor</option>
-            </select>
-            {/* <input
-              required
-              type="role"
-              className="form-control"
-              id="role"
-              placeholder="role"
-              ref={roleRef}
-            /> */}
-          </div>
+          <select
+            className="select select-bordered w-full max-w-xs border-black border-2 rounded-md py-2 px-4"
+            required
+            ref={roleRef}
+            name="role"
+          >
+            <option value="">Select Roles</option>
+            <option value="student">student</option>
+            <option value="instructor">instructor</option>
+          </select>
           <button
-            className="text-xl content-center"
+            className="text-cyan-dark font-bold text-base bg-cyan-light rounded-full max-w-max px-[5%] py-[2%] my-[4%] hover:bg-cyan-dark hover:text-white transition-all duration-300"
             type="submit"
             disabled={isSubmitting}
           >
@@ -141,7 +126,10 @@ const Register: React.FC = () => {
         </form>
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
-            <Link href="login" className="text-dark underline-offset-1">
+            <Link
+              href="login"
+              className="text-dark underline-offset-1 hover:underline"
+            >
               Login
             </Link>
           </div>
