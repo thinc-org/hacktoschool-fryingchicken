@@ -154,11 +154,11 @@ export default function mycourse_instructor() {
   //   },
   // ];
 
-  const getAnnouncement = async () => {
-    const res = await api.get('/announcement');
-    const data = await res.data;
-    setAnnouncement(data);
-  };
+  // const getAnnouncement = async () => {
+  //   const res = await api.get('/announcement');
+  //   const data = await res.data;
+  //   setAnnouncement(data);
+  // };
 
   const getEnrolls = async () => {
     const res = await api(`/enrolls/username/${username}`);
@@ -177,7 +177,7 @@ export default function mycourse_instructor() {
   // Render component when username is loaded
   useEffect(() => {
     getEnrolls();
-    getAnnouncement();
+    //getAnnouncement();
   }, [username]);
 
   // handleSubmit is used for creating new course by instructor
