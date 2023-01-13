@@ -23,12 +23,13 @@ export default function AnnouncementModal({ data, setAnDetail }: props) {
             {/*body*/}
             <div className="relative p-6 flex flex-col">
               <h4>{data.content}</h4>
-              {(role === 'instructor' || role === 'admin') && (
+              {/* Todo: add list of read students */}
+              {/* {(role === 'instructor' || role === 'admin') && (
                 <div className="flex  w-3/4 mx-auto">
                   <h1>readList</h1>
                   {}
                 </div>
-              )}
+              )} */}
             </div>
             {/*footer*/}
             <div className="flex items-center justify-end p-2 border-t border-solid border-slate-200 rounded-b">
