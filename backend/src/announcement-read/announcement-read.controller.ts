@@ -6,12 +6,15 @@ import {
   Patch,
   Param,
   Delete,
+  Request,
+  UseGuards,
 } from '@nestjs/common';
 import { AnnouncementReadService } from './announcement-read.service';
 import { CreateAnnouncementReadDto } from './dto/create-announcement-read.dto';
 import { UpdateAnnouncementReadDto } from './dto/update-announcement-read.dto';
 import { ApiTags, ApiCreatedResponse, ApiOkResponse } from '@nestjs/swagger';
 import { AnnouncementReadEntity } from './entities/announcement-read.entity';
+import { JwtAuthGuard } from 'src/auth/jwt/jwt-auth.guard';
 
 @Controller('announcement-read')
 @ApiTags('annoucement-read')
@@ -32,10 +35,17 @@ export class AnnouncementReadController {
     return this.announcementReadService.findAll();
   }
 
-  @Get(':id')
-  @ApiOkResponse({ type: AnnouncementReadEntity })
-  findOne(@Param('id') id: string) {
-    return this.announcementReadService.findOne(+id);
+  @Get('byUsername')
+  @ApiOkResponse({ type: AnnouncementReadEntity, isArray: true })
+  @UseGuards(JwtAuthGuard)
+  findManyByUser(@Request() req) {
+    return this.announcementReadService.findManyByUser(req.user.username);
+  }
+
+  @Get('byCourse/:courseId')
+  @ApiOkResponse({ type: AnnouncementReadEntity, isArray: true })
+  findManyByCourse(@Param('courseId') id: string) {
+    return this.announcementReadService.findManyByCourse(+id);
   }
 
   @Patch(':id')
