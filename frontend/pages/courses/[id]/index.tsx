@@ -69,7 +69,7 @@ export default function courseDetail() {
       announcementId: res.data.id,
       isRead: false,
     });
-    await getAnnouncement(course.id);
+    await getAnnouncement(course!.id);
     setTitle('');
     setDescription('');
   };
