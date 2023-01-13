@@ -40,7 +40,7 @@ const DesktopNavbar = ({ links }: props) => {
         </nav>
       </div>
       {!isLoggedIn ? (
-        <Link href="login" className="text-[#757575] text-xl font-montserrat">
+        <Link href="/login" className="text-[#757575] text-xl font-montserrat">
           Login
         </Link>
       ) : (

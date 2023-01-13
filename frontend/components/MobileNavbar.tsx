@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BiMenuAltLeft } from 'react-icons/bi';
 import { RiCloseFill } from 'react-icons/ri';
 import Link from 'next/link';
+import { useAuth } from '../providers/AuthProvider';
 
 interface props {
   links: {
@@ -11,6 +12,7 @@ interface props {
 }
 
 const MobileNavbar = ({ links }: props) => {
+  const { isLoggedIn, username, logout } = useAuth();
   const [open, setOpen] = useState(false);
   return (
     <header className="lg:hidden sticky top-0 w-screen bg-grey-light z-10">
@@ -32,7 +34,22 @@ const MobileNavbar = ({ links }: props) => {
         >
           Global Talk
         </Link>
-        <h2 className="text-[#757575] text-lg">Sign In</h2>
+        {!isLoggedIn ? (
+          <Link
+            href="/login"
+            className="text-[#757575] text-sm lg:text-xl font-montserrat"
+          >
+            Login
+          </Link>
+        ) : (
+          <Link
+            href="/"
+            onClick={logout}
+            className="text-[#757575] text-sm lg:text-xl font-montserrat"
+          >
+            Logout
+          </Link>
+        )}
       </div>
       <nav>
         {
