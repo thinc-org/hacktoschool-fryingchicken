@@ -44,7 +44,7 @@ export default function Login() {
   if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col mx-auto justify-between overflow-x-hidden md:flex-row text-center md:text-left">
-      <div className="mx-auto">
+      <div className="mx-auto w-[60%] flex flex-col items-center justify-center ">
         <form
           onSubmit={handleSubmit}
           className="flex flex-col items-center daisy-form-control"

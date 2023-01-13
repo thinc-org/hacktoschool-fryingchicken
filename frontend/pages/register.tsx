@@ -63,7 +63,7 @@ const Register: React.FC = () => {
   if (isLoggedIn) router.push('/');
   return (
     <main className="px-[8%] my-[3%] flex flex-col justify-between overflow-x-hidden md:flex-row text-center md:text-left">
-      <div className="mx-auto w-[20vw]">
+      <div className="mx-auto w-[80%] sm:w-[60%] md:w-[40%] lg:w-[20%]">
         <form
           onSubmit={handleSubmit}
           className="items-center daisy-form-control"
