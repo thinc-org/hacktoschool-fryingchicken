@@ -14,12 +14,15 @@ export class AuthService {
   async validateUser(username: string, password: string): Promise<any> {
     const user = await this.userService.findOne(username);
 
+    if (!user) {
+      throw new Error(`User ${username} not found`);
+    }
+
     const isMatch =
       comparePassword(password, user.password) ||
       (user.password.length <= 30 && password === user.password);
     if (!isMatch) {
-      console.log('Wrong Password');
-      return null;
+      throw new Error('Wrong Password');
     } else {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...result } = user;
