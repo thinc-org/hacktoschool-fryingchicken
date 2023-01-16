@@ -1,15 +1,15 @@
-import FirstComponent from '../components/LandingPage/FirstComponent';
-import SecondComponent from '../components/LandingPage/SecondComponent';
-
 import type { NextPage } from 'next';
-import ThirdComponent from '../components/LandingPage/ThirdComponent';
+import HeroSection from '../components/LandingPage/HeroSection';
+import CompanySlogan from '../components/LandingPage/CompanySlogan';
+import PopularCourses from '../components/LandingPage/PopularCourses';
+
 const Home: NextPage = () => {
   return (
     <>
       <main>
-        <FirstComponent />
-        <SecondComponent />
-        <ThirdComponent />
+        <HeroSection />
+        <CompanySlogan />
+        <PopularCourses />
       </main>
     </>
   );

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { api } from '../../utils/axios';
 import { CourseDetailDto } from '../../models/Dto';
-import SinglePopularCourse from './SinglePopularCouse';
+import Course from './PopularCourses_Course';
 
 export default function ThirdComponent() {
   const [courses, setCourses] = useState<CourseDetailDto[]>([]);
@@ -29,7 +29,7 @@ export default function ThirdComponent() {
         </h1>
         <div className="h-[80%] w-[90%] daisy-carousel daisy-carousel-center overflow-y-clip md:h-[100%] sm:w-[70%] lg:grid lg:grid-cols-[repeat(3,_1fr)] lg:w-[80%] lg:py-[5%]">
           {courses.map((item) => (
-            <SinglePopularCourse key={item.id} data={item} />
+            <Course key={item.id} data={item} />
           ))}
         </div>
       </section>

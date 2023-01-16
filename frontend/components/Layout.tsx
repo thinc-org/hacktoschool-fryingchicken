@@ -1,7 +1,7 @@
 import React from 'react';
+import { useAuth } from '../providers/AuthProvider';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import { useAuth } from '../providers/AuthProvider';
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const { isLoggedIn } = useAuth();
