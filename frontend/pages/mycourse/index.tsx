@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import Head from 'next/head';
+import toast from 'react-hot-toast';
+
 import {
   AnnouncementDetailDto,
   AnnouncementReadDetailDto,
   CourseDetailDto,
-} from '../models/Dto';
-import { useAuth } from '../providers/AuthProvider';
-import { api } from '../utils/axios';
-import SingleCourses from '../components/SingleCourses';
-import Head from 'next/head';
-import CreateCourseModal from '../components/CreateCourseModal';
-import AnnouncementModal from '../components/AnnouncementModal';
-import SearchBox from '../components/SearchBox';
-import toast from 'react-hot-toast';
+} from '../../models/Dto';
+import { useAuth } from '../../providers/AuthProvider';
+import { api } from '../../utils/axios';
+import SingleCourses from '../../components/SingleCourses';
+import CreateCourseModal from '../../components/CreateCourseModal';
+import AnnouncementModal from '../../components/AnnouncementModal';
+import SearchBox from '../../components/SearchBox';
+import { createCourse } from './_mycourse_api';
+import { enrolls } from './_mycourse_api';
 
 export default function mycourse_instructor() {
   const { username, role } = useAuth();
@@ -21,7 +24,7 @@ export default function mycourse_instructor() {
   const [name, setName] = useState('');
   const [searchBy, setSearchBy] = useState('');
   const [isAdvanced, setIsAdvanced] = useState(false);
-  const [readUser, setReadUser] = useState<{ [key: number]: string[] }>({});
+  //const [readUser, setReadUser] = useState<{ [key: number]: string[] }>({});
 
   const [anDetail, setAnDetail] = useState<AnnouncementDetailDto>();
   const [title, setTitle] = useState('');
@@ -31,162 +34,35 @@ export default function mycourse_instructor() {
   const [announcements, setAnnouncements] = useState<
     AnnouncementReadDetailDto[]
   >([]);
-  const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
-  // const courses = [
-  //   {
-  //     id: '1',
-  //     name: 'Machine learning specialization',
-  //     instructorName: 'Andrew Ng',
-  //     description:
-  //       'machine learning machine learning machine learning machine learning machine learning',
-  //     enrolledStudent: 69,
-  //   },
-  //   {
-  //     id: '2',
-  //     name: 'PHASATHAIPHUENTHAN',
-  //     instructorName: 'MAEMUENG',
-  //     description:
-  //       'THTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTHTH',
-  //     enrolledStudent: '420',
-  //   },
-  //   {
-  //     id: '3',
-  //     name: 'Quantum Physics For Baby',
-  //     instructorName: 'Jo Mama',
-  //     description:
-  //       ' bljkdfngpbjnspjgnbs;kglk;bbf ;bs;lknr;nrgnr;jnsg;jbnsgfbnrthnbsglkn;slkntkmbndign;nkentk',
-  //     enrolledStudent: '78910',
-  //   },
-  // ];
-
-  // const Tannouncement: AnnouncementDetailDto[] = [
-  //   {
-  //     id: '1',
-  //     title: 'Tomorrow, we will have a quiz.',
-  //     description: 'Chapter 1-2',
-  //     courseName: 'Zhong gua language',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Yesterday, we will have a quiz.',
-  //     description: 'Chapter 6-9',
-  //     courseName: 'Nihonjin language',
-  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-  //     courseName: 'ilove C',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '1',
-  //     title: 'Tomorrow, we will have a quiz.',
-  //     description: 'Chapter 1-2',
-  //     courseName: 'Zhong gua language',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Yesterday, we will have a quiz.',
-  //     description: 'Chapter 6-9',
-  //     courseName: 'Nihonjin language',
-  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-  //     courseName: 'ilove C',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '1',
-  //     title: 'Tomorrow, we will have a quiz.',
-  //     description: 'Chapter 1-2',
-  //     courseName: 'Zhong gua language',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Yesterday, we will have a quiz.',
-  //     description: 'Chapter 6-9',
-  //     courseName: 'Nihonjin language',
-  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-  //     courseName: 'ilove C',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '1',
-  //     title: 'Tomorrow, we will have a quiz.',
-  //     description: 'Chapter 1-2',
-  //     courseName: 'Zhong gua language',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '2',
-  //     title: 'Yesterday, we will have a quiz.',
-  //     description: 'Chapter 6-9',
-  //     courseName: 'Nihonjin language',
-  //     readList: ['TonTOnTONTONTOOTN', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  //   {
-  //     id: '3',
-  //     title: 'BRUHBRUHBURHBUHURBHURHUBHURU',
-  //     description: 'kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk',
-  //     courseName: 'ilove C',
-  //     readList: ['Ton', 'Nac', 'Jo', 'Jom'],
-  //     createdAt: new Date(),
-  //   },
-  // ];
+  //const [showAnnouncementModal, setShowAnnouncementModal] = useState(false);
 
   const getAnnouncement = async () => {
     if (role !== 'student') return;
     const res = await api.get('/announcement-read/byUsername');
-    const data = await res.data;
+    const data: any[] = await res.data;
+    // TODO: Validate data
 
-    // Todo: sort is read by
+    // TODO: sort is read by
     data.sort(function (a: any, b: any) {
-      if (!a.isRead && b.isRead) return true;
-      if (a.isRead && !b.isRead) return false;
-      return a.createdAt < b.createdAt;
+      if (!a.isRead && b.isRead) return -1;
+      if (a.isRead && !b.isRead) return 1;
+      return a.createdAt < b.createdAt ? -1 : 1;
     });
 
-    let cnt = 0;
-    for (const d of data) {
-      cnt += +!d.isRead;
-    }
+    const cnt = data.reduce((acc: number, d) => acc + (d.isRead ? 1 : 0), 0);
 
     setAnnouncements(data);
     toast(`You have ${cnt} unread announcements`);
   };
 
+  //TODO: Extract to separate file
   const getEnrolls = async () => {
-    const res = await api(`/enrolls/username`);
-    const data = await res.data;
-    // console.log(data);
-    const tmp: CourseDetailDto[] = [];
-    data.map((enroll: any) => {
-      tmp.push({ ...enroll.course, studentCount: enroll.studentCount });
-    });
+    // const res = await api(`/enrolls/username`);
+    // const data = await res.data;
+    // const tmp: CourseDetailDto[] = data.map((enroll: any) => {
+    //   return { ...enroll.course, studentCount: enroll.studentCount };
+    // });
+    const tmp = await enrolls();
     setIsLoading(false);
     setCourses(tmp);
     setShowData(tmp);
@@ -199,18 +75,14 @@ export default function mycourse_instructor() {
   }, [username]);
 
   // handleSubmit is used for creating new course by instructor
+  // TODO: use facade design pattern
   const handleSubmit = async () => {
-    const res = await api.post('/courses', {
-      name: title,
-      description,
-      instructorName: username,
+    createCourse({
+      courseName: title,
+      courseDescription: description,
+      courseInstructor: username,
     });
 
-    const courseId = res.data.id;
-    await api.post('/enrolls', {
-      courseId,
-      username,
-    });
     await getEnrolls();
     setTitle('');
     setDescription('');
@@ -236,6 +108,7 @@ export default function mycourse_instructor() {
     }
   };
 
+  //TODO: Loading icon
   if (isLoading) return <h1>Loading...</h1>;
 
   console.log('test ', announcements);
@@ -247,7 +120,7 @@ export default function mycourse_instructor() {
           <title>My Courses</title>
           <link rel="icon" href="/favicon.ico" />
         </Head>
-
+        {/* TODO: use SSR */}
         <main className="flex flex-col px-20 basis-2/3">
           <h1 className="text-6xl font-bold">My Courses</h1>
           <SearchBox

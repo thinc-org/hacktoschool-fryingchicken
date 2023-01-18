@@ -1,11 +1,12 @@
 import { FormEvent, useRef, useState } from 'react';
 import { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
+
 import { useAuth } from '../providers/AuthProvider';
 import { ErrorDto } from '../types/dto';
 import { api } from '../utils/axios';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 const Register: React.FC = () => {
   const router = useRouter();
@@ -58,7 +59,7 @@ const Register: React.FC = () => {
     } finally {
       setSubmitting(false);
     }
-  };
+  }; // TODO: Third-party form validation?
 
   if (isLoggedIn) router.push('/');
   return (
@@ -124,7 +125,7 @@ const Register: React.FC = () => {
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
             <Link
-              href="login"
+              href="/login"
               className="text-dark underline-offset-1 hover:underline"
             >
               Login

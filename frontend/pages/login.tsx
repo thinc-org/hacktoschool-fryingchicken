@@ -84,7 +84,7 @@ export default function Login() {
         <div className="row justify-content-center mt-3">
           <div className="col-3 text-center">
             <Link
-              href="register"
+              href="/register"
               className="text-dark underline-offset-1 hover:underline"
             >
               Register
