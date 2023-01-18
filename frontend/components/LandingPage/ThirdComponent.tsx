@@ -23,11 +23,11 @@ export default function ThirdComponent() {
 
   return (
     <>
-      <section className="flex flex-col bg-grey-light h-[93vh] items-center">
+      <section className="flex flex-col bg-grey-light min-h-fit items-center">
         <h1 className="text-3xl font-bold my-[10%] sm:my-[7%] md:my-[5%] lg:mt-[5%] lg:mb-0">
           Popular Courses
         </h1>
-        <div className="h-[80%] w-[90%] daisy-carousel daisy-carousel-center overflow-y-clip md:h-[100%] sm:w-[70%] lg:grid lg:grid-cols-[repeat(3,_1fr)] lg:w-[80%] lg:py-[5%]">
+        <div className="h-[80%] w-[90%] daisy-carousel daisy-carousel-center overflow-y-clip md:h-[100%] sm:w-[70%] lg:grid lg:grid-cols-[repeat(3,_1fr)] lg:justify-items-center lg:w-[80%] lg:py-[5%]">
           {courses.map((item) => (
             <SinglePopularCourse key={item.id} data={item} />
           ))}
