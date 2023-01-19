@@ -46,7 +46,7 @@ const Register: React.FC = () => {
         role,
       });
       toast.success('Account created!');
-      router.push('login');
+      router.push('/login');
     } catch (err) {
       if (err instanceof AxiosError) {
         const { response } = err as AxiosError<ErrorDto>;
